@@ -1,0 +1,33 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"aliases":[],"name":"csharp"},{"aliases":[],"languageName":"kql","name":"kql"}]}}
+
+#!csharp
+
+#r "nuget: Microsoft.DotNet.Interactive.Kql, *-*"
+
+#!markdown
+
+To get help
+
+```
+#!kql --help
+```
+
+#!csharp
+
+#!about
+
+#!kql
+
+#!connect kql --kernel-name samples_database --cluster "https://help.kusto.windows.net" --database "Samples"
+
+#!kql-samples_database
+
+StormEvents
+| take 3
+| project StartTime, EndTime, State, EventType
+
+#!pwsh
+
+$PSVersionTable
