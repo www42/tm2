@@ -3,7 +3,7 @@
 ## Module `virtualMachine`
 
 - Windows Server
-- System managed identity (needed for DCR association)
+- System managed identity (Managed Identity - system or user assigned - is required by Azure Monitoring Agent)
 - Connected to existing subnet
 - Default NSG
 

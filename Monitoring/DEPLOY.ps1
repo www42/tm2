@@ -24,7 +24,7 @@ $vnetName = 'vnet-monitoring'
 $addressPrefix = '10.3.0.0/16'
 $subnet0 = New-AzVirtualNetworkSubnetConfig -Name 'Subnet0' -AddressPrefix '10.3.0.0/24'
 $subnet1 = New-AzVirtualNetworkSubnetConfig -Name 'AzureBastionSubnet' -AddressPrefix '10.3.255.0/26'
-$vmName = 'SVR4'
+$vmName = 'SVR5'
 $systemAssignedManagedIdentity = $true
 $vmAdminUserName = 'LocalAdmin'
 $vmAdminPassword = Get-Content "./Monitoring/PASSWORDS" | ConvertFrom-Json | % { $_.localAdminPassword } | ConvertTo-SecureString
@@ -58,11 +58,10 @@ Get-AzResource -ResourceGroupName $rgName | Sort-Object ResourceType | Format-Ta
 New-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName -Location $location -AddressPrefix $addressPrefix -Subnet $subnet0,$subnet1 -Force
 $vnet = Get-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName
 $subnet0Subnet = Get-AzVirtualNetworkSubnetConfig -VirtualNetwork $vnet -Name 'Subnet0'
-$bastionSubnet = Get-AzVirtualNetworkSubnetConfig -VirtualNetwork $vnet -Name 'AzureBastionSubnet'
 
 $templateParams['subnetId'] = $subnet0Subnet.Id
 
-# --- Template Deployment: VM --------------------------------------------------------
+# --- Template Deployment: VM, DCR, DCR association ----------------------------------
 New-AzResourceGroupDeployment -Name 'Scenario-Monitoring' -TemplateFile $templateFile -ResourceGroupName $rgName -Location $location @templateParams 
 
 Get-AzResourceGroupDeployment -ResourceGroupName $rgName | Sort-Object Timestamp -Descending | ft DeploymentName,ProvisioningState,Timestamp

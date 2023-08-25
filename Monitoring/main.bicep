@@ -19,6 +19,16 @@ module virtualMachine '../templates/virtualMachine.bicep' = {
     vmAdminPassword: vmAdminPassword
   }
 }
+module azureMonitoringAgent '../templates/azureMonitoringAgent.bicep' = {
+  name: 'Module-AzureMonitoringAgent'
+  dependsOn: [
+    virtualMachine
+  ]
+  params: {
+    location: location
+    vmName: vmName
+  }
+}
 module logAnalyticsWorkspace '../templates/logAnalyticsWorkspace.bicep' = {
   name: 'Module-LogAnalyticsWorkspace'
   params: {
