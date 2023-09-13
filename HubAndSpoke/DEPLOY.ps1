@@ -5,7 +5,7 @@
 #  - a Bastion Host, connected to 'Hub',
 #  - a VPN Gateway, connected to 'Hub',
 #  - Peerings to other (existing) Virtual Networks
-# ------------------------------------------------------------------------------------
+
 
 # --- Login --------------------------------------------------------------------------
 Login-AzAccount

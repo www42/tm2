@@ -1,0 +1,3 @@
+# virtualNetwork.bicep modules löschen - werden nicht mehr benötigt! (ist jetzt PowerShell)
+
+# DEPLOY.ps1 splatting params - alle Parameter, auch 'Location' und 'ResourceGroupName'
