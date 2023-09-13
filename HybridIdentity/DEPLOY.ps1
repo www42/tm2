@@ -17,7 +17,7 @@ Login-AzAccount
 Get-AzContext | Format-List Name,Account,Tenant,Subscription
 
 
-# --- Passwords ----------------------------------------------------------------------
+# --- Set passwords ------------------------------------------------------------------
 $localAdminPassword = Read-Host -Prompt 'LocalAdmin password' -AsSecureString | ConvertFrom-SecureString
 $domainAdminPassword = Read-Host -Prompt 'DomainAdmin password' -AsSecureString | ConvertFrom-SecureString
 @{'localAdminPassword' = $localAdminPassword; 'domainAdminPassword' = $domainAdminPassword} | ConvertTo-Json | Out-File "./HybridIdentity/PASSWORDS"
@@ -30,8 +30,10 @@ $localAdminPassword = Get-Content "./HybridIdentity/PASSWORDS" | ConvertFrom-Jso
 $domainAdminPassword = Get-Content "./HybridIdentity/PASSWORDS" | ConvertFrom-Json | % { $_.domainAdminPassword } | ConvertTo-SecureString
 $vnetName = 'vnet-hybrididentity'
 $addressPrefix = '10.2.0.0/16'
-$subnet0 = New-AzVirtualNetworkSubnetConfig -Name 'Subnet0' -AddressPrefix '10.2.0.0/24'
-$subnet1 = New-AzVirtualNetworkSubnetConfig -Name 'AzureBastionSubnet' -AddressPrefix '10.2.255.0/26'
+$subnet0config = New-AzVirtualNetworkSubnetConfig -Name 'Subnet0' -AddressPrefix '10.2.0.0/24'
+$subnet1config = New-AzVirtualNetworkSubnetConfig -Name 'Subnet1' -AddressPrefix '10.2.1.0/24'
+$dcSubnetId     = $subnet0.Id
+$clientSubnetId = $subnet1.Id
 $dcName = 'DC1'
 $dcIp = '10.2.0.200'
 $aaName = 'aa-hybrididentity'
@@ -45,7 +47,8 @@ $templateParams = @{
     location              = $location
     automationAccountName = $aaName
     createAaJob           = $true
-    subnetId              = $subnet.Id
+    dcSubnetId            = $subnet0.Id
+    clientSubnetId        = $subnet1.Id
     domainName            = $domainName
     dcName                = $dcName
     dcIp                  = $dcIp
@@ -71,9 +74,10 @@ Get-AzResource -ResourceGroupName $rgName | Sort-Object ResourceType | Format-Ta
 
 
 # --- Virtual network ----------------------------------------------------------------
-New-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName -Location $location -AddressPrefix $addressPrefix -Subnet $subnet0, $subnet1 -Force
+New-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName -Location $location -AddressPrefix $addressPrefix -Subnet $subnet0config, $subnet1config -Force
 $vnet = Get-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName
-$subnet = Get-AzVirtualNetworkSubnetConfig -VirtualNetwork $vnet -Name 'Subnet0'
+$subnet0 = Get-AzVirtualNetworkSubnetConfig -VirtualNetwork $vnet -Name 'Subnet0'
+$subnet1 = Get-AzVirtualNetworkSubnetConfig -VirtualNetwork $vnet -Name 'Subnet1'
 
 # Set Vnet's DNS server to DC - dangerous, because it overwrites the default Azure DNS server
 # $vnet.DhcpOptions.DnsServers = $dcIp
@@ -83,7 +87,8 @@ Get-AzVirtualNetwork | ft Name,Subnets,ResourceGroupName
 
 
 # --- Automation Account, Domain Controller, Windows 11 Client -----------------------
-$templateParams['subnetId'] = $subnet.Id
+$templateParams['dcSubnetId']     = $subnet0.Id
+$templateParams['clientSubnetId'] = $subnet1.Id
 New-AzResourceGroupDeployment -Name 'Scenario-HybridIdentity' -TemplateFile $templateFile -ResourceGroupName $rgName -Location $location @templateParams 
 
 Get-AzResourceGroupDeployment -ResourceGroupName $rgName | Sort-Object Timestamp -Descending | ft DeploymentName,ProvisioningState,Timestamp

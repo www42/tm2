@@ -1,4 +1,3 @@
-param subnetId string
 param automationAccountName string
 param createAaJob bool
 param domainName string
@@ -6,8 +5,10 @@ param domainAdminName string
 @secure()
 param domainAdminPassword string
 param dcName string 
+param dcSubnetId string
 param dcIp string
 param clientName string
+param clientSubnetId string
 param localAdminName string
 @secure()
 param localAdminPassword string
@@ -37,7 +38,7 @@ module domainController '../templates/domainController.bicep' = {
     aaName: automationAccount.outputs.aaName
     vmAdminUserName: domainAdminName
     vmAdminPassword: domainAdminPassword
-    subnetId: subnetId
+    subnetId: dcSubnetId
   }
 }
 module clientVm '../templates/windowsClient.bicep' = {
@@ -47,7 +48,7 @@ module clientVm '../templates/windowsClient.bicep' = {
     vmName: clientName
     vmAdminPassword: localAdminPassword
     vmAdminUserName: localAdminName
-    subnetId: subnetId
+    subnetId: clientSubnetId
     roleAsigneeId: clientVirtualMachineAdministratorLoginRoleAssigneeId
   }
 }

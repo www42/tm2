@@ -174,5 +174,5 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   }
 }
 
+output subnetId string = subnetId
 output managedIdentity string = vm.identity.principalId
-output roleDefinitionId string = roleDefinition.id

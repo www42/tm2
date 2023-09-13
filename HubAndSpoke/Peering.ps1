@@ -4,16 +4,18 @@ $hub    = Get-AzVirtualNetwork -Name 'vnet-hub'            -ResourceGroupName 'r
 $hybrid = Get-AzVirtualNetwork -Name 'vnet-hybrididentity' -ResourceGroupName 'rg-hybrididentity'
 $nested = Get-AzVirtualNetwork -Name 'vnet-nested'         -ResourceGroupName 'rg-nested'
 
-# if error
-#   Add-AzVirtualNetworkPeering: Authentication failed for auxiliary token...
-# then
-#   Clear-AzContext
 
-# Hub <--> Hybrid
+# --- Hub <--> Hybrid ----------------------------------------------------------------
+# Already exists?
+Get-AzVirtualNetworkPeering -VirtualNetworkName $hub.Name -ResourceGroupName 'rg-hub' | ft Name,PeeringState
+Get-AzVirtualNetworkPeering -VirtualNetworkName $hub.Name -ResourceGroupName 'rg-hub' | Remove-AzVirtualNetworkPeering -Force
+Get-AzVirtualNetworkPeering -VirtualNetworkName $hybrid.Name -ResourceGroupName 'rg-hybrididentity' | ft Name,PeeringState
+Get-AzVirtualNetworkPeering -VirtualNetworkName $hybrid.Name -ResourceGroupName 'rg-hybrididentity' | Remove-AzVirtualNetworkPeering -Force
+
 Add-AzVirtualNetworkPeering -Name 'peer-hub-hybrid' -VirtualNetwork $hub    -RemoteVirtualNetworkId $hybrid.Id -AllowForwardedTraffic -AllowGatewayTransit
 Add-AzVirtualNetworkPeering -Name 'peer-hybrid-hub' -VirtualNetwork $hybrid -RemoteVirtualNetworkId $hub.Id    -AllowForwardedTraffic #-UseRemoteGateways
 
-# Hub <--> Nested
+# --- Hub <--> Nested ----------------------------------------------------------------
 Add-AzVirtualNetworkPeering -Name 'peer-hub-nested' -VirtualNetwork $hub    -RemoteVirtualNetworkId $nested.Id -AllowForwardedTraffic -AllowGatewayTransit
 Add-AzVirtualNetworkPeering -Name 'peer-nested-hub' -VirtualNetwork $nested -RemoteVirtualNetworkId $hub.Id    -AllowForwardedTraffic #-UseRemoteGateways
 
