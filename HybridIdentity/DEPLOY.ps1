@@ -1,22 +1,21 @@
 # --- Scenario Hybrid Identity -------------------------------------------------------
 #
-# This deploys infrastructure for hybrid identity scenario
-#   1. Create a resource group by PowerShell
-#   2. Create a virtual network by Powershell 
-#      (Virtual network by ARM template is fine for the first time. But for subsequent deployments, ARM tries to delete the existing Vnet resulting in a failed deployment. So we use PowerShell)
-#   3. Create by ARM template
-#          an automation account (used as DSC pull server)
-#          a domain controller VM
-#          a Windows 11 client VM
+# This deploys infrastructure for hybrid identity scenario. It creates
+#   - a resource group (by PowerShell)
+#   - a virtual network (by PowerShell)
+#   - an automation account used as DSC pull server (by ARM template)
+#   - a domain controller VM (by ARM template)
+#   - a Windows 11 client VM (by ARM template)
 # 
-# ------------------------------------------------------------------------------------
+# ---- Attention ---------------------------------------------------------------------
 # DSC compile job (compilation .ps1 --> .mof) is not idempotent.
 # So for the first time create a compile job by 'createAaJob = $true'. In subsequent deployments say 'createAaJob = $false'
-# ------------------------------------------------------------------------------------
+
 
 # --- Login --------------------------------------------------------------------------
 Login-AzAccount
 Get-AzContext | Format-List Name,Account,Tenant,Subscription
+
 
 # --- Passwords ----------------------------------------------------------------------
 $localAdminPassword = Read-Host -Prompt 'LocalAdmin password' -AsSecureString | ConvertFrom-SecureString
@@ -25,7 +24,7 @@ $domainAdminPassword = Read-Host -Prompt 'DomainAdmin password' -AsSecureString 
 
 
 # --- Parameters ---------------------------------------------------------------------
-$rgName = 'testrg-hybrididentity'
+$rgName = 'rg-hybrididentity'
 $location = 'westeurope'
 $localAdminPassword = Get-Content "./HybridIdentity/PASSWORDS" | ConvertFrom-Json | % { $_.localAdminPassword } | ConvertTo-SecureString
 $domainAdminPassword = Get-Content "./HybridIdentity/PASSWORDS" | ConvertFrom-Json | % { $_.domainAdminPassword } | ConvertTo-SecureString
@@ -35,11 +34,12 @@ $subnet0 = New-AzVirtualNetworkSubnetConfig -Name 'Subnet0' -AddressPrefix '10.2
 $subnet1 = New-AzVirtualNetworkSubnetConfig -Name 'AzureBastionSubnet' -AddressPrefix '10.2.255.0/26'
 $dcName = 'DC1'
 $dcIp = '10.2.0.200'
-$aaName = 'aa-hybrid'
+$aaName = 'aa-hybrididentity'
 $domainName = 'az.training'	
 $clientLoginUser = 'Ludwig@az.training'
-$clientName = 'Client003'
-$templateFile = 'HybridIdentity/templates/main.bicep'
+$clientName = 'Client001'
+$clientVirtualMachineAdministratorLoginRoleAssigneeId = (Get-AzADUser -UserPrincipalName $clientLoginUser).Id
+$templateFile = 'HybridIdentity/main.bicep'
 
 $templateParams = @{
     location              = $location
@@ -54,7 +54,7 @@ $templateParams = @{
     clientName            = $clientName
     localAdminName        = 'localadmin'
     localAdminPassword    = $localAdminPassword
-    clientVirtualMachineAdministratorLoginRoleAssigneeId = (Get-AzADUser -UserPrincipalName $clientLoginUser).Id
+    clientVirtualMachineAdministratorLoginRoleAssigneeId = $clientVirtualMachineAdministratorLoginRoleAssigneeId
 }
 $templateParams['createAaJob'] = $false
 
@@ -82,7 +82,7 @@ $subnet = Get-AzVirtualNetworkSubnetConfig -VirtualNetwork $vnet -Name 'Subnet0'
 Get-AzVirtualNetwork | ft Name,Subnets,ResourceGroupName
 
 
-# --- Automation Account, Domain Controller, Windows 11 Client -------------------------------------------
+# --- Automation Account, Domain Controller, Windows 11 Client -----------------------
 $templateParams['subnetId'] = $subnet.Id
 New-AzResourceGroupDeployment -Name 'Scenario-HybridIdentity' -TemplateFile $templateFile -ResourceGroupName $rgName -Location $location @templateParams 
 
@@ -97,3 +97,8 @@ Get-AzAutomationDscCompilationJob -ResourceGroupName $rgName -AutomationAccountN
 Get-AzAutomationDscCompilationJobOutput -ResourceGroupName $rgName -AutomationAccountName $aaName -Id $aaJob.Id | Format-Table Time,Type,Summary
 Get-AzAutomationDscNodeConfiguration -ResourceGroupName $rgName -AutomationAccountName $aaName | fl AutomationAccountName,ConfigurationName,Name,RollupStatus
 Get-AzAutomationDscNode -ResourceGroupName $rgName -AutomationAccountName $aaName | fl AutomationAccountName,Name,NodeConfigurationName,LastSeen,Status
+
+
+# --- TODO -----------------------------------------------------------------------------------------------
+# DC: VM Name != Computer Name
+# Client: Prüfen, ob schon als Azure AD Device registriert

@@ -15,7 +15,7 @@ param clientVirtualMachineAdministratorLoginRoleAssigneeId string
 param location string
 
 
-module automationAccount './automationAccount.bicep' = {
+module automationAccount '../templates/automationAccount.bicep' = {
   name: 'Module-AutomationAccount'
   params: {
     location: location
@@ -26,7 +26,7 @@ module automationAccount './automationAccount.bicep' = {
     domainName: domainName
   }
 }
-module domainController './domainController.bicep' = {
+module domainController '../templates/domainController.bicep' = {
   name: 'Module-DomainController'
   params: {
     location: location
@@ -40,7 +40,7 @@ module domainController './domainController.bicep' = {
     subnetId: subnetId
   }
 }
-module clientVm './windowsClient.bicep' = {
+module clientVm '../templates/windowsClient.bicep' = {
   name: 'Module-ClientVM'
   params: {
     location: location
@@ -51,7 +51,7 @@ module clientVm './windowsClient.bicep' = {
     roleAsigneeId: clientVirtualMachineAdministratorLoginRoleAssigneeId
   }
 }
-module storageAccount './storageAccount.bicep' = {
+module storageAccount '../templates/storageAccount.bicep' = {
   name: 'Module-StorageAccount'
   params: {
     location: location
