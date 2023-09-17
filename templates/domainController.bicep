@@ -7,6 +7,7 @@ param vmAdminUserName string
 @secure()
 param vmAdminPassword string
 param vmName string = 'DC1'
+param vmComputerName string = 'DC1'
 param vmIp string 
 param vmNodeConfigurationName string = 'newForest.localhost'
 param aaName string
@@ -18,7 +19,6 @@ var vmImageOffer = 'WindowsServer'
 var vmImageSku = '2022-datacenter-azure-edition'
 var vmImageVersion = 'latest'
 var vmOsDiskName = '${vmName}-Disk'
-var vmComputerName = vmName
 var vmNicName = '${vmName}-Nic'
 var vmNsgName = '${vmName}-Nsg'
 

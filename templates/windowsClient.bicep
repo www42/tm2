@@ -9,6 +9,7 @@
 //
 param location string
 param vmName string
+param vmComputerName string
 param vmSize string = 'Standard_D2s_v3'
 param vmAdminUserName string
 @secure()
@@ -22,7 +23,6 @@ var vmImageOffer = 'windows-11'
 var vmImageSku = 'win11-22h2-ent'
 var vmImageVersion = 'latest'
 var vmOsDiskName = '${vmName}-Disk'
-var vmComputerName = vmName
 var vmNicName = '${vmName}-Nic'
 var vmNsgName = '${vmName}-Nsg'
 var vmPipName = '${vmName}-Pip'
