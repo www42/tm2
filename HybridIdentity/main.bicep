@@ -5,9 +5,11 @@ param domainAdminName string
 @secure()
 param domainAdminPassword string
 param dcName string 
+param dcComputerName string 
 param dcSubnetId string
 param dcIp string
 param clientName string
+param clientComputerName string
 param clientSubnetId string
 param localAdminName string
 @secure()
@@ -32,6 +34,7 @@ module domainController '../templates/domainController.bicep' = {
   params: {
     location: location
     vmName: dcName
+    vmComputerName: dcComputerName
     vmIp: dcIp
     // Getting 'aaName' from the output of 'automationAccountDeployment' creates a dependency.
     // Effectivly module 'domainController' depends on module 'automationAccount'. This is needed obviously.
@@ -46,6 +49,7 @@ module clientVm '../templates/windowsClient.bicep' = {
   params: {
     location: location
     vmName: clientName
+    vmComputerName: clientComputerName
     vmAdminPassword: localAdminPassword
     vmAdminUserName: localAdminName
     subnetId: clientSubnetId
