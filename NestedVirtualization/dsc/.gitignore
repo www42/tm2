@@ -1,0 +1,2 @@
+# PowerShell script is in the zip file, ingnore it to avoid confusion
+DSCInstallWindowsFeatures.ps1
