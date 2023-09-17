@@ -18,7 +18,7 @@ param HostAdminUsername string
 param HostAdminPassword string
 
 @description('Resource Name for Public IP address attached to Hyper-V Host')
-param HostPublicIPAddressName string = 'HVHOSTPIP'
+param HostPublicIPAddressName string = 'pip-hvhost'
 
 @description('Virtual Network Address Space')
 param virtualNetworkAddressPrefix string = '10.2.0.0/16'
@@ -48,14 +48,14 @@ param azureVMsSubnetName string = 'Azure-VMs'
 param azureVMsSubnetPrefix string = '10.2.3.0/24'
 
 @description('Hyper-V Host Network Interface 1 Name, attached to NAT Subnet')
-param HostNetworkInterface1Name string = 'HVHOSTNIC1'
+param HostNetworkInterface1Name string = 'hvhostnic1'
 
 @description('Hyper-V Host Network Interface 2 Name, attached to Hyper-V LAN Subnet')
-param HostNetworkInterface2Name string = 'HVHOSTNIC2'
+param HostNetworkInterface2Name string = 'hvhostnic2'
 
 @description('Name of Hyper-V Host Virtual Machine, Maximum of 15 characters, use letters and numbers only.')
 @maxLength(15)
-param HostVirtualMachineName string = 'HVHOST'
+param HostVirtualMachineName string = 'hvhost'
 
 @description('Size of the Host Virtual Machine')
 @allowed([
@@ -250,7 +250,7 @@ module updateAzureVmUdr './udr.bicep' = {
 }
 
 resource hostVm 'Microsoft.Compute/virtualMachines@2021-03-01' = {
-  name: HostVirtualMachineName
+  name: 'vm-nestedvirtualization-${HostVirtualMachineName}'
   location: location
   properties: {
     hardwareProfile: {

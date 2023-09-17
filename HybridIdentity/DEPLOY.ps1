@@ -24,26 +24,26 @@ $domainAdminPassword = Read-Host -Prompt 'DomainAdmin password' -AsSecureString 
 
 
 # --- Parameters ---------------------------------------------------------------------
-$rgName = 'rg-hybrididentity'
-$location = 'westeurope'
-$localAdminPassword = Get-Content "./HybridIdentity/PASSWORDS" | ConvertFrom-Json | % { $_.localAdminPassword } | ConvertTo-SecureString
+$rgName              = 'rg-hybrididentity'
+$location            = 'westeurope'
+$localAdminPassword  = Get-Content "./HybridIdentity/PASSWORDS" | ConvertFrom-Json | % { $_.localAdminPassword } | ConvertTo-SecureString
 $domainAdminPassword = Get-Content "./HybridIdentity/PASSWORDS" | ConvertFrom-Json | % { $_.domainAdminPassword } | ConvertTo-SecureString
-$vnetName = 'vnet-hybrididentity'
-$addressPrefix = '10.1.0.0/16'
-$subnet0config = New-AzVirtualNetworkSubnetConfig -Name 'Subnet0' -AddressPrefix '10.1.0.0/24'
-$subnet1config = New-AzVirtualNetworkSubnetConfig -Name 'Subnet1' -AddressPrefix '10.1.1.0/24'
-$dcSubnetId     = $subnet0.Id
-$clientSubnetId = $subnet1.Id
-$dcName = 'vm-hybrididentity-dc1'
-$dcComputerName = 'DC1'
-$dcIp = '10.1.0.200'
-$aaName = 'aa-hybrididentity'
-$domainName = 'az.training'	
-$clientLoginUser = 'Ludwig@az.training'
-$clientName = 'vm-hybididentity-client001'
-$clientComputerName = 'Client001'
+$vnetName            = 'vnet-hybrididentity'
+$addressPrefix       = '10.1.0.0/16'
+$subnet0config       = New-AzVirtualNetworkSubnetConfig -Name 'Subnet0' -AddressPrefix '10.1.0.0/24'
+$subnet1config       = New-AzVirtualNetworkSubnetConfig -Name 'Subnet1' -AddressPrefix '10.1.1.0/24'
+$dcSubnetId          = $subnet0.Id
+$clientSubnetId      = $subnet1.Id
+$dcName              = 'vm-hybrididentity-dc1'
+$dcComputerName      = 'DC1'
+$dcIp                = '10.1.0.200'
+$aaName              = 'aa-hybrididentity'
+$domainName          = 'az.training'	
+$clientLoginUser     = 'Ludwig@az.training'
+$clientName          = 'vm-hybididentity-client001'
+$clientComputerName  = 'Client001'
 $clientVirtualMachineAdministratorLoginRoleAssigneeId = (Get-AzADUser -UserPrincipalName $clientLoginUser).Id
-$templateFile = 'HybridIdentity/main.bicep'
+$templateFile        = 'HybridIdentity/main.bicep'
 
 $templateParams = @{
     location              = $location

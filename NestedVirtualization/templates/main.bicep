@@ -9,7 +9,7 @@ param HostAdminPassword string
 
 
 module hypervHost './hypervHost.bicep' = {
-  name: 'HyperV-Host-Deployment'
+  name: 'Module-HyperVHost'
   params: {
     location: location
     _artifactsLocation: _artifactsLocation

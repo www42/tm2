@@ -15,20 +15,20 @@ $localAdminPassword = Read-Host -Prompt 'LocalAdmin password' -AsSecureString | 
 
 
 # --- Parameters ---------------------------------------------------------------------
-$rgName = 'rg-nestedvirtualization'
-$location = 'westeurope'
+$rgName             = 'rg-nestedvirtualization'
+$location           = 'westeurope'
 $virtualNetworkName = 'vnet-nestedvirtualization'
 $_artifactsLocation = 'https://heidelberg.fra1.digitaloceanspaces.com/NestedVirtualization/'
 $localAdminPassword = Get-Content "./NestedVirtualization/PASSWORDS" | ConvertFrom-Json | % { $_.localAdminPassword } | ConvertTo-SecureString
-$templateFile = 'NestedVirtualization/templates/main.bicep'
+$templateFile       = 'NestedVirtualization/templates/main.bicep'
 
 $templateParams = @{
     resourceGroupName  = $rgName
     location           = $location
     virtualNetworkName = $virtualNetworkName 
     _artifactsLocation = $_artifactsLocation
-    HostAdminUsername = 'LocalAdmin'
-    HostAdminPassword = $localAdminPassword
+    HostAdminUsername  = 'LocalAdmin'
+    HostAdminPassword  = $localAdminPassword
 }
 
 

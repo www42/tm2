@@ -1,17 +1,20 @@
-# --- Peerings -----------------------------------------------------------------------
+# --- Scenario Hub and Spoke ---------------------------------------------------------
+#
+# This script
+#  - removes old (disconnected) peerings
+#  - creates new peerings
 
-$hub    = Get-AzVirtualNetwork -Name 'vnet-hub'            -ResourceGroupName 'rg-hub'
-$hybrid = Get-AzVirtualNetwork -Name 'vnet-hybrididentity' -ResourceGroupName 'rg-hybrididentity'
-$nested = Get-AzVirtualNetwork -Name 'vnet-nested'         -ResourceGroupName 'rg-nested'
+$hub    = Get-AzVirtualNetwork -Name 'vnet-hub'                  -ResourceGroupName 'rg-hub'
+$hybrid = Get-AzVirtualNetwork -Name 'vnet-hybrididentity'       -ResourceGroupName 'rg-hybrididentity'
+$nested = Get-AzVirtualNetwork -Name 'vnet-nestedvirtualization' -ResourceGroupName 'rg-nestedvirtualization'
+
+
+# --- Delete old (disconnected) peerings ---------------------------------------------
+Get-AzVirtualNetworkPeering -VirtualNetworkName $hub.Name -ResourceGroupName 'rg-hub' | ft Name,PeeringState
+Get-AzVirtualNetworkPeering -VirtualNetworkName $hub.Name -ResourceGroupName 'rg-hub' | Remove-AzVirtualNetworkPeering -Force
 
 
 # --- Hub <--> Hybrid ----------------------------------------------------------------
-# Already exists?
-Get-AzVirtualNetworkPeering -VirtualNetworkName $hub.Name -ResourceGroupName 'rg-hub' | ft Name,PeeringState
-Get-AzVirtualNetworkPeering -VirtualNetworkName $hub.Name -ResourceGroupName 'rg-hub' | Remove-AzVirtualNetworkPeering -Force
-Get-AzVirtualNetworkPeering -VirtualNetworkName $hybrid.Name -ResourceGroupName 'rg-hybrididentity' | ft Name,PeeringState
-Get-AzVirtualNetworkPeering -VirtualNetworkName $hybrid.Name -ResourceGroupName 'rg-hybrididentity' | Remove-AzVirtualNetworkPeering -Force
-
 Add-AzVirtualNetworkPeering -Name 'peer-hub-hybrid' -VirtualNetwork $hub    -RemoteVirtualNetworkId $hybrid.Id -AllowForwardedTraffic -AllowGatewayTransit
 Add-AzVirtualNetworkPeering -Name 'peer-hybrid-hub' -VirtualNetwork $hybrid -RemoteVirtualNetworkId $hub.Id    -AllowForwardedTraffic #-UseRemoteGateways
 
@@ -20,9 +23,9 @@ Add-AzVirtualNetworkPeering -Name 'peer-hub-nested' -VirtualNetwork $hub    -Rem
 Add-AzVirtualNetworkPeering -Name 'peer-nested-hub' -VirtualNetwork $nested -RemoteVirtualNetworkId $hub.Id    -AllowForwardedTraffic #-UseRemoteGateways
 
 # Show
-Get-AzVirtualNetworkPeering -VirtualNetworkName $hub.Name    -ResourceGroupName 'rg-hub'            | ft Name,PeeringState,AllowForwardedTraffic,AllowGatewayTransit,UseRemoteGateways
-Get-AzVirtualNetworkPeering -VirtualNetworkName $hybrid.Name -ResourceGroupName 'rg-hybrididentity' | ft Name,PeeringState,AllowForwardedTraffic,AllowGatewayTransit,UseRemoteGateways
-Get-AzVirtualNetworkPeering -VirtualNetworkName $nested.Name -ResourceGroupName 'rg-nested'         | ft Name,PeeringState,AllowForwardedTraffic,AllowGatewayTransit,UseRemoteGateways
+Get-AzVirtualNetworkPeering -VirtualNetworkName $hub.Name    -ResourceGroupName 'rg-hub'                  | ft Name,PeeringState,AllowForwardedTraffic,AllowGatewayTransit,UseRemoteGateways
+Get-AzVirtualNetworkPeering -VirtualNetworkName $hybrid.Name -ResourceGroupName 'rg-hybrididentity'       | ft Name,PeeringState,AllowForwardedTraffic,AllowGatewayTransit,UseRemoteGateways
+Get-AzVirtualNetworkPeering -VirtualNetworkName $nested.Name -ResourceGroupName 'rg-nestedvirtualization' | ft Name,PeeringState,AllowForwardedTraffic,AllowGatewayTransit,UseRemoteGateways
 
 # Set 'UseRemoteGateways'
 $hybridToHub = Get-AzVirtualNetworkPeering -VirtualNetworkName $hybrid.Name -ResourceGroupName 'rg-hybrididentity'
