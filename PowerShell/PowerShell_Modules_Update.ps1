@@ -100,6 +100,7 @@ Install-Module -Name Microsoft.Graph -Repository PSGallery -Scope AllUsers -Forc
 
 
 # --- MSAL.PS (7) -----------------------------------------
-Get-Module    -Name MSAL.PS -ListAvailable
-Find-Module   -Name MSAL.PS -Repository PSGallery
-Update-Module -Name MSAL.PS -Repository PSGallery -Scope AllUsers -Force
+Get-Module     -Name MSAL.PS -ListAvailable
+Find-Module    -Name MSAL.PS -Repository PSGallery
+Install-Module -Name MSAL.PS -Repository PSGallery -Scope AllUsers -Force
+Update-Module  -Name MSAL.PS -Force
