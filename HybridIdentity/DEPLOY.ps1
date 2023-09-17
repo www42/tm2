@@ -29,14 +29,14 @@ $location = 'westeurope'
 $localAdminPassword = Get-Content "./HybridIdentity/PASSWORDS" | ConvertFrom-Json | % { $_.localAdminPassword } | ConvertTo-SecureString
 $domainAdminPassword = Get-Content "./HybridIdentity/PASSWORDS" | ConvertFrom-Json | % { $_.domainAdminPassword } | ConvertTo-SecureString
 $vnetName = 'vnet-hybrididentity'
-$addressPrefix = '10.2.0.0/16'
-$subnet0config = New-AzVirtualNetworkSubnetConfig -Name 'Subnet0' -AddressPrefix '10.2.0.0/24'
-$subnet1config = New-AzVirtualNetworkSubnetConfig -Name 'Subnet1' -AddressPrefix '10.2.1.0/24'
+$addressPrefix = '10.1.0.0/16'
+$subnet0config = New-AzVirtualNetworkSubnetConfig -Name 'Subnet0' -AddressPrefix '10.1.0.0/24'
+$subnet1config = New-AzVirtualNetworkSubnetConfig -Name 'Subnet1' -AddressPrefix '10.1.1.0/24'
 $dcSubnetId     = $subnet0.Id
 $clientSubnetId = $subnet1.Id
 $dcName = 'vm-hybrididentity-dc1'
 $dcComputerName = 'DC1'
-$dcIp = '10.2.0.200'
+$dcIp = '10.1.0.200'
 $aaName = 'aa-hybrididentity'
 $domainName = 'az.training'	
 $clientLoginUser = 'Ludwig@az.training'
@@ -89,8 +89,18 @@ $subnet1 = Get-AzVirtualNetworkSubnetConfig -VirtualNetwork $vnet -Name 'Subnet1
 
 Get-AzVirtualNetwork | ft Name,Subnets,ResourceGroupName
 
+# --- Check if Windows 11 Client already exists as AzureAD device --------------------
+$Scopes = @(
+    "Device.ReadWrite.All"
+    "Directory.AccessAsUser.All"
+)
+Connect-MgGraph -Scopes $Scopes
+Get-MgDevice -Filter "displayName eq '$clientComputerName'" -OutVariable device  | fl DisplayName,DeviceId,DeviceName,OperatingSystem,OperatingSystemVersion,RegisteredOwners,RegisteredUsers,TrustType
+Remove-MgDevice -DeviceId $device.Id -Confirm:$false 
+Disconnect-MgGraph -Verbose
 
-# --- Automation Account, Domain Controller, Windows 11 Client -----------------------
+
+# --- Template Deployment: Automation Account, Domain Controller, Windows 11 Client --
 $templateParams['dcSubnetId']     = $subnet0.Id
 $templateParams['clientSubnetId'] = $subnet1.Id
 New-AzResourceGroupDeployment -Name 'Scenario-HybridIdentity' -TemplateFile $templateFile -ResourceGroupName $rgName -Location $location @templateParams 
@@ -98,7 +108,8 @@ New-AzResourceGroupDeployment -Name 'Scenario-HybridIdentity' -TemplateFile $tem
 Get-AzResourceGroupDeployment -ResourceGroupName $rgName | Sort-Object Timestamp -Descending | ft DeploymentName,ProvisioningState,Timestamp
 
 
-# Automation account
+
+# --- Automation account -------------------------------------------------------------
 Get-AzAutomationAccount -ResourceGroupName $rgName -Name $aaName | fl AutomationAccountName,Plan,State
 Get-AzAutomationRegistrationInfo -ResourceGroupName $rgName -AutomationAccountName $aaName | fl AutomationAccountName,PrimaryKey,SecondaryKey,Endpoint
 Get-AzAutomationDscConfiguration -ResourceGroupName $rgName -AutomationAccountName $aaName | fl AutomationAccountName,Name,State
@@ -106,8 +117,3 @@ Get-AzAutomationDscCompilationJob -ResourceGroupName $rgName -AutomationAccountN
 Get-AzAutomationDscCompilationJobOutput -ResourceGroupName $rgName -AutomationAccountName $aaName -Id $aaJob.Id | Format-Table Time,Type,Summary
 Get-AzAutomationDscNodeConfiguration -ResourceGroupName $rgName -AutomationAccountName $aaName | fl AutomationAccountName,ConfigurationName,Name,RollupStatus
 Get-AzAutomationDscNode -ResourceGroupName $rgName -AutomationAccountName $aaName | fl AutomationAccountName,Name,NodeConfigurationName,LastSeen,Status
-
-
-# --- TODO -----------------------------------------------------------------------------------------------
-# DC: VM Name != Computer Name
-# Client: Prüfen, ob schon als Azure AD Device registriert
