@@ -1,21 +1,24 @@
+//
+// Virtual machine Windows Server
+//
 param location string
-param subnetId string
 param vmName string
+param vmComputerName string
 param vmSize string = 'Standard_D2s_v3'
-param systemAssignedManagedIdentity bool = false
 param vmAdminUserName string
 @secure()
 param vmAdminPassword string
+param systemAssignedManagedIdentity bool = false
+param subnetId string
 
 
 var vmImagePublisher = 'MicrosoftWindowsServer'
 var vmImageOffer = 'WindowsServer'
 var vmImageSku = '2022-datacenter-azure-edition'
 var vmImageVersion = 'latest'
-var vmComputerName = vmName
-var vmOsDiskName = '${vmName}-Disk'
-var vmNicName = '${vmName}-Nic'
-var vmNsgName = '${vmName}-Nsg'
+var vmOsDiskName = 'disk-${vmName}'
+var vmNicName = 'nic-${vmName}'
+var vmNsgName = 'nsg-${vmName}'
 
 
 resource vm 'Microsoft.Compute/virtualMachines@2023-03-01' = {

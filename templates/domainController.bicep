@@ -2,25 +2,25 @@
 // Virtual machine with Windows Server configured as domain controller
 //
 param location string
+param vmName string = 'DC1'
+param vmComputerName string = 'DC1'
 param vmSize string = 'Standard_D2s_v3'
 param vmAdminUserName string
 @secure()
 param vmAdminPassword string
-param vmName string = 'DC1'
-param vmComputerName string = 'DC1'
 param vmIp string 
+param subnetId string
 param vmNodeConfigurationName string = 'newForest.localhost'
 param aaName string
-param subnetId string
 
 
 var vmImagePublisher = 'MicrosoftWindowsServer'
 var vmImageOffer = 'WindowsServer'
 var vmImageSku = '2022-datacenter-azure-edition'
 var vmImageVersion = 'latest'
-var vmOsDiskName = '${vmName}-Disk'
-var vmNicName = '${vmName}-Nic'
-var vmNsgName = '${vmName}-Nsg'
+var vmOsDiskName = 'disk-${vmName}'
+var vmNicName = 'nic-${vmName}'
+var vmNsgName = 'nsg-${vmName}'
 
 var customScriptName = 'configure-labVm.ps1'
 var customScriptUri = 'https://raw.githubusercontent.com/www42/TrainyMotion/master/scripts/${customScriptName}'
