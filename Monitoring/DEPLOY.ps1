@@ -18,24 +18,25 @@ $localAdminPassword = Read-Host -Prompt 'LocalAdmin password' -AsSecureString | 
 
 
 # --- Parameters ---------------------------------------------------------------------
-$rgName = 'rg-monitoring'
-$location = 'westeurope'
-$vnetName = 'vnet-monitoring'
-$addressPrefix = '10.3.0.0/16'
-$subnet0 = New-AzVirtualNetworkSubnetConfig -Name 'Subnet0' -AddressPrefix '10.3.0.0/24'
-$subnet1 = New-AzVirtualNetworkSubnetConfig -Name 'AzureBastionSubnet' -AddressPrefix '10.3.255.0/26'
-$vmName = 'SVR5'
+$rgName                        = 'rg-monitoring'
+$location                      = 'westeurope'
+$vnetName                      = 'vnet-monitoring'
+$addressPrefix                 = '10.3.0.0/16'
+$subnet0                       = New-AzVirtualNetworkSubnetConfig -Name 'Subnet0' -AddressPrefix '10.3.0.0/24'
+$vmName                        = 'vm-monitoring-svr1'
+$vmComputerName                = 'SVR1'
 $systemAssignedManagedIdentity = $true
-$vmAdminUserName = 'LocalAdmin'
-$vmAdminPassword = Get-Content "./Monitoring/PASSWORDS" | ConvertFrom-Json | % { $_.localAdminPassword } | ConvertTo-SecureString
-$logAnalyticsWorkspaceName = 'log-monitoring'
-$dcrName = 'dcr-windowsperf'
+$vmAdminUserName               = 'LocalAdmin'
+$vmAdminPassword               = Get-Content "./Monitoring/PASSWORDS" | ConvertFrom-Json | % { $_.localAdminPassword } | ConvertTo-SecureString
+$logAnalyticsWorkspaceName     = 'log-monitoring'
+$dcrName                       = 'dcr-windowsperf'
 
 $templateFile = 'Monitoring/main.bicep'
 $templateParams = @{
     location = $location
     subnetId = $subnet0Subnet.Id
     vmName = $vmName
+    vmComputerName = $vmComputerName
     systemAssignedManagedIdentity = $systemAssignedManagedIdentity
     vmAdminUserName = $vmAdminUserName
     vmAdminPassword = $vmAdminPassword
@@ -55,7 +56,7 @@ Get-AzResource -ResourceGroupName $rgName | Sort-Object ResourceType | Format-Ta
 
 
 # --- Prerequisite: Virtual Newtwork -------------------------------------------------
-New-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName -Location $location -AddressPrefix $addressPrefix -Subnet $subnet0,$subnet1 -Force
+New-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName -Location $location -AddressPrefix $addressPrefix -Subnet $subnet0 -Force
 $vnet = Get-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName
 $subnet0Subnet = Get-AzVirtualNetworkSubnetConfig -VirtualNetwork $vnet -Name 'Subnet0'
 

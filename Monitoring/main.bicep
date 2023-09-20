@@ -2,6 +2,7 @@ param location string
 param subnetId string
 param systemAssignedManagedIdentity bool
 param vmName string
+param vmComputerName string
 param vmAdminUserName string
 @secure()
 param vmAdminPassword string
@@ -14,6 +15,7 @@ module virtualMachine '../templates/virtualMachine.bicep' = {
     location: location
     subnetId: subnetId
     vmName: vmName
+    vmComputerName: vmComputerName
     systemAssignedManagedIdentity: systemAssignedManagedIdentity
     vmAdminUserName: vmAdminUserName
     vmAdminPassword: vmAdminPassword
