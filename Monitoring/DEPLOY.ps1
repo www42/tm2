@@ -66,3 +66,8 @@ $templateParams['subnetId'] = $subnet0Subnet.Id
 New-AzResourceGroupDeployment -Name 'Scenario-Monitoring' -TemplateFile $templateFile -ResourceGroupName $rgName -Location $location @templateParams 
 
 Get-AzResourceGroupDeployment -ResourceGroupName $rgName | Sort-Object Timestamp -Descending | ft DeploymentName,ProvisioningState,Timestamp
+
+
+# TODO
+#   - $subnet0 --> $subnet0Config
+#   - $subnet0Subnet --> $subnet0
