@@ -60,7 +60,11 @@ cmd.exe /C "start ms-settings:network-vpn"
 
 # Test connectivity
 Get-NetIPConfiguration | Format-Table InterfaceAlias,InterfaceDescription,IPv4Address
-Test-NetConnection 10.0.0.4 -Traceroute
+$hubIpRange = '10.0.0.0/16'
+$monitoringIpRange = '10.3.0.0/16'
+Get-NetRoute -DestinationPrefix $hubIpRange,$monitoringIpRange
+Test-NetConnection 10.3.0.5 -Port 3389
+mstsc -v 10.3.0.5
 
 
 # Cleanup

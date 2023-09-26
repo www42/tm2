@@ -44,6 +44,10 @@ $nestedToHub = Get-AzVirtualNetworkPeering -VirtualNetworkName $nested.Name -Res
 $nestedToHub.UseRemoteGateways = $true
 Set-AzVirtualNetworkPeering -VirtualNetworkPeering $nestedToHub
 
+$monitoringToHub = Get-AzVirtualNetworkPeering -VirtualNetworkName $monitoring.Name -ResourceGroupName 'rg-monitoring'
+$monitoringToHub.UseRemoteGateways = $true
+Set-AzVirtualNetworkPeering -VirtualNetworkPeering $monitoringToHub
+
 
 # Remove
 Remove-AzVirtualNetworkPeering -Name 'peer-hub-hybrid' -VirtualNetworkName $hub.Name    -ResourceGroupName 'rg-hub'            -Force
