@@ -50,9 +50,17 @@ The next cell is **very magic**. It installs a nuget package which supports the 
 
 #!kql --help
 
+#!csharp
+
+#!connect --help
+
+#!csharp
+
+#!connect kql --help
+
 #!markdown
 
-Now connect to a Kusto cluster. This adds a new kernel to the notebook `#!kql-samples_database`
+Now connect to a Kusto cluster. This adds the new subkernel `kql-samples_database` to the notebook
 
 #!csharp
 
@@ -60,7 +68,12 @@ Now connect to a Kusto cluster. This adds a new kernel to the notebook `#!kql-sa
 
 #!kql-samples_database
 
-#!kql-samples_database
 StormEvents
 | take 3
 | project StartTime, EndTime, EventType, State, EventNarrative
+
+#!markdown
+
+`https://ade.loganalytics.io/subscriptions/<subscription-id>/resourceGroups/<resource-group>/providers/Microsoft.OperationalInsights/clusters/<cluster-name>`
+
+`https://ade.loganalytics.io/subscriptions/<subscription-id>/resourceGroups/<resource-group>/providers/Microsoft.OperationalInsights/workspaces/<workspace-name>`
