@@ -1,3 +1,4 @@
+# Application Security Group ASG
 
 $asgName = 'Web-Server'
 $rgName = 'rg-networksecurity'
@@ -8,7 +9,13 @@ Get-AzApplicationSecurityGroup | ft Name,ResourceGroupName,Location
 
 Get-AzApplicationSecurityGroup -Name Web-Server -ResourceGroupName rg-monitoring 
 
-# ASG auslesen (Welche VMs haben diese ASG?)
+# ASG auslesen (Welche VMs haben diese ASG?) --> NetworkInterface
+
+Get-AzNetworkInterface -Name vm-hybididentity-client001-Nic | fl *
+Get-AzNetworkInterface -Name vm-hybididentity-client001-Nic | % IpConfigurations
+Get-AzNetworkInterface -Name vm-hybididentity-client001-Nic | % IpConfigurations
+Get-AzNetworkInterface -Name vm-hybididentity-client001-Nic | % IpConfigurations | fl *
+
 
 function Get-MyAzNetworkInterface {
 
