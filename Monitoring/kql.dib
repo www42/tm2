@@ -1,6 +1,6 @@
 #!meta
 
-{"kernelInfo":{"defaultKernelName":"csharp","items":[{"aliases":[],"name":"csharp"},{"aliases":[],"languageName":"kql","name":"kql"},{"aliases":[],"languageName":"KQL","name":"kql-logevents"},{"aliases":[],"languageName":"KQL","name":"kql-samples_database"}]}}
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"aliases":[],"name":"csharp"},{"aliases":[],"languageName":"kql","name":"kql"},{"aliases":[],"languageName":"KQL","name":"kql-logevents"},{"aliases":[],"languageName":"KQL","name":"kql-samples_database"},{"aliases":[],"languageName":"KQL","name":"kql-stormevents"}]}}
 
 #!markdown
 
@@ -64,20 +64,13 @@ Now connect to a Kusto cluster. This adds the new subkernel `kql-samples_databas
 
 #!csharp
 
-#!connect kql --kernel-name samples_database --cluster "https://help.kusto.windows.net" --database "Samples"
+#!connect kql --kernel-name stormevents --cluster "https://help.kusto.windows.net" --database "Samples"
 
-#!kql-samples_database
+#!kql-stormevents
 
 StormEvents
-| take 3
-| project StartTime, EndTime, EventType, State, EventNarrative
-
-#!markdown
-
-To connect to your ADE cluster (aka Kusto cluster) you need to provide the cluster URI and the database name. The cluster URI can be found in the Azure portal (see below). The database name is the name of the database you want to connect to. If you don't know the database name, you can use the command `#!kql` to list all databases in the cluster.
-`https://ade.loganalytics.io/subscriptions/<subscription-id>/resourceGroups/<resource-group>/providers/Microsoft.OperationalInsights/clusters/<cluster-name>`
-
-`https://ade.loganalytics.io/subscriptions/<subscription-id>/resourceGroups/<resource-group>/providers/Microsoft.OperationalInsights/workspaces/<workspace-name>`
+| take 10
+| project StartTime, EndTime, EpisodeId, EventId, State, EventType
 
 #!markdown
 
