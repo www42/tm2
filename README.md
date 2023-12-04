@@ -8,6 +8,7 @@
 | `dataCollectionRule.bicep`             | Monitoring         |
 | `dataCollectionRuleAssociation.bicep`  | Monitoring         |
 | `domainController.bicep`               | HybridIdentity     |
+| `kustoCluster.bicep`                   | none               |
 | `logAnalyticsWorkspace.bicep`          | Monitoring         |
 | `storageAccount.bicep`                 | HybridIdentity     |
 | `virtualGateway.bicep`                 | HubAndSpoke        |
