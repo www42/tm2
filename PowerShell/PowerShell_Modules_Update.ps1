@@ -58,8 +58,10 @@ Uninstall-Module -Name AzureAD -RequiredVersion <old version>
 
 
 # --- MSOnline (5.1 only) ---------------------------------
-Get-Module  -Name MSOnline -ListAvailable
-Find-Module -Name MSOnline -Repository PSGallery
+Get-Module       -Name MSOnline -ListAvailable
+Find-Module      -Name MSOnline -Repository PSGallery
+Install-Module   -Name MSOnline -Repository PSGallery -Scope AllUsers -Force
+Uninstall-Module -Name MSOnline -RequiredVersion <old version>
 
 
 # --- Exchange Online (5.1 and 7) -------------------------
@@ -82,7 +84,7 @@ function Remove-OldGraphModule {
         Foreach ($Version in $Versions) {
             $ModuleVersion = $Version.Version
             Write-Host "Uninstall-Module $ModuleName $ModuleVersion"
-            Uninstall-Module $ModuleName -RequiredVersion $ModuleVersion
+            Uninstall-Module $ModuleName -RequiredVersion $ModuleVersion -Force -ErrorAction SilentlyContinue
         }
     }
     # Remove Microsoft.Graph.Authentication
@@ -91,7 +93,7 @@ function Remove-OldGraphModule {
     Foreach ($Version in $Versions) {
         $ModuleVersion = $Version.Version
         Write-Host "Uninstall-Module $ModuleName $ModuleVersion"
-        Uninstall-Module $ModuleName -RequiredVersion $ModuleVersion
+        Uninstall-Module $ModuleName -RequiredVersion $ModuleVersion -Force -ErrorAction SilentlyContinue
     }
 }
 Remove-OldGraphModule
