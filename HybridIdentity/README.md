@@ -4,4 +4,5 @@
 
 References
 * [Microsoft docs](https://learn.microsoft.com/en-us/azure/storage/files/storage-files-identity-auth-hybrid-identities-enable?tabs=azure-portal#prerequisites)
+
 * [John Savill on youtube](https://www.youtube.com/watch?v=fevwz8O954A)

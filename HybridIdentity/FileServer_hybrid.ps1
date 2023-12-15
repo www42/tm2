@@ -2,8 +2,8 @@
 # Scenario Hybrid Identity
 # ------------------------------------------------------------------------------------
 # This script adds an computer account to onprem AD. 
-# Computer account represents a file server. 
-# In Azure file server is a simple storage account.
+# Computer account represents a "file server". 
+# In Azure "file server" is a simple storage account.
 #
 # Run this script at domain controller (Azure Portal --> Run command)
 # ------------------------------------------------------------------------------------
