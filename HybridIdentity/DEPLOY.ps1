@@ -34,32 +34,35 @@ $subnet0config       = New-AzVirtualNetworkSubnetConfig -Name 'Subnet0' -Address
 $subnet1config       = New-AzVirtualNetworkSubnetConfig -Name 'Subnet1' -AddressPrefix '10.1.1.0/24'
 $dcSubnetId          = $subnet0.Id
 $clientSubnetId      = $subnet1.Id
+$dcIp                = '10.1.0.200'
 $dcName              = 'vm-hybrididentity-dc1'
 $dcComputerName      = 'DC1'
-$dcIp                = '10.1.0.200'
 $aaName              = 'aa-hybrididentity'
-$domainName          = 'az.training'	
-$clientLoginUser     = 'Ludwig@az.training'
+$createAaJob         = $true
+$domainName          = 'az.training'
+$domainAdminName     = 'DomainAdmin'
+$localAdminName      = 'localadmin'	
 $clientName          = 'vm-hybididentity-client001'
 $clientComputerName  = 'Client001'
+$clientLoginUser     = 'Ludwig@az.training'
 $clientVirtualMachineAdministratorLoginRoleAssigneeId = (Get-AzADUser -UserPrincipalName $clientLoginUser).Id
 $templateFile        = 'HybridIdentity/main.bicep'
 
 $templateParams = @{
     location              = $location
     automationAccountName = $aaName
-    createAaJob           = $true
-    dcSubnetId            = $subnet0.Id
-    clientSubnetId        = $subnet1.Id
+    createAaJob           = $createAaJob
+    dcSubnetId            = $dcSubnetId
+    clientSubnetId        = $clientSubnetId
     domainName            = $domainName
     dcName                = $dcName
     dcComputerName        = $dcComputerName
     dcIp                  = $dcIp
-    domainAdminName       = 'DomainAdmin'
+    domainAdminName       = $domainAdminName
     domainAdminPassword   = $domainAdminPassword
     clientName            = $clientName
     clientComputerName    = $clientComputerName
-    localAdminName        = 'localadmin'
+    localAdminName        = $localAdminName
     localAdminPassword    = $localAdminPassword
     clientVirtualMachineAdministratorLoginRoleAssigneeId = $clientVirtualMachineAdministratorLoginRoleAssigneeId
 }
@@ -103,6 +106,7 @@ Disconnect-MgGraph -Verbose
 # --- Template Deployment: Automation Account, Domain Controller, Windows 11 Client --
 $templateParams['dcSubnetId']     = $subnet0.Id
 $templateParams['clientSubnetId'] = $subnet1.Id
+$templateParams
 New-AzResourceGroupDeployment -Name 'Scenario-HybridIdentity' -TemplateFile $templateFile -ResourceGroupName $rgName -Location $location @templateParams 
 
 Get-AzResourceGroupDeployment -ResourceGroupName $rgName | Sort-Object Timestamp -Descending | ft DeploymentName,ProvisioningState,Timestamp
