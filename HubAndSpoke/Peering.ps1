@@ -13,6 +13,12 @@ $monitoring = Get-AzVirtualNetwork -Name 'vnet-monitoring'           -ResourceGr
 # --- Delete old (disconnected) peerings ---------------------------------------------
 Get-AzVirtualNetworkPeering -VirtualNetworkName $hub.Name -ResourceGroupName 'rg-hub' | ft Name,PeeringState
 Get-AzVirtualNetworkPeering -VirtualNetworkName $hub.Name -ResourceGroupName 'rg-hub' | Remove-AzVirtualNetworkPeering -Force
+Get-AzVirtualNetworkPeering -VirtualNetworkName $hybrid.Name -ResourceGroupName 'rg-hybrididentity'
+Get-AzVirtualNetworkPeering -VirtualNetworkName $hybrid.Name -ResourceGroupName 'rg-hybrididentity' | Remove-AzVirtualNetworkPeering -Force
+Get-AzVirtualNetworkPeering -VirtualNetworkName $nested.Name -ResourceGroupName 'rg-nestedvirtualization' 
+Get-AzVirtualNetworkPeering -VirtualNetworkName $nested.Name -ResourceGroupName 'rg-nestedvirtualization' | Remove-AzVirtualNetworkPeering -Force
+Get-AzVirtualNetworkPeering -VirtualNetworkName $monitoring.Name -ResourceGroupName 'rg-monitoring'
+Get-AzVirtualNetworkPeering -VirtualNetworkName $monitoring.Name -ResourceGroupName 'rg-monitoring' | Remove-AzVirtualNetworkPeering -Force
 
 
 # --- Hub <--> Hybrid (1) ------------------------------------------------------------
@@ -25,7 +31,7 @@ Add-AzVirtualNetworkPeering -Name 'peer-nested-hub' -VirtualNetwork $nested -Rem
 
 # --- Hub <--> Monitoring (3) --------------------------------------------------------
 Add-AzVirtualNetworkPeering -Name 'peer-hub-monitoring' -VirtualNetwork $hub        -RemoteVirtualNetworkId $monitoring.Id -AllowForwardedTraffic -AllowGatewayTransit
-Add-AzVirtualNetworkPeering -Name 'peer-monitoring-hub' -VirtualNetwork $monitoring -RemoteVirtualNetworkId $hub.Id        -AllowForwardedTraffic #-UseRemoteGateways
+Add-AzVirtualNetworkPeering -Name 'peer-monitoring-hub' -VirtualNetwork $monitoring -RemoteVirtualNetworkId $hub.Id        -AllowForwardedTraffic -UseRemoteGateways
 
 
 
