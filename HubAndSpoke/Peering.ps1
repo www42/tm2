@@ -31,7 +31,7 @@ Add-AzVirtualNetworkPeering -Name 'peer-nested-hub' -VirtualNetwork $nested -Rem
 
 # --- Hub <--> Monitoring (3) --------------------------------------------------------
 Add-AzVirtualNetworkPeering -Name 'peer-hub-monitoring' -VirtualNetwork $hub        -RemoteVirtualNetworkId $monitoring.Id -AllowForwardedTraffic -AllowGatewayTransit
-Add-AzVirtualNetworkPeering -Name 'peer-monitoring-hub' -VirtualNetwork $monitoring -RemoteVirtualNetworkId $hub.Id        -AllowForwardedTraffic -UseRemoteGateways
+Add-AzVirtualNetworkPeering -Name 'peer-monitoring-hub' -VirtualNetwork $monitoring -RemoteVirtualNetworkId $hub.Id        -AllowForwardedTraffic #-UseRemoteGateways
 
 
 
