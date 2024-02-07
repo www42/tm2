@@ -1,29 +1,27 @@
 # ------------------------------------------------------------------------------------
 # Scenario Hybrid Identity
 # ------------------------------------------------------------------------------------
-# This script creates an Azure AD user 'AzureAdSyncAdmin' 
-# with role 'Global Administrator' for Azure AD Connect
+# This script creates an Entra ID user 'EntraSyncAdmin' 
+# with role 'Global Administrator' for Entra Connect
 # ------------------------------------------------------------------------------------
 # Requires Windows Powershell 5.1 (wegen AzureAD)
 
-# Create the Azure AD user 'AzureAdSyncAdmin' (GlobalAdministrator)
+# Create the Entra ID user 'EntraSyncAdmin' (Global Administrator)
 # ------------------------------------------------------------------------------------
 $Domains = (Get-AzureAdTenantDetail).VerifiedDomains
 $Domains | Format-Table Name,Initial,_Default
 
 $Domain = $Domains | Where-Object _Default -EQ $true | Select-Object -ExpandProperty Name
 # $Domain = $Domains | Where-Object Initial -EQ $true | Select-Object -ExpandProperty Name
-# $Domain = 'trainymotion.com'
-$Domain
 
 $PasswordProfile = New-Object -TypeName Microsoft.Open.AzureAD.Model.PasswordProfile
 $PasswordProfile.Password = ''
 $PasswordProfile.ForceChangePasswordNextLogin = $false
 
 $Params = @{
-    DisplayName       = 'AzureAdSyncAdmin'
-    UserPrincipalName = "AzureAdSyncAdmin@$Domain"
-    MailNickName      = 'AzureAdSyncAdmin'
+    DisplayName       = 'EntraSyncAdmin'
+    UserPrincipalName = "EntraSyncAdmin@$Domain"
+    MailNickName      = 'EntraSyncAdmin'
     UsageLocation     = 'DE'
     PasswordProfile   = $PasswordProfile
     AccountEnabled    = $true
@@ -38,12 +36,12 @@ Add-AzureADDirectoryRoleMember -ObjectId $GlobalAdministrator.ObjectId -RefObjec
 Get-AzureADDirectoryRoleMember -ObjectId $GlobalAdministrator.ObjectId
 
 
-# Remove the Azure AD user 'AzureAdSyncAdmin' (GlobalAdministrator) 
-# User only needed Azure AD Connect installation/configuration changes
-# User not needed for regular syncronization
+# Remove 'EntraSyncAdmin' (Global Administrator) 
+# The User is only needed to install or configure Entra Connect
+# The User is not needed for normal syncronization
 # ------------------------------------------------------------------------------------
 
-$syncUser = Get-AzureADUser -Filter "startswith(UserPrincipalName,'AzureAdSyncAdmin')"
+$syncUser = Get-AzureADUser -Filter "startswith(UserPrincipalName,'EntraSyncAdmin')"
 Remove-AzureADUser -ObjectId $syncUser.ObjectId
 
 # List all Global Administrators

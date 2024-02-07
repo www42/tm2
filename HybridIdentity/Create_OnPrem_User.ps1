@@ -13,7 +13,6 @@ $SecurePW = ConvertTo-SecureString -String 'Pa55w.rd1234' -AsPlainText -Force
 $Names = @(
     'Isaac Newton'
     'Wilhem Leibniz'
-    'Willy Wien'
     'Ludwig Boltzmann'
     'James Maxwell'
 )
