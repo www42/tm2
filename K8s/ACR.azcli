@@ -1,0 +1,17 @@
+# Azure Container Registry ACR
+# ----------------------------
+# https://docs.microsoft.com/en-us/azure/container-registry/container-registry-intro
+# https://learn.microsoft.com/en-us/cli/azure/acr
+
+acrName='acr69115.azurecr.io'
+rgName='$rgName'
+
+az acr create --name $acrName --resource-group $rgName --sku Basic --location westeurope --admin-enabled true
+az acr list --query "[].{loginServer:loginServer,location:location,sku:sku.name,adminUserEnabled:adminUserEnabled,resourceGroup:resourceGroup}" --output table
+az acr show --name $acrName 
+
+az acr login --name $acrName
+
+
+# Cleanup
+az acr delete --name $acrName --resource-group $rgName --yes
