@@ -12,7 +12,7 @@ $Group = New-ADGroup -Name 'Classical Physics' -DisplayName 'Classical Physics' 
 $SecurePW = ConvertTo-SecureString -String 'Pa55w.rd1234' -AsPlainText -Force
 $Names = @(
     'Isaac Newton'
-    'Wilhem Leibniz'
+    'Wilhelm Leibniz'
     'Ludwig Boltzmann'
     'James Maxwell'
 )
