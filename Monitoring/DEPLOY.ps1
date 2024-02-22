@@ -61,6 +61,7 @@ $vnet = Get-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName
 $subnet0Subnet = Get-AzVirtualNetworkSubnetConfig -VirtualNetwork $vnet -Name 'Subnet0'
 
 $templateParams['subnetId'] = $subnet0Subnet.Id
+$templateParams
 
 # --- Template Deployment: VM, DCR, DCR association ----------------------------------
 New-AzResourceGroupDeployment -Name 'Scenario-Monitoring' -TemplateFile $templateFile -ResourceGroupName $rgName -Location $location @templateParams 
