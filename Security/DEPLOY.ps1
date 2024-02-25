@@ -4,6 +4,12 @@
 #  - a storage account with system-assigned managed identity
 
 
+
+# --- Applied Skills AZ-1003 issue (Storage for app1) --------------------------------
+# https://trainingsupport.microsoft.com/en-us/mcp/forum/all/applied-skills-lab-error/530da8ad-66d3-4da0-934e-dd635c357241
+
+
+
 # --- Login --------------------------------------------------------------------------
 Login-AzAccount
 Get-AzContext | Format-List Name,Account,Tenant,Subscription
