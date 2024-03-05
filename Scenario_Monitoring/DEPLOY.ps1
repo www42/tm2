@@ -22,7 +22,7 @@ $rgName                        = 'rg-monitoring'
 $location                      = 'westeurope'
 $vnetName                      = 'vnet-monitoring'
 $addressPrefix                 = '10.3.0.0/16'
-$subnet0                       = New-AzVirtualNetworkSubnetConfig -Name 'Subnet0' -AddressPrefix '10.3.0.0/24'
+$subnet0Config                 = New-AzVirtualNetworkSubnetConfig -Name 'Subnet0' -AddressPrefix '10.3.0.0/24'
 $vmName                        = 'vm-monitoring-svr1'
 $vmComputerName                = 'SVR1'
 $systemAssignedManagedIdentity = $true
@@ -34,7 +34,7 @@ $dcrName                       = 'dcr-windowsperf'
 $templateFile = 'Scenario_Monitoring/main.bicep'
 $templateParams = @{
     location = $location
-    subnetId = $subnet0Subnet.Id
+    subnetId = $subnet0.Id
     vmName = $vmName
     vmComputerName = $vmComputerName
     systemAssignedManagedIdentity = $systemAssignedManagedIdentity
@@ -57,18 +57,13 @@ Get-AzResource -ResourceGroupName $rgName | Sort-Object ResourceType | Format-Ta
 # --- Prerequisite: Virtual Newtwork -------------------------------------------------
 New-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName -Location $location -AddressPrefix $addressPrefix -Subnet $subnet0 -Force
 $vnet = Get-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName
-$subnet0Subnet = Get-AzVirtualNetworkSubnetConfig -VirtualNetwork $vnet -Name 'Subnet0'
+$subnet0 = Get-AzVirtualNetworkSubnetConfig -VirtualNetwork $vnet -Name 'Subnet0'
 
-$templateParams['subnetId'] = $subnet0Subnet.Id
-$templateParams
-dir $templateFile
 
 # --- Template Deployment: VM, DCR, DCR association ----------------------------------
+$templateParams['subnetId'] = $subnet0.Id
+$templateParams
+dir $templateFile
 New-AzResourceGroupDeployment -Name 'Scenario-Monitoring' -TemplateFile $templateFile -ResourceGroupName $rgName -Location $location @templateParams 
 
 Get-AzResourceGroupDeployment -ResourceGroupName $rgName | Sort-Object Timestamp -Descending | ft DeploymentName,ProvisioningState,Timestamp
-
-
-# TODO
-#   - $subnet0 --> $subnet0Config
-#   - $subnet0Subnet --> $subnet0
