@@ -2,7 +2,7 @@ param location string
 param keyVaultName string
 param storageAccountNamePrefix string
 
-module keyVault '../templates/keyVaultAccessPolicy.bicep' = {
+module keyVault '../templates/keyVaultForCMK.bicep' = {
   name: 'Module-KeyVault'
   params: {
     keyVaultName: keyVaultName
@@ -10,7 +10,7 @@ module keyVault '../templates/keyVaultAccessPolicy.bicep' = {
   }
 }
 
-module storage '../templates/storageAccountMi.bicep' = {
+module storage '../templates/storageAccountSystemManagedIdentity.bicep' = {
   name: 'Module-StorageAccount'
   params: {
     location: location

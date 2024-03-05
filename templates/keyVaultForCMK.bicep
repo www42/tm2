@@ -1,9 +1,13 @@
-// https://learn.microsoft.com/en-us/azure/templates/microsoft.keyvault/vaults
+// Dieses Key Vault enthält einen Key, mit dem Storage Accounts verschlüsselt werden (Customer Managed Keys CMK).
+// https://learn.microsoft.com/en-us/azure/storage/common/customer-managed-keys-configure-new-account
 
 param keyVaultName string
 param location string
 param tenantId string = '819ebf55-0973-4703-b006-581a48f25961'
 
+var keyName = 'app-key'  // So heisst der Key in dem Applied Skill AZ-1003
+
+// https://learn.microsoft.com/en-us/azure/templates/microsoft.keyvault/vaults
 resource keyVault 'Microsoft.KeyVault/vaults@2023-07-01' = {
   name: keyVaultName
   location: location
@@ -33,7 +37,21 @@ resource keyVault 'Microsoft.KeyVault/vaults@2023-07-01' = {
         tenantId: tenantId
       }
     ]
+    enableSoftDelete: true
+    softDeleteRetentionInDays: 7    // default: 90
+  }
+  resource key 'keys' = {
+    name: keyName
+    properties: {
+      kty: 'RSA'
+      keySize: 2048
+      attributes: {
+        enabled: true
+        exportable: false
+      }
+    }
   }
 }
 
 output vaultUri string = keyVault.properties.vaultUri
+output keyName string = keyName

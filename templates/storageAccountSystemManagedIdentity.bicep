@@ -15,3 +15,4 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' = {
 }
 
 output storageAccountName string = storageAccountName
+output systemManagedIdentityObjectId string = storageAccount.identity.principalId
