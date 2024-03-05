@@ -13,7 +13,7 @@ Get-AzContext | Format-List Name,Account,Tenant,Subscription
 
 
 # --- Prerequisite: Root Certificate -------------------------------------------------
-Get-ChildItem -Path 'HubAndSpoke/RootCertificate.pfx'
+Get-ChildItem -Path 'Scenario_HubAndSpoke/RootCertificate.pfx'
 
 
 # --- Parameters ---------------------------------------------------------------------
@@ -32,7 +32,7 @@ $deployGateway   = $false
 $gatewayName     = 'vgw-hub'
 $rootCertificateName = 'AzTrainingRoot'
 $rootCertificateData = 'MIIC5zCCAc+gAwIBAgIQVMUVr0NMiI1Cf4yE9ytIQjANBgkqhkiG9w0BAQsFADAWMRQwEgYDVQQDDAtBWiBUcmFpbmluZzAeFw0yMzA5MDUxNzUwMDhaFw0yNDA5MDUxODEwMDhaMBYxFDASBgNVBAMMC0FaIFRyYWluaW5nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApaom+BpYqwo6VUHCu+ah1sbqcDTnatvm/7yd5TGv0JS6pIn13gGLn+ss7dhJ5uGHB3AXiZlPkHRTgYYoLsos7EQDfLcRyz94TS/NtIAijpq709J+FrBIy7uVT7sWlOmZxkIjjh1ZvPboAotbXEP7hc2hGlXtJZGg1yLslNRRTGeaHesXf1RI/ODJ7/sO/TeZUvpqqP3EzH03uawqeztf/8ot2q/o7/vwQBy6rRvoz9OEh+QsO5m34n4FiL1Hqo60Kpj6FUTRI6HGhbRXLFonJmpB0HtvyQ7BtlykFhJhQJZZjnRxd/hyCt5o8zr4LwNmL2uejRFTl5oye1Iy32I0fQIDAQABozEwLzAOBgNVHQ8BAf8EBAMCAgQwHQYDVR0OBBYEFF1eAVAHWoZGGlS6tWTQigiuuM0dMA0GCSqGSIb3DQEBCwUAA4IBAQCWmpX2xASeulUM2oW8r/tQ+h3PHtnxp5mdNgwvg18zrcPXqYn7+ZPFDFzKClPJUdaEdtcDQfrwLA9C7/75UPUeRPdzw4Q+csqKdQ1VwLxo5/yVaFQ+KT2QnMgdLXwNXdb3S3rYDuqeDKwwxHh3hxIka8CqRZR8oPYUpD2y+9XEoepqOg+H6TuBK1WUuDasVpdEOp7XD2I5P8BkAx3VsBWOS2sueFSz16wR4Ene34VT1XLH22pV7s1U6IP1HmYQ6YIfML+QXEtSZzFfWoLFksNLsKHww7P72r7Xs6o8W/E2Np5mHFJMfja5b5qwv18Lyl+UIo908zDPV9TyHzffc8kr'
-$templateFile    = 'HubAndSpoke/main.bicep'
+$templateFile    = 'Scenario_HubAndSpoke/main.bicep'
 
 $templateParams = @{
     location               = $location
