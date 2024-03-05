@@ -20,14 +20,14 @@ Get-AzContext | Format-List Name,Account,Tenant,Subscription
 # --- Set passwords ------------------------------------------------------------------
 $localAdminPassword = Read-Host -Prompt 'LocalAdmin password' -AsSecureString | ConvertFrom-SecureString
 $domainAdminPassword = Read-Host -Prompt 'DomainAdmin password' -AsSecureString | ConvertFrom-SecureString
-@{'localAdminPassword' = $localAdminPassword; 'domainAdminPassword' = $domainAdminPassword} | ConvertTo-Json | Out-File "./HybridIdentity/PASSWORDS"
+@{'localAdminPassword' = $localAdminPassword; 'domainAdminPassword' = $domainAdminPassword} | ConvertTo-Json | Out-File "./Scenario_HybridIdentity/PASSWORDS"
 
 
 # --- Parameters ---------------------------------------------------------------------
 $rgName              = 'rg-hybrididentity'
 $location            = 'westeurope'
-$localAdminPassword  = Get-Content "./HybridIdentity/PASSWORDS" | ConvertFrom-Json | % { $_.localAdminPassword } | ConvertTo-SecureString
-$domainAdminPassword = Get-Content "./HybridIdentity/PASSWORDS" | ConvertFrom-Json | % { $_.domainAdminPassword } | ConvertTo-SecureString
+$localAdminPassword  = Get-Content "./Scenario_HybridIdentity/PASSWORDS" | ConvertFrom-Json | % { $_.localAdminPassword } | ConvertTo-SecureString
+$domainAdminPassword = Get-Content "./Scenario_HybridIdentity/PASSWORDS" | ConvertFrom-Json | % { $_.domainAdminPassword } | ConvertTo-SecureString
 $vnetName            = 'vnet-hybrididentity'
 $addressPrefix       = '10.1.0.0/16'
 $subnet0config       = New-AzVirtualNetworkSubnetConfig -Name 'Subnet0' -AddressPrefix '10.1.0.0/24'
@@ -46,7 +46,7 @@ $clientName          = 'vm-hybididentity-client001'
 $clientComputerName  = 'Client001'
 $clientLoginUser     = 'Ludwig@az.training'
 $clientVirtualMachineAdministratorLoginRoleAssigneeId = (Get-AzADUser -UserPrincipalName $clientLoginUser).Id
-$templateFile        = 'HybridIdentity/main.bicep'
+$templateFile        = 'Scenario_HybridIdentity/main.bicep'
 
 $templateParams = @{
     location              = $location
@@ -107,6 +107,7 @@ Disconnect-MgGraph -Verbose
 $templateParams['dcSubnetId']     = $subnet0.Id
 $templateParams['clientSubnetId'] = $subnet1.Id
 $templateParams
+dir $templateFile
 New-AzResourceGroupDeployment -Name 'Scenario-HybridIdentity' -TemplateFile $templateFile -ResourceGroupName $rgName -Location $location @templateParams 
 
 Get-AzResourceGroupDeployment -ResourceGroupName $rgName | Sort-Object Timestamp -Descending | ft DeploymentName,ProvisioningState,Timestamp

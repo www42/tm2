@@ -42,10 +42,12 @@ Get-AzResource -ResourceGroupName $rgName | Sort-Object ResourceType | Format-Ta
 # Remove-AzResourceGroup -Name $rgName -Force -AsJob
 
 
-
 # --- Template Deployment: Nested Virtualization -------------------------------------
+$templateParams
+dir $templateFile
 New-AzResourceGroupDeployment -Name 'Scenario-NestedVirtualization' -TemplateFile $templateFile -ResourceGroupName $rgName -Location $location @templateParams 
 
+Get-AzResourceGroupDeployment -ResourceGroupName $rgName | Sort-Object Timestamp -Descending | ft DeploymentName,ProvisioningState,Timestamp
 
 # Problem with artifacts location
 # _artifactsLocation = 'https://github.com/www42/TrainyMotion/tree/master/NestedVirtualization'   # Error downloading https://github.com/www42/TrainyMotion/tree/master/dsc/dscinstallwindowsfeatures.zip after 17 attempts
