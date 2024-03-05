@@ -19,11 +19,13 @@ Get-AzContext | Format-List Name,Account,Tenant,Subscription
 # --- Parameters ---------------------------------------------------------------------
 $rgName         = 'rg-security'
 $location       = 'westeurope'
+$keyVaultName   = 'kv69118'
 $storageAccountNamePrefix = 'sec'
-$templateFile   = 'Security/main.bicep'
+$templateFile   = 'Scenario_Security/main.bicep'
 
 $templateParams = @{
-    location = $location
+    location     = $location
+    keyVaultName = $keyVaultName
     storageAccountNamePrefix = $storageAccountNamePrefix
 }
 
@@ -40,10 +42,9 @@ Get-AzResource -ResourceGroupName $rgName | Sort-Object ResourceType | Format-Ta
 # Remove-AzResourceGroup -Name $rgName -Force -AsJob
 
 
-
-# --- Template Deployment ------------------------------------------------------------
-
+# --- Template Deployment: Key vault, storage account --------------------------------
 $templateParams
+dir $templateFile
 New-AzResourceGroupDeployment -Name 'Scenario-Security' -TemplateFile $templateFile -ResourceGroupName $rgName -Location $location @templateParams 
 
 Get-AzResourceGroupDeployment -ResourceGroupName $rgName | Sort-Object Timestamp -Descending | ft DeploymentName,ProvisioningState,Timestamp
