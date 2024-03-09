@@ -19,6 +19,7 @@ $rgName             = 'rg-nestedvirtualization'
 $location           = 'westeurope'
 $virtualNetworkName = 'vnet-nestedvirtualization'
 $_artifactsLocation = 'https://heidelberg.fra1.digitaloceanspaces.com/NestedVirtualization/'
+$localAdminName     = 'LocalAdmin'
 $localAdminPassword = Get-Content "./Scenario_NestedVirtualization/PASSWORDS" | ConvertFrom-Json | % { $_.localAdminPassword } | ConvertTo-SecureString
 $templateFile       = 'Scenario_NestedVirtualization/templates/main.bicep'
 
@@ -27,7 +28,7 @@ $templateParams = @{
     location           = $location
     virtualNetworkName = $virtualNetworkName 
     _artifactsLocation = $_artifactsLocation
-    HostAdminUsername  = 'LocalAdmin'
+    HostAdminUsername  = $localAdminName
     HostAdminPassword  = $localAdminPassword
 }
 

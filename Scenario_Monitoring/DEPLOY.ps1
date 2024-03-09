@@ -30,8 +30,8 @@ $vmAdminUserName               = 'LocalAdmin'
 $vmAdminPassword               = Get-Content "./Scenario_Monitoring/PASSWORDS" | ConvertFrom-Json | % { $_.localAdminPassword } | ConvertTo-SecureString
 $logAnalyticsWorkspaceName     = 'log-monitoring'
 $dcrName                       = 'dcr-windowsperf'
-
 $templateFile = 'Scenario_Monitoring/main.bicep'
+
 $templateParams = @{
     location = $location
     subnetId = $subnet0.Id
