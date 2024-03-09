@@ -53,5 +53,3 @@ Get-AzResourceGroupDeployment -ResourceGroupName $rgName | Sort-Object Timestamp
 # Problem with artifacts location
 # _artifactsLocation = 'https://github.com/www42/TrainyMotion/tree/master/NestedVirtualization'   # Error downloading https://github.com/www42/TrainyMotion/tree/master/dsc/dscinstallwindowsfeatures.zip after 17 attempts
 # _artifactsLocation = 'https://github.com/www42/TrainyMotion/tree/master/NestedVirtualization/'  # Error: The DSC Extension failed to execute: Error unpacking 'dscinstallwindowsfeatures.zip'; verify this is a valid ZIP package.
-#
-# Try    https://raw.githubusercontent.com/www42/TrainyMotion/tree/master/NestedVirtualization/
