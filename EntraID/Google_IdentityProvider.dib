@@ -1,0 +1,17 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"pwsh","items":[{"aliases":[],"languageName":"pwsh","name":"pwsh"}]}}
+
+#!pwsh
+
+Get-AzTenant | Where-Object Name -eq 'AZ-Training' | Select-Object -ExpandProperty Id
+
+#!pwsh
+
+Get-AzTenant | Where-Object Name -eq 'AZ-Training' | Select-Object -ExpandProperty Domains
+
+#!markdown
+
+# Google als Identity Provider
+
+![Google project](../media/Google-Identity-Provider.png)

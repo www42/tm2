@@ -1,8 +1,8 @@
 # Application Security Group ASG
 
-$asgName = 'Web-Server'
-$rgName = 'rg-networksecurity'
+$rgName = 'rg-security'
 $location = 'westeurope'
+$asgName = 'Web-Server'
 New-AzApplicationSecurityGroup  -Name $asgName -ResourceGroupName $rgName -Location $location
 Get-AzApplicationSecurityGroup | ft Name,ResourceGroupName,Location
 
@@ -24,12 +24,12 @@ function Get-MyAzNetworkInterface {
         Write-Host "NIC: $nic"
 
         $vm  = $_.VirtualMachine | % Id
-        if ($vm) {$vmText = $vm.Split('/')[-1]} else {$vmText = 'Not Connected to any VM'}
-        Write-Host "VM:  $vmText"
+        if ($vm) {$vmText = $vm.Split('/')[-1]} else {$vmText = 'not connected to any VM'}
+        Write-Host "       connected to VM:  $vmText"
 
         $asg = $_.IpConfigurations | % ApplicationSecurityGroupsText | ConvertFrom-Json | % Id
-        if ($asg) {$asgText = $asg.Split('/')[-1]} else {$asgText = 'Not Connected to any ASG'}
-        Write-Host "ASG: $asgText"
+        if ($asg) {$asgText = $asg.Split('/')[-1]} else {$asgText = 'not connected to any ASG'}
+        Write-Host "       connected to ASG: $asgText"
 
         Write-Host
     }
