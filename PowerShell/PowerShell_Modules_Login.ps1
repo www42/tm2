@@ -1,11 +1,13 @@
 # --- Azure (5.1 and 7) ---------------------------------
 Logout-AzAccount
 Login-AzAccount
+$tenantId = 'd9365f9d-75c4-4fa4-8b80-566635202213'
+$subscriptionId = '2e35dc59-591a-4306-bbdb-a017d6963783'
+$subscriptionId = 'ece756e9-1860-4c65-a982-cfb8ac39e0d2'
+Login-AzAccount -Tenant $tenantId -Subscription $subscriptionId
 
 Get-AzContext | Format-List Name,Account,Tenant,Subscription
 Get-AzSubscription
-$subscription = Get-AzSubscription | Where-Object State -EQ 'enabled' | % SubscriptionId
-$tenantId     = Get-AzSubscription | Where-Object State -EQ 'enabled' | % TenantId
 
 
 # --- AzureAD (5.1 only) ---------------------------------
