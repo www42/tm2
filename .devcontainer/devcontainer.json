@@ -1,8 +1,29 @@
 {
   "image": "mcr.microsoft.com/devcontainers/universal:2",
   "features": {
-    "ghcr.io/devcontainers/features/powershell:1": {},
+    "ghcr.io/devcontainers/features/powershell:1": {
+      "pwshEdition": "7",
+      "installModules": [
+        "Az",
+        "Microsoft.Graph"
+      ]
+    },
     "ghcr.io/devcontainers/features/azure-cli:1": {}
   },
-  "postCreateCommand": "pwsh -c 'Write-Output \"PowerShell is installed\"'"
+  "postCreateCommand": "pwsh -c 'Write-Output \"PowerShell is installed\"'",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.azurecli",
+        "ms-vscode.powershell",
+        "msazurermtools.azurerm-vscode-tools",
+        "ms-azuretools.vscode-bicep",
+        "nidu.copy-json-path",
+        "eriklynd.json-tools",
+        "mhutchie.git-graph",
+        "github.copilot",
+        "github.copilot-chat"
+      ]	
+    }
+  }
 }
