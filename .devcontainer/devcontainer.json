@@ -20,6 +20,7 @@
         "ms-azuretools.vscode-bicep",
         "nidu.copy-json-path",
         "eriklynd.json-tools",
+        "kaiwood.center-editor-window",
         "mhutchie.git-graph",
         "github.copilot",
         "github.copilot-chat"
