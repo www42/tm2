@@ -1,0 +1,8 @@
+az login --tenant "819ebf55-0973-4703-b006-581a48f25961"
+az account list --all --query "[].{name:name, state:state, isDefault:isDefault, subscriptionId:id, tenantId:tenantId}" --output table
+az account set --subscription "fa366244-df54-48f8-83c2-e1739ef3c4f1"
+
+az disk list --query "[].{name:name, resourceGroup:resourceGroup, location:location, tier:tier, diskState:diskState, uniqueId:uniqueId}" --output table
+az disk list --query "[].{name:name, resourceId:id}" --output table
+
+az group list --query "sort_by([].{name:name, location:location}, &name)" --output table
