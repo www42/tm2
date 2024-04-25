@@ -1,15 +1,7 @@
-name: Manually Triggered Workflow
+name: Run Azure CLI script workflow
 
 on:
   workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-      environment:
-        description: 'Environment'
-        required: false
 
 jobs:
   build:
@@ -19,8 +11,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
     - name: Run a one-line script
       run: echo "Hello, ${{ github.actor }}! You triggered this workflow manually."
 
-    - name: Use inputs
-      run: echo "Log Level is ${{ github.event.inputs.logLevel }} and Environment is ${{ github.event.inputs.environment }}"
+    - name: Run an inline script
+      run: az disk list --query "[].{name:name, resourceGroup:resourceGroup, location:location, tier:tier, diskState:diskState, uniqueId:uniqueId}" --output table
