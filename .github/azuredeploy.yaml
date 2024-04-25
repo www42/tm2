@@ -1,0 +1,26 @@
+name: Manually Triggered Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+      environment:
+        description: 'Environment'
+        required: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Run a one-line script
+      run: echo "Hello, ${{ github.actor }}! You triggered this workflow manually."
+
+    - name: Use inputs
+      run: echo "Log Level is ${{ github.event.inputs.logLevel }} and Environment is ${{ github.event.inputs.environment }}"
