@@ -1,0 +1,9 @@
+# Anmelden bei Azure
+az login
+
+$subscritionId = "fa366244-df54-48f8-83c2-e1739ef3c4f1"
+
+# Service Principal erstellen und Berechtigungen zuweisen
+az ad sp create-for-rbac --name "githubActions" --role contributor --scopes /subscriptions/$subscritionId --sdk-auth
+
+az ad sp list --all --query "sort_by([].{displayName:displayName, appId:appId, objectId:objectId, servicePrincipalType:servicePrincipalType}, &displayName)" --output table
