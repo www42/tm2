@@ -6,6 +6,8 @@
 # --- Login --------------------------------------------------------------------------
 Login-AzAccount
 Get-AzContext | Format-List Name,Account,Tenant,Subscription
+Get-AzContext -ListAvailable | Format-List Name,Account,Tenant,Subscription
+Set-AzContext -Subscription '2e35dc59-591a-4306-bbdb-a017d6963783'
 
 
 # --- Set passwords ------------------------------------------------------------------
