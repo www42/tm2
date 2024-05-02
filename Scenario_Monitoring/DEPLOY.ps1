@@ -10,7 +10,8 @@
 # --- Login --------------------------------------------------------------------------
 Login-AzAccount
 Get-AzContext | Format-List Name,Account,Tenant,Subscription
-
+Get-AzContext -ListAvailable | Format-List Name,Account,Tenant,Subscription
+Set-AzContext -Subscription '2e35dc59-591a-4306-bbdb-a017d6963783'
 
 # --- Passwords ----------------------------------------------------------------------
 $localAdminPassword = Read-Host -Prompt 'LocalAdmin password' -AsSecureString | ConvertFrom-SecureString
@@ -19,7 +20,7 @@ $localAdminPassword = Read-Host -Prompt 'LocalAdmin password' -AsSecureString | 
 
 # --- Parameters ---------------------------------------------------------------------
 $rgName                        = 'rg-monitoring'
-$location                      = 'westeurope'
+$location                      = 'westus'
 $vnetName                      = 'vnet-monitoring'
 $addressPrefix                 = '10.3.0.0/16'
 $subnet0Config                 = New-AzVirtualNetworkSubnetConfig -Name 'Subnet0' -AddressPrefix '10.3.0.0/24'
@@ -55,7 +56,7 @@ Get-AzResource -ResourceGroupName $rgName | Sort-Object ResourceType | Format-Ta
 
 
 # --- Prerequisite: Virtual Newtwork -------------------------------------------------
-New-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName -Location $location -AddressPrefix $addressPrefix -Subnet $subnet0 -Force
+New-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName -Location $location -AddressPrefix $addressPrefix -Subnet $subnet0Config -Force
 $vnet = Get-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName
 $subnet0 = Get-AzVirtualNetworkSubnetConfig -VirtualNetwork $vnet -Name 'Subnet0'
 
