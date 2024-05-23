@@ -47,6 +47,13 @@ Get-MgContext | % Scopes
 $Scopes = @(
     "User.Read.All"
     "Group.Read.All"
-)
-Connect-MgGraph -Scopes $Scopes
-Disconnect-MgGraph
+    )
+    Connect-MgGraph -Scopes $Scopes
+    Disconnect-MgGraph
+    
+
+# --- Entra Exporter --------------------------------------
+#
+# https://office365itpros.com/2023/08/24/entraexporter-tool/
+Connect-EntraExporter
+Export-Entra -Path '.\EntraExport\' 

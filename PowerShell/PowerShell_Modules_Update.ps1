@@ -106,3 +106,9 @@ Get-Module     -Name MSAL.PS -ListAvailable
 Find-Module    -Name MSAL.PS -Repository PSGallery
 Install-Module -Name MSAL.PS -Repository PSGallery -Scope AllUsers -Force
 Update-Module  -Name MSAL.PS -Force
+
+
+# --- Entra Exporter --------------------------------------
+Get-Module     -Name EntraExporter -ListAvailable
+Find-Module    -Name EntraExporter -Repository PSGallery
+Install-Module -Name EntraExporter -Repository PSGallery -Scope AllUsers -Force
