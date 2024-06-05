@@ -8,9 +8,9 @@
 
 # Import Root Certificate (needed to sign Client Certificate)
 # -------------------------------------------------------------------
-dir './HubAndSpoke/RootCertificate.pfx'
-$password = Get-Content "./HubAndSpoke/PASSWORDS" | ConvertFrom-Json | % { $_.pfxPassword } | ConvertTo-SecureString
-$rootCertificate = Import-PfxCertificate -FilePath './HubAndSpoke/RootCertificate.pfx' -CertStoreLocation 'Cert:\CurrentUser\My' -Exportable -Password $password
+dir './Scenario_HubAndSpoke\RootCertificate.pfx'
+$password = Get-Content './Scenario_HubAndSpoke\PASSWORDS' | ConvertFrom-Json | % { $_.pfxPassword } | ConvertTo-SecureString
+$rootCertificate = Import-PfxCertificate -FilePath './Scenario_HubAndSpoke\RootCertificate.pfx' -CertStoreLocation 'Cert:\CurrentUser\My' -Exportable -Password $password
 $rootCertificate | Format-List Thumbprint,FriendlyName,Subject,NotBefore,NotAfter
 
 
@@ -59,17 +59,19 @@ Expand-Archive -Path $vpnZipPath\VpnClient.zip -DestinationPath $vpnZipPath\VpnC
 cmd.exe /C "start ms-settings:network-vpn"
 
 # Test connectivity
-Get-NetIPConfiguration | Format-Table InterfaceAlias,InterfaceDescription,IPv4Address
+Get-NetIPConfiguration | Format-Table InterfaceIndex,InterfaceAlias,InterfaceDescription,IPv4Address
 $hubIpRange = '10.0.0.0/16'
-$monitoringIpRange = '10.3.0.0/16'
-Get-NetRoute -DestinationPrefix $hubIpRange,$monitoringIpRange
-Test-NetConnection 10.3.0.5 -Port 3389
-mstsc -v 10.3.0.5
+$hybridIpRange = '10.1.0.0/16'
+Get-NetRoute -DestinationPrefix $hubIpRange,$hybridIpRange
+Test-NetConnection 10.1.0.200 -Port 3389
+mstsc -v 10.1.0.200
+
+
 
 
 # Cleanup
 # -------------------------------------------------------------------
-Remove-Item -Path $RootCertificate.PSPath
-Remove-Item -Path $ClientCertificate.PSPath
+#Remove-Item -Path $RootCertificate.PSPath
+#Remove-Item -Path $ClientCertificate.PSPath
 dir Cert:/CurrentUser/My
 cmd.exe /C "start ms-settings:network-vpn"
