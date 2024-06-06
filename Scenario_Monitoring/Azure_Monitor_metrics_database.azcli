@@ -1,0 +1,17 @@
+# Azure Monitor metrics database
+
+## z. B. für eine Azure Container Instance
+$containerGroupName = 'container1'
+$rgName = 'rg-docker'
+$subscriptionId = 'fa366244-df54-48f8-83c2-e1739ef3c4f1'
+
+az monitor metrics list `
+    --resource "/subscriptions/$subscriptionId/resourceGroups/$rgName/providers/Microsoft.ContainerInstance/containerGroups/$containerGroupName" `
+    --metric "CPUUsage" `
+    --aggregation "Maximum" `
+    --start-time "2024-06-05T14:52:00Z" `
+    --top 10
+
+# Z steht für UTC ("Zulu time")
+
+# https://learn.microsoft.com/en-us/cli/azure/monitor/metrics?view=azure-cli-latest
