@@ -20,7 +20,7 @@ $localAdminPassword = Read-Host -Prompt 'LocalAdmin password' -AsSecureString | 
 
 # --- Parameters ---------------------------------------------------------------------
 $rgName                        = 'rg-monitoring'
-$location                      = 'westus'
+$location                      = 'westeurope'
 $vnetName                      = 'vnet-monitoring'
 $addressPrefix                 = '10.3.0.0/16'
 $subnet0Config                 = New-AzVirtualNetworkSubnetConfig -Name 'Subnet0' -AddressPrefix '10.3.0.0/24'
