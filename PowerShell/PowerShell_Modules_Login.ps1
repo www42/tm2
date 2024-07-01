@@ -1,9 +1,9 @@
 # --- Azure (5.1 and 7) ---------------------------------
 Logout-AzAccount
 Login-AzAccount
-$tenantId = 'd9365f9d-75c4-4fa4-8b80-566635202213'
-$subscriptionId = '2e35dc59-591a-4306-bbdb-a017d6963783'
-$subscriptionId = 'ece756e9-1860-4c65-a982-cfb8ac39e0d2'
+$tenantId       = '819ebf55-0973-4703-b006-581a48f25961'          # az.training
+$subscriptionId = 'fa366244-df54-48f8-83c2-e1739ef3c4f1'          # Visual Studio Enterprise Subscription
+#$subscriptionId = '4072ef16-4983-440e-af57-d3afa9a6ea96'          # Pay-As-You-Go Dev/Test
 Login-AzAccount -Tenant $tenantId -Subscription $subscriptionId
 
 Get-AzContext | Format-List Name,Account,Tenant,Subscription

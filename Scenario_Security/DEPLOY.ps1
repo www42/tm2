@@ -7,8 +7,8 @@
 #
 # Dieses Scenario ist geeignet für Demo von Applied Skills AZ-1003 (Storage for app1)
 #  - Beim Storage Account ändern von Microsoft-managed Keys auf Customer-managed Keys.
-#  - Debei den Key Vault angeben und den Key 'app-key'.
-#  - Dadurch entsteht eine weitere Access Policy, und es wir Purge Protection aktiviert.
+#  - Dabei den Key Vault angeben und den Key 'app-key'.
+#  - Dadurch entsteht eine weitere Access Policy, und es wird Purge Protection aktiviert.
 
 
 
