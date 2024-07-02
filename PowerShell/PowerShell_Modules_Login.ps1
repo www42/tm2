@@ -1,6 +1,10 @@
 # --- Azure (5.1 and 7) ---------------------------------
 Logout-AzAccount
-Login-AzAccount
+
+# Simple login
+#Login-AzAccount
+
+# More complex login
 $tenantId       = '819ebf55-0973-4703-b006-581a48f25961'          # az.training
 $subscriptionId = 'fa366244-df54-48f8-83c2-e1739ef3c4f1'          # Visual Studio Enterprise Subscription
 #$subscriptionId = '4072ef16-4983-440e-af57-d3afa9a6ea96'          # Pay-As-You-Go Dev/Test
