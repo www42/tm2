@@ -1,0 +1,49 @@
+# Run Docker Container locally
+docker run --rm docker/whalesay cowsay "Hello, World!"
+
+# Docker images stored locally
+docker images
+
+# Login to Azure
+az login
+
+# Resource group
+az group list --query "sort_by([].{name:name, location:location}, &name)" --output table
+
+$rgName = 'rg-container'
+$location = 'westeurope'
+
+# Azure Container Registry ACR
+$acrName = 'whalewatch'
+az acr create --name $acrName --resource-group $rgName --sku Basic --location $location --admin-enabled true
+
+$loginServer = (az acr show --name $acrName --query "loginServer" --output tsv)
+
+# Docker login to ACR
+$adminUser = (az acr credential show --name $acrName --query "username" --output tsv)
+$adminPassword = (az acr credential show --name $acrName --query "passwords[0].value" --output tsv)
+
+az acr login --name $acrName --username $adminUser --password $adminPassword
+
+# Bin ich angemeldet?
+#   Das steht angeblich in der Ausgabe von 'docker info' unter 'Registry'
+#   Aber mit dieser Docker Desktop Version funktioniert es nicht
+docker info | select-string -pattern 'Registr'  # funktioniert nicht
+#   Dass man nich angemeldet ist merkt man daran, dass `docker push` nicht funktioniert
+
+# Logoff by 'docker logout'
+docker logout $loginServer
+
+
+# Upload Docker image 
+docker image tag docker/whalesay $loginServer/whalesay:v1
+docker image ls
+docker image push $loginServer/whalesay:v1
+
+az acr repository list --name $acrName --output table
+
+docker image rm $loginServer/whalesay:v1
+
+
+
+# https://learn.microsoft.com/en-us/azure/container-registry/buffer-gate-public-content?tabs=azure-cli
