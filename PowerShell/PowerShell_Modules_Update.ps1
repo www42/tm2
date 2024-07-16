@@ -101,6 +101,25 @@ Install-Module -Name Microsoft.Graph -Repository PSGallery -Scope AllUsers -Forc
 
 
 
+# New Entra Module
+#     https://www.youtube.com/watch?v=YOgpAkshmYI
+#
+Get-Module     -Name Microsoft.Graph.Entra* -ListAvailable
+# Update-Module  -- Werden alte Versionen entfernt?
+
+# --- Microsoft Graph Entra (/v1 Endpoint) ----------------
+Get-Module     -Name Microsoft.Graph.Entra -ListAvailable
+Find-Module    -Name Microsoft.Graph.Entra -Repository PSGallery -AllowPrerelease
+Install-Module -Name Microsoft.Graph.Entra -Repository PSGallery -Scope AllUsers -AllowPrerelease -Force
+
+# --- Microsoft Graph Entra Beta (/beta Endpoint)  --------
+Get-Module     -Name Microsoft.Graph.Entra.Beta -ListAvailable
+Find-Module    -Name Microsoft.Graph.Entra.Beta -Repository PSGallery -AllowPrerelease
+Install-Module -Name Microsoft.Graph.Entra.Beta -Repository PSGallery -Scope AllUsers -AllowPrerelease -Force -AllowClobber
+
+
+
+
 # --- MSAL.PS (7) -----------------------------------------
 Get-Module     -Name MSAL.PS -ListAvailable
 Find-Module    -Name MSAL.PS -Repository PSGallery
