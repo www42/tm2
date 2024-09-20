@@ -99,6 +99,7 @@ function Remove-OldGraphModule {
 Remove-OldGraphModule
 Install-Module -Name Microsoft.Graph -Repository PSGallery -Scope AllUsers -Force
 
+Get-InstalledModule -Name Microsoft.Graph -AllVersions
 
 
 # New Entra Module
@@ -108,14 +109,20 @@ Get-Module     -Name Microsoft.Graph.Entra* -ListAvailable
 # Update-Module  -- Werden alte Versionen entfernt?
 
 # --- Microsoft Graph Entra (/v1 Endpoint) ----------------
-Get-Module     -Name Microsoft.Graph.Entra -ListAvailable
-Find-Module    -Name Microsoft.Graph.Entra -Repository PSGallery -AllowPrerelease
-Install-Module -Name Microsoft.Graph.Entra -Repository PSGallery -Scope AllUsers -AllowPrerelease -Force
+Get-Module       -Name Microsoft.Graph.Entra -ListAvailable
+Find-Module      -Name Microsoft.Graph.Entra -Repository PSGallery -AllowPrerelease
+Install-Module   -Name Microsoft.Graph.Entra -Repository PSGallery -Scope AllUsers -AllowPrerelease -Force
+Uninstall-Module -Name Microsoft.Graph.Entra -RequiredVersion '0.11.0-preview' -AllowPrerelease
+# Den Name einschliesslich '-preview' sieht man mit 
+Get-InstalledModule -Name Microsoft.Graph.Entra -AllVersions
 
 # --- Microsoft Graph Entra Beta (/beta Endpoint)  --------
-Get-Module     -Name Microsoft.Graph.Entra.Beta -ListAvailable
-Find-Module    -Name Microsoft.Graph.Entra.Beta -Repository PSGallery -AllowPrerelease
-Install-Module -Name Microsoft.Graph.Entra.Beta -Repository PSGallery -Scope AllUsers -AllowPrerelease -Force -AllowClobber
+Get-Module       -Name Microsoft.Graph.Entra.Beta -ListAvailable
+Find-Module      -Name Microsoft.Graph.Entra.Beta -Repository PSGallery -AllowPrerelease
+Install-Module   -Name Microsoft.Graph.Entra.Beta -Repository PSGallery -Scope AllUsers -AllowPrerelease -Force -AllowClobber
+Uninstall-Module -Name Microsoft.Graph.Entra.Beta -RequiredVersion '0.11.0-preview' -AllowPrerelease
+# Den Name einschliesslich '-preview' sieht man mit 
+Get-InstalledModule -Name Microsoft.Graph.Entra.Beta -AllVersions
 
 
 
