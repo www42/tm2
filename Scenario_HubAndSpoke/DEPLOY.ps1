@@ -83,3 +83,9 @@ Get-AzResourceGroupDeployment -ResourceGroupName $rgName | Sort-Object Timestamp
 #   --> Peering
 #   --> Optional: Spoke-to-Spoke-Routing
 
+
+
+# --- Bastion Host -------------------------------------------------------------------
+# 
+# Remove a bastion host
+Get-AzBastion -Name $bastionName -ResourceGroupName $rgName | Remove-AzBastion -Force

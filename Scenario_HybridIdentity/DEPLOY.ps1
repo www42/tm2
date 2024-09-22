@@ -122,3 +122,19 @@ Get-AzAutomationDscCompilationJob -ResourceGroupName $rgName -AutomationAccountN
 Get-AzAutomationDscCompilationJobOutput -ResourceGroupName $rgName -AutomationAccountName $aaName -Id $aaJob.Id | Format-Table Time,Type,Summary
 Get-AzAutomationDscNodeConfiguration -ResourceGroupName $rgName -AutomationAccountName $aaName | fl AutomationAccountName,ConfigurationName,Name,RollupStatus
 Get-AzAutomationDscNode -ResourceGroupName $rgName -AutomationAccountName $aaName | fl AutomationAccountName,Name,NodeConfigurationName,LastSeen,Status
+
+# alle System Managed Identities
+Get-AzADServicePrincipal | ? ServicePrincipalType -eq 'ManagedIdentity' | Sort-Object DisplayName | ft DisplayName,ServicePrincipalType,Id
+
+# die System Managed Identity vom Automation Account
+$aa = Get-AzAutomationAccount -ResourceGroupName $rgName -Name $aaName
+$aa.Identity | fl *
+$objectId = $aa.Identity.PrincipalId
+Get-AzADServicePrincipal -ObjectId $objectId | fl DisplayName,ServicePrincipalName,AppId,ServicePrincipalType,Id
+
+# Role assignment für die Managed Identity
+$roleDefinitionName = "Contributor"
+$resourceGroup = Get-AzResourceGroup -Name 'rg-hub'
+New-AzRoleAssignment -ObjectId $objectId -RoleDefinitionName $roleDefinitionName -Scope $resourceGroup.ResourceId
+Get-AzRoleAssignment -ObjectId $objectId | ft DisplayName,RoleDefinitionName,Scope
+Remove-AzRoleAssignment -ObjectId $objectId -RoleDefinitionName $roleDefinitionName -Scope $resourceGroup.ResourceId

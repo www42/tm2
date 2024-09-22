@@ -1,8 +1,12 @@
 # Run Docker Container locally
 docker run --rm docker/whalesay cowsay "Hello, World!"
+docker run --rm -ti ubuntu bash
+docker run --rm  -d -p 8080:80 docker.io/ubuntu/nginx
+
+docker container ls --all
 
 # Docker images stored locally
-docker images
+docker image ls
 
 # Login to Azure
 az login
