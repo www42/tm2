@@ -5,6 +5,7 @@
 | `automationAccount.bicep`              | HybridIdentity     |
 | `azureMonitoringAgent.bicep`           | Monitoring         |
 | `bastionHost.bicep`                    | HubAndSpoke        |
+| `containerGroup.bicep`                 | Container          |
 | `dataCollectionRule.bicep`             | Monitoring         |
 | `dataCollectionRuleAssociation.bicep`  | Monitoring         |
 | `domainController.bicep`               | HybridIdentity     |
