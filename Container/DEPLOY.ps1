@@ -43,7 +43,7 @@ $templateParams = @{
     containerGroupPort = $containerGroupPort
     dnsNameLabel       = $dnsNameLabel
 }
-$templateFile    = './Container/containerGroup.bicep'
+$templateFile    = './templates/containerGroup.bicep'
 
 
 # --- Resource group -----------------------------------------------------------------
