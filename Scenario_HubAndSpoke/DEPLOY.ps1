@@ -88,6 +88,9 @@ Get-AzResourceGroupDeployment -ResourceGroupName $rgName | Sort-Object Timestamp
 # --- Bastion Host -------------------------------------------------------------------
 # 
 # Remove a bastion host
+$bastionName     = 'bas-hub'
+$rgName          = 'rg-hub'
+Get-AzBastion
 Get-AzBastion -Name $bastionName -ResourceGroupName $rgName | Remove-AzBastion -Force
 
 # Remove bastion host's public IP address
