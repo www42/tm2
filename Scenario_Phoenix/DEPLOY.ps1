@@ -6,12 +6,12 @@
 
 
 # --- Login --------------------------------------------------------------------------
+$tenantId      = '819ebf55-0973-4703-b006-581a48f25961'  # az.training
 $Subscription1 = 'fa366244-df54-48f8-83c2-e1739ef3c4f1'  # Visual Studio Enterprise Subscription
 $Subscription2 = '7f117653-b103-4699-82b0-a70fc3f25568'  # Azure Pass - Sponsorship Subscription
-$tenantId      = '819ebf55-0973-4703-b006-581a48f25961'  # az.training
 Login-AzAccount -Subscription $Subscription2 -Tenant $tenantId
 Get-AzContext                | Format-List Name,Account,Tenant,Subscription
-Get-AzContext -ListAvailable | Format-List Name,Account,Tenant,Subscription
+Get-AzContext -ListAvailable | Format-Table Account,Tenant,Subscription
 
 Set-AzContext -Subscription $Subscription2
 
@@ -83,6 +83,22 @@ Get-AzResourceGroupDeployment -ResourceGroupName $rgName | Sort-Object Timestamp
 $publicDnsZoneDeployment = Get-AzResourceGroupDeployment -ResourceGroupName $rgName -Name 'Module-PublicDnsZone'
 $publicDnsZoneDeployment.Outputs.nameServers.Value
 Resolve-DnsName -Type NS -Name "$publicDnsPrefix.az.training" | Sort-Object NameHost
+
+
+# --- Phoenix Server (Template / PowerShell Module) ----------------------------------
+$zone = "$publicDnsPrefix.az.training"
+$server = 'Server1'
+$ipAddress = '10.5.0.10'
+Deploy-PhoenixServer  -Name $server -IpAddress $ipAddress
+New-AzDnsRecordSet    -Name $server -ResourceGroupName $rgName -ZoneName $zone -RecordType A -Ttl 3600 -DnsRecords (New-AzDnsRecordConfig -IPv4Address $ipAddress)
+Remove-AzDnsRecordSet -Name $server -ResourceGroupName $rgName -ZoneName $zone -RecordType A 
+
+$server = 'Server2'
+$ipAddress = '10.5.0.20'
+
+
+
+
 
 # Deployment Script
 #       In dem Bicep Template steht eine Resource von Typ 'deploymentScripts', das lediglich 'Write-Output' macht.
