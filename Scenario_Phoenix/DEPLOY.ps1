@@ -97,6 +97,12 @@ $server = 'Server2'
 $ipAddress = '10.5.0.20'
 
 
+# --- PowerShell Module Phoenix ------------------------------------------------------
+$ModuleBase = Get-Module -ListAvailable -Name Phoenix | % ModuleBase
+$ModuleFile = "$ModuleBase\Phoenix.psm1"
+$ModuleManifest = "$ModuleBase\Phoenix.psd1"
+code $ModuleFile
+code $ModuleManifest
 
 
 
