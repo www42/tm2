@@ -1,12 +1,20 @@
 # ------------------------------------------------------------------------------------
 # Scenario Hub-and-Spoke
 # ------------------------------------------------------------------------------------
-# This script generates a client certificate and signs it with the root certificate created before
+# This script 
+#   * imports the root certificate created before
+#   * creates a client certificate for use on an Azure Virtual Gateway (VPN)
+#       * the client certificate is valid for 1 year
+#       * the client certificate is signed with the root certificate
+#   * removes the root certificate (no longer needed)
+#
 # ------------------------------------------------------------------------------------
 # Requires Windows PowerShell 5.1  (due to 'cert:')
 # ------------------------------------------------------------------------------------
 
-# Import Root Certificate (needed to sign Client Certificate)
+
+
+# Import Root Certificate (to sign Client Certificate)
 # -------------------------------------------------------------------
 dir './Scenario_HubAndSpoke\RootCertificate.pfx'
 $password = Get-Content './Scenario_HubAndSpoke\PASSWORDS' | ConvertFrom-Json | % { $_.pfxPassword } | ConvertTo-SecureString
@@ -19,59 +27,22 @@ $rootCertificate | Format-List Thumbprint,FriendlyName,Subject,NotBefore,NotAfte
 $friendlyName = 'AZ Training VPN Client Certificate'
 $subject = 'cn=AZ Training VPN Client'
 $clientCertificate = New-SelfSignedCertificate `
-    -FriendlyName $friendlyName `
-    -Subject $subject `
-    -Type Custom `
-    -KeySpec Signature `
-    -KeyExportPolicy Exportable `
-    -HashAlgorithm sha256 `
-    -KeyLength 2048 `
-    -Signer $rootCertificate `
-    -TextExtension @("2.5.29.37={text}1.3.6.1.5.5.7.3.2") `
-    -CertStoreLocation 'Cert:\CurrentUser\My'
+-FriendlyName $friendlyName `
+-Subject $subject `
+-Type Custom `
+-KeySpec Signature `
+-KeyExportPolicy Exportable `
+-HashAlgorithm sha256 `
+-KeyLength 2048 `
+-Signer $rootCertificate `
+-TextExtension @("2.5.29.37={text}1.3.6.1.5.5.7.3.2") `
+-CertStoreLocation 'Cert:\CurrentUser\My'
 
 dir $clientCertificate.PSPath | Format-List FriendlyName,Subject,Issuer,NotBefore,NotAfter
 
 
-# Download and install VPN Client Software (PowerShell)
+
+# Delete Root Certificate (no longer needed)
 # -------------------------------------------------------------------
-# see  https://wmatthyssen.com/2022/01/05/azure-powershell-script-configure-a-p2s-vpn-to-an-existing-vnet-using-azure-certificate-authentication/
-
-# Download and install VPN Client Software (Azure CLI)
-# -------------------------------------------------------------------
-$rgName = $templateParams.resourceGroupName
-$gatewayName = $templateParams.gatewayName
-
-$uri = az network vnet-gateway vpn-client generate `
-    --processor-architecture Amd64 `
-    --name $gatewayName --resource-group $rgName `
-    --output tsv
-
-$vpnZipPath = "$env:HOMEPATH\Downloads"
-Invoke-RestMethod -Uri $uri -OutFile $vpnZipPath\VpnClient.zip
-dir $vpnZipPath\VpnClient.zip
-Expand-Archive -Path $vpnZipPath\VpnClient.zip -DestinationPath $vpnZipPath\VpnClient
-
-# Install VPN client manually
-& $vpnZipPath\VpnClient\WindowsAmd64\VpnClientSetupAmd64.exe
-
-# Connect
-cmd.exe /C "start ms-settings:network-vpn"
-
-# Test connectivity
-Get-NetIPConfiguration | Format-Table InterfaceIndex,InterfaceAlias,InterfaceDescription,IPv4Address
-$hubIpRange = '10.0.0.0/16'
-$hybridIpRange = '10.1.0.0/16'
-Get-NetRoute -DestinationPrefix $hubIpRange,$hybridIpRange
-Test-NetConnection 10.1.0.200 -Port 3389
-mstsc -v 10.1.0.200
-
-
-
-
-# Cleanup
-# -------------------------------------------------------------------
-#Remove-Item -Path $RootCertificate.PSPath
-#Remove-Item -Path $ClientCertificate.PSPath
+Remove-Item -Path $rootCertificate.PSPath
 dir Cert:/CurrentUser/My
-cmd.exe /C "start ms-settings:network-vpn"

@@ -33,7 +33,7 @@ $gatewaySubnetId = $gatewaySubnet.Id
 $deployGateway   = $false
 $gatewayName     = 'vgw-hub'
 $rootCertificateName = 'AzTrainingRoot'
-$rootCertificateData = 'MIIC5zCCAc+gAwIBAgIQVMUVr0NMiI1Cf4yE9ytIQjANBgkqhkiG9w0BAQsFADAWMRQwEgYDVQQDDAtBWiBUcmFpbmluZzAeFw0yMzA5MDUxNzUwMDhaFw0yNDA5MDUxODEwMDhaMBYxFDASBgNVBAMMC0FaIFRyYWluaW5nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApaom+BpYqwo6VUHCu+ah1sbqcDTnatvm/7yd5TGv0JS6pIn13gGLn+ss7dhJ5uGHB3AXiZlPkHRTgYYoLsos7EQDfLcRyz94TS/NtIAijpq709J+FrBIy7uVT7sWlOmZxkIjjh1ZvPboAotbXEP7hc2hGlXtJZGg1yLslNRRTGeaHesXf1RI/ODJ7/sO/TeZUvpqqP3EzH03uawqeztf/8ot2q/o7/vwQBy6rRvoz9OEh+QsO5m34n4FiL1Hqo60Kpj6FUTRI6HGhbRXLFonJmpB0HtvyQ7BtlykFhJhQJZZjnRxd/hyCt5o8zr4LwNmL2uejRFTl5oye1Iy32I0fQIDAQABozEwLzAOBgNVHQ8BAf8EBAMCAgQwHQYDVR0OBBYEFF1eAVAHWoZGGlS6tWTQigiuuM0dMA0GCSqGSIb3DQEBCwUAA4IBAQCWmpX2xASeulUM2oW8r/tQ+h3PHtnxp5mdNgwvg18zrcPXqYn7+ZPFDFzKClPJUdaEdtcDQfrwLA9C7/75UPUeRPdzw4Q+csqKdQ1VwLxo5/yVaFQ+KT2QnMgdLXwNXdb3S3rYDuqeDKwwxHh3hxIka8CqRZR8oPYUpD2y+9XEoepqOg+H6TuBK1WUuDasVpdEOp7XD2I5P8BkAx3VsBWOS2sueFSz16wR4Ene34VT1XLH22pV7s1U6IP1HmYQ6YIfML+QXEtSZzFfWoLFksNLsKHww7P72r7Xs6o8W/E2Np5mHFJMfja5b5qwv18Lyl+UIo908zDPV9TyHzffc8kr'
+$rootCertificateData = 'MIIC5zCCAc+gAwIBAgIQHhmUnnz6KKtGYNRtbqea+zANBgkqhkiG9w0BAQsFADAWMRQwEgYDVQQDDAtBWiBUcmFpbmluZzAeFw0yNTA0MDkxNjM2MThaFw0yNzA0MDkxNjQ2MThaMBYxFDASBgNVBAMMC0FaIFRyYWluaW5nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvh4//Exs5E/G+fouaXZYXvl51tlTLzbyBTPBAW7ta3FzmdXzHwxA3yLKBfQg6P9cH1yWHrzHVd81BnaFT/ocJI0Hc0ifbtBM6YmWmfDw+mTF497AOOTrN2VvShbRlSC95mqCkRREi6EE5aAYdrgceJatY/ml9ZSJQ313K/XCZKqOfxj1xLdjw09piA6uZFyrPXx2P/Kx4K0Z70v5xdjPeD5e4wSKqgMT94EaUkB4m9yboO65eqN0xwNCX/Ra3x7iyFPAjVsaOGrnzKK8XHCf8PDshjX3SRQhJlrIjvVZY2Es12JmATzqrpTbdF+snEF6zFxf9h3u1q0Jy3tnKHM4yQIDAQABozEwLzAOBgNVHQ8BAf8EBAMCAgQwHQYDVR0OBBYEFGFfpI68AT3H8/VVjidS8EnUQC3RMA0GCSqGSIb3DQEBCwUAA4IBAQBsCbjRxgTTqCbNzLl/gBGrUd8fZKS3GDNft8WPXeStG6l1Ebm0WF7BVZp+r/KmbUfYvHpyF4/u3ZgeKGAPU/VTC9MySuY+8K2rIA/mAxT21m4BrVQLLL96VhWl8MRd8KcnksNkFF7aV+2HbYVVN8QwxXcne4WMkRi7avOyt3i3o9HXebF+52yI+bIRWxDIkK7HDTpuyL2crQr34vQIW3E44nVVDBhyUCYsqXHy7Fx2kryMt+FZuqpLROjmo+1f8Ne7ESchVMNexOw9ZH0TVFbLGT0SiWmIoHNjkmVUCpzD+hbNF8bBdY0RY2KdYfyIbvMYGRXIvUFG7smpJQmD9Fbg'
 $templateFile    = 'Scenario_HubAndSpoke/main.bicep'
 
 $templateParams = @{
@@ -78,15 +78,13 @@ Get-AzResourceGroupDeployment -ResourceGroupName $rgName | Sort-Object Timestamp
 
 
 # --- Next steps ---------------------------------------------------------------------
-# 
-#   --> ClientCertificate
-#   --> Peering
-#   --> Optional: Spoke-to-Spoke-Routing
+#       Peering Hub and Spokes --> Peering.ps1
+#       Poit-to-Site VPN       --> PointToSiteVPN.ps1
+#
 
 
+# --- Delete Bastion Host to save money ----------------------------------------------
 
-# --- Bastion Host -------------------------------------------------------------------
-# 
 # Remove a bastion host
 $bastionName     = 'bas-hub'
 $rgName          = 'rg-hub'
