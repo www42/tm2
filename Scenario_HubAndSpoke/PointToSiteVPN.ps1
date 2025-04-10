@@ -44,5 +44,5 @@ mstsc -v 10.1.0.200
 
 
 
-# Disconnect VPN
+# Disconnect and remove VPN
 cmd.exe /C "start ms-settings:network-vpn"
