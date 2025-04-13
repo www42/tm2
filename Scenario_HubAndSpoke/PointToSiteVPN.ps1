@@ -54,70 +54,50 @@ Remove-Item -Path $vpnZipPath\VpnClient.zip -Force
 
 
 
-# Access Private EP 10.1.0.4 connected to blob service of storage account 'private69118'
-# --------------------------------------------------------------------------------------
+# Access Private Endpoint 'pep-storage'
+# ------------------------------------------------------
 
-#   *** From dc1 *****
-# We are in the same Vnet as the private EP [10.1.0.200]
+#  * Private Endpoint 'pep-storage' is connected to blob service of Storage Account 'private69118'.
+#  * Private Endpoint 'pep-storage' has ip address 10.1.0.4 from 'Subnet0' in 'vnet-hybrididentity'. This is a "normal" IP address accessible from the Vnet, via default routing or UDR.
+#  * You cannot use the IP address to access the Storage Account 'private69118' bacause the certificate is not valid for the IP address. 
+Invoke-WebRequest -Uri https://10.1.0.4/txt/Hello.txt -UseBasicParsing | % content  # Certificate error
+#  * You need to use the DNS name 'private69118.blob.core.windows.net'.
+#
+#  How to translate 'private69118.blob.core.windows.net' to '10.1.0.4'?  DNS of course!
+#
+#  private69118.blob.core.windows.net             CNAME     private69118.privatelink.blob.core.windows.net
+#                                                                        ^^^^^^^^^^^
+#  private69118.privatelink.blob.core.windows.net  A        10.1.0.4
+#
+#  The A record is in the Private DNS zone 'privatelink.blob.core.windows.net'.
+#  The CNAME record is in the Public DNS zone 'blob.core.windows.net'.
+#
+#
+#  Let's have a look to three cases:
+#   a) Client is on the Vnet as the Private Endpoint               --> Private DNS zone is already linked to Vnet (default in Azure Portal)
+#   b) Client is on a different Vnet as the Private Endpoint       --> Link the Private DNS zone to the Vnet!
+#   c) Client is on prem connectet to Azure via point-to-site VPN  --> Create your own on prem DNS solution, e.g. etc/hosts file
+
+
+#  Name Resolution
+#    a)
+Get-AzPrivateDnsZone -ResourceGroupName 'rg-hybrididentity' -Name 'privatelink.blob.core.windows.net' | fl Name,ResourceGroupName,NumberOfRecordSets,NumberOfVirtualNetworkLinks
+
+
+
+# Test from a client 
+#   a) dc1
+#   b) svr1
+#   c) Laptop (VPN)
 Get-NetIPConfiguration
-
-# Is Private EP reachable by IP address? [Yes]
 Test-NetConnection -ComputerName 10.1.0.4 -Port 443
-
-# Is blob accessible by IP address? [No, certificate error]
-Invoke-WebRequest -Uri https://10.1.0.4/txt/Hello.txt -UseBasicParsing | % content
-
-# Name resolution private69118.blob.core.windows.net --> 10.1.0.4 available? [Yes via linked private DNS zone]
 Resolve-DnsName -Name private69118.blob.core.windows.net -Type A
-
-# -------------------------------------------------------
-# Private EP is already integrated with private DNS zone.
-# -------------------------------------------------------
-
-# Blob is accessible
-Test-NetConnection -ComputerName private69118.blob.core.windows.net -Port 443
 Invoke-WebRequest -Uri https://private69118.blob.core.windows.net/txt/Hello.txt -UseBasicParsing | % content
 
 
 
-
-#   *** From svr1 *****
-# We are in a different Vnet as the private EP [10.3.0.4]
-Get-NetIPConfiguration
-
-# Is Private EP reachable by IP address? [Yes]
-Test-NetConnection -ComputerName 10.1.0.4 -Port 443
-
-# Is blob accessible by IP address? [No, certificate error]
-Invoke-WebRequest -Uri https://10.1.0.4/txt/Hello.txt -UseBasicParsing | % content
-
-# Name resolution private69118.blob.core.windows.net --> 10.1.0.4 available? 
-#   [No, there is no linked private DNS zone, public DNS yields public IP address]
-Resolve-DnsName -Name private69118.blob.core.windows.net -Type A
-
-# --------------------------------
-# Link Vnet to private DNS zone!
-# --------------------------------
-
-# Now it works
-Resolve-DnsName -Name private69118.blob.core.windows.net -Type A
-Test-NetConnection -ComputerName private69118.blob.core.windows.net -Port 443
-Invoke-WebRequest -Uri https://private69118.blob.core.windows.net/txt/Hello.txt -UseBasicParsing | % content
-
-
-
-
-#   *** From Notebook VPN Client *****
-Test-NetConnection -ComputerName 10.1.0.4 -Port 443
-Resolve-DnsName -Name private69118.blob.core.windows.net -Type A
 
 # -------------------------------------------------------------
 # Edit c:\windows\system32\drivers\etc\hosts   as Administrator
 #      10.1.0.4  private69118.blob.core.windows.net
 # --------------------------------------------------------------
-
-# Now it works
-Resolve-DnsName -Name private69118.blob.core.windows.net -Type A
-Test-NetConnection -ComputerName private69118.blob.core.windows.net -Port 443
-Invoke-WebRequest -Uri https://private69118.blob.core.windows.net/txt/Hello.txt -UseBasicParsing | % content
-
