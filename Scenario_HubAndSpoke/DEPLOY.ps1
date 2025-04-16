@@ -9,6 +9,7 @@
 
 # --- Login --------------------------------------------------------------------------
 Login-AzAccount
+Login-AzAccount -Subscription 'fa366244-df54-48f8-83c2-e1739ef3c4f1'
 Get-AzContext | Format-List Name,Account,Tenant,Subscription
 Get-AzContext -ListAvailable | Format-List Name,Account,Tenant,Subscription
 Set-AzContext -Subscription 'fa366244-df54-48f8-83c2-e1739ef3c4f1'

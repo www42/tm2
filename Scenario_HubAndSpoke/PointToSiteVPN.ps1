@@ -101,3 +101,41 @@ Invoke-WebRequest -Uri https://private69118.blob.core.windows.net/txt/Hello.txt 
 # Edit c:\windows\system32\drivers\etc\hosts   as Administrator
 #      10.1.0.4  private69118.blob.core.windows.net
 # --------------------------------------------------------------
+
+$rgName = 'rg-hybrididentity'
+$zoneName = 'privatelink.blob.core.windows.net'
+Get-AzPrivateDnsZone -Name $zoneName | fl Name,ResourceGroupName,NumberOfRecordSets,NumberOfVirtualNetworkLinks
+Get-AzPrivateDnsRecordSet -ZoneName $zoneName -ResourceGroupName $rgName -Name 'private69118' -RecordType A | fl Name,RecordType,Records
+Get-AzPrivateDnsVirtualNetworkLink -ZoneName $zoneName -ResourceGroupName $rgName | fl Name,VirtualNetworkId,EnableRegistration,VirtualNetworkLinkState
+
+# Link private DNS zone to VNet
+$virtualNetworkId = '/subscriptions/fa366244-df54-48f8-83c2-e1739ef3c4f1/resourceGroups/rg-nestedvirtualization/providers/Microsoft.Network/virtualNetworks/vnet-nestedvirtualization'
+$linkName = 'nestedvirtualizationLink'
+New-AzPrivateDnsVirtualNetworkLink -Name $linkName -ResourceGroupName $rgName -ZoneName $zoneName -VirtualNetworkId $virtualNetworkId -EnableRegistration:$false
+
+# Remove link
+$link = Get-AzPrivateDnsVirtualNetworkLink -ZoneName $zoneName -ResourceGroupName $rgName -Name $linkName
+$link.ResourceId
+Remove-AzPrivateDnsVirtualNetworkLink -ResourceId $link.ResourceId
+
+# For each service
+# ----------------
+# see https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
+$zoneName = privatelink.blob.core.windows.net
+$zoneName = privatelink.file.core.windows.net
+$zoneName = privatelink.web.core.windows.net
+$zoneName = privatelink.vaultcore.azure.net
+$zoneName = privatelink.azurewebsites.net
+$zoneName = privatelink.azurecr.io
+
+# 2. Private DNS zone
+# see https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns-integration
+New-AzPrivateDnsZone -Name $zoneName -ResourceGroupName $rgName -ZoneType Private -Force
+
+
+# 3. Link private DNS zone - VNet
+
+# For each Private Endpoint
+# -------------------------
+# 4. Private Endpoint
+# 5. A-Record
