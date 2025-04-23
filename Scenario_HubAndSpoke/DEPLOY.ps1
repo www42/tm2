@@ -73,6 +73,7 @@ $templateParams['bastionSubnetId'] = $bastionSubnet.Id
 $templateParams['gatewaySubnetId'] = $gatewaySubnet.Id
 $templateParams
 dir $templateFile
+
 New-AzResourceGroupDeployment -Name 'Scenario-HubAndSpoke' -TemplateFile $templateFile -ResourceGroupName $rgName -Location $location @templateParams 
 
 Get-AzResourceGroupDeployment -ResourceGroupName $rgName | Sort-Object Timestamp -Descending | ft DeploymentName,ProvisioningState,Timestamp
