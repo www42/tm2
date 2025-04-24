@@ -13,7 +13,7 @@ param dcrName string
 param deployLoadbalancer bool
 param loadbalancerName string
 
-module virtualMachine '../templates/virtualMachine.bicep' = {
+module virtualMachine '../templates/virtualMachineIis.bicep' = {
   name: 'Module-VirtualMachine'
   params: {
     location: location
@@ -57,7 +57,7 @@ module dataCollectionRuleAssociation '../templates/dataCollectionRuleAssociation
     dcrId: dataCollectionRule.outputs.dcrId
   }
 }
-module virtualMachine2 '../templates/virtualMachine.bicep' = if (deployLoadbalancer) {
+module virtualMachine2 '../templates/virtualMachineIis.bicep' = if (deployLoadbalancer) {
   name: 'Module-VirtualMachine2'
   params: {
     location: location
