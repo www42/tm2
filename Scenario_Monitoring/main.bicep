@@ -2,12 +2,16 @@ param location string
 param subnetId string
 param systemAssignedManagedIdentity bool
 param vmName string
+param vmName2 string
 param vmComputerName string
+param vmComputerName2 string
 param vmAdminUserName string
 @secure()
 param vmAdminPassword string
 param logAnalyticsWorkspaceName string
 param dcrName string
+param deployLoadbalancer bool
+param loadbalancerName string
 
 module virtualMachine '../templates/virtualMachine.bicep' = {
   name: 'Module-VirtualMachine'
@@ -51,5 +55,24 @@ module dataCollectionRuleAssociation '../templates/dataCollectionRuleAssociation
   params: {
     vmName: vmName
     dcrId: dataCollectionRule.outputs.dcrId
+  }
+}
+module virtualMachine2 '../templates/virtualMachine.bicep' = if (deployLoadbalancer) {
+  name: 'Module-VirtualMachine2'
+  params: {
+    location: location
+    subnetId: subnetId
+    vmName: vmName2
+    vmComputerName: vmComputerName2
+    systemAssignedManagedIdentity: systemAssignedManagedIdentity
+    vmAdminUserName: vmAdminUserName
+    vmAdminPassword: vmAdminPassword
+  }
+}
+module loadbalancer '../templates/loadbalancerStandard.bicep' = if (deployLoadbalancer) {
+  name: 'Module-LoadBalancer'
+  params: {
+    location: location
+    name: loadbalancerName
   }
 }

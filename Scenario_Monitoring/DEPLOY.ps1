@@ -25,26 +25,37 @@ $location                      = 'westeurope'
 $vnetName                      = 'vnet-monitoring'
 $addressPrefix                 = '10.3.0.0/16'
 $subnet0Config                 = New-AzVirtualNetworkSubnetConfig -Name 'Subnet0' -AddressPrefix '10.3.0.0/24'
+$subnetId                      = $subnet0.Id  # wird weiter unten gesetzt
 $vmName                        = 'vm-monitoring-svr1'
+$vmName2                       = 'vm-monitoring-svr2'
 $vmComputerName                = 'SVR1'
+$vmComputerName2               = 'SVR2'
 $systemAssignedManagedIdentity = $true
 $vmAdminUserName               = 'LocalAdmin'
 $vmAdminPassword               = Get-Content "./Scenario_Monitoring/PASSWORDS" | ConvertFrom-Json | % { $_.localAdminPassword } | ConvertTo-SecureString
 $logAnalyticsWorkspaceName     = 'log-monitoring'
 $dcrName                       = 'dcr-windowsperf'
+$deployLoadbalancer            = $false
+$loadbalancerName              = 'lbe-monitoring'
 $templateFile = 'Scenario_Monitoring/main.bicep'
 
 $templateParams = @{
     location = $location
-    subnetId = $subnet0.Id
+    subnetId = $subnetId
     vmName = $vmName
+    vmName2 = $vmName2
     vmComputerName = $vmComputerName
+    vmComputerName2 = $vmComputerName2
     systemAssignedManagedIdentity = $systemAssignedManagedIdentity
     vmAdminUserName = $vmAdminUserName
     vmAdminPassword = $vmAdminPassword
     logAnalyticsWorkspaceName = $logAnalyticsWorkspaceName
     dcrName = $dcrName
+    deployLoadbalancer = $deployLoadbalancer
+    loadbalancerName = $loadbalancerName
 }
+$templateParams['deployLoadbalancer'] = $true
+
 
 # --- Resource group -----------------------------------------------------------------
 New-AzResourceGroup -Name $rgName -Location $location
@@ -64,8 +75,9 @@ $subnet0 = Get-AzVirtualNetworkSubnetConfig -VirtualNetwork $vnet -Name 'Subnet0
 
 # --- Template Deployment: VM, DCR, DCR association ----------------------------------
 $templateParams['subnetId'] = $subnet0.Id
-$templateParams
+$templateParams 
 dir $templateFile
+
 New-AzResourceGroupDeployment -Name 'Scenario-Monitoring' -TemplateFile $templateFile -ResourceGroupName $rgName -Location $location @templateParams 
 
 Get-AzResourceGroupDeployment -ResourceGroupName $rgName | Sort-Object Timestamp -Descending | ft DeploymentName,ProvisioningState,Timestamp
