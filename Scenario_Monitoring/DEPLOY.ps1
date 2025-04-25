@@ -73,7 +73,7 @@ $vnet = Get-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName
 $subnet0 = Get-AzVirtualNetworkSubnetConfig -VirtualNetwork $vnet -Name 'Subnet0'
 
 
-# --- Template Deployment: VM, DCR, DCR association ----------------------------------
+# --- Template Deployment: VMs, Loadbalancer, DCR, DCR association -------------------
 $templateParams['subnetId'] = $subnet0.Id
 $templateParams 
 dir $templateFile
@@ -81,3 +81,15 @@ dir $templateFile
 New-AzResourceGroupDeployment -Name 'Scenario-Monitoring' -TemplateFile $templateFile -ResourceGroupName $rgName -Location $location @templateParams 
 
 Get-AzResourceGroupDeployment -ResourceGroupName $rgName | Sort-Object Timestamp -Descending | ft DeploymentName,ProvisioningState,Timestamp
+
+
+
+# --- Loadbalancer -------------------------------------------------------------------
+$rgName
+$loadbalancerName
+Get-AzLoadBalancer -Name $loadbalancerName -ResourceGroupName $rgName | fl Name,ResourceGroupName,Location,ProvisioningState,FrontendIpConfigurations,BackendAddressPools,LoadBalancingRules
+$ip = Get-AzPublicIpAddress -Name 'pip-lbe-monitoring' | % IpAddress
+
+for ($i = 1; $i -le 10; $i++) {
+    Invoke-WebRequest -DisableKeepAlive -Uri $ip | % Content
+}
