@@ -61,9 +61,10 @@
 
 [Browse all courses, learning paths, and modules](https://learn.microsoft.com/en-us/training/browse/)
 
-[Microsoft Ignite November 19 - 21, 2024](https://ignite.microsoft.com/en-US/home)
+[AI Skills Navigator](https://aiskillsnavigator.microsoft.com/en-us)
 
-[AI Skills Challenge (ends November 1, 2024)](https://learn.microsoft.com/en-us/training/topics/event-challenges?tabs=azure-ai)
+[How we built "Ask Learn", the RAG-based knowledge service](https://devblogs.microsoft.com/engineering-at-microsoft/how-we-built-ask-learn-the-rag-based-knowledge-service/)
+
 
 <br>
 
