@@ -1,0 +1,51 @@
+{
+  "deprecated": null,
+  "enablementTime": "2025-05-26T08:01:56.165497+00:00",
+  "extensions": [
+    {
+      "additionalExtensionProperties": null,
+      "isEnabled": "True",
+      "name": "SensitiveDataDiscovery",
+      "operationStatus": null
+    },
+    {
+      "additionalExtensionProperties": null,
+      "isEnabled": "True",
+      "name": "ContainerRegistriesVulnerabilityAssessments",
+      "operationStatus": null
+    },
+    {
+      "additionalExtensionProperties": null,
+      "isEnabled": "True",
+      "name": "AgentlessDiscoveryForKubernetes",
+      "operationStatus": null
+    },
+    {
+      "additionalExtensionProperties": {
+        "ExclusionTags": "[]"
+      },
+      "isEnabled": "True",
+      "name": "AgentlessVmScanning",
+      "operationStatus": null
+    },
+    {
+      "additionalExtensionProperties": null,
+      "isEnabled": "True",
+      "name": "EntraPermissionsManagement",
+      "operationStatus": null
+    },
+    {
+      "additionalExtensionProperties": null,
+      "isEnabled": "True",
+      "name": "ApiPosture",
+      "operationStatus": null
+    }
+  ],
+  "freeTrialRemainingTime": "0:00:00",
+  "id": "/subscriptions/fa366244-df54-48f8-83c2-e1739ef3c4f1/providers/Microsoft.Security/pricings/CloudPosture",
+  "name": "CloudPosture",
+  "pricingTier": "Standard",
+  "replacedBy": null,
+  "subPlan": null,
+  "type": "Microsoft.Security/pricings"
+}
