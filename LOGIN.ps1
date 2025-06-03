@@ -5,6 +5,7 @@
 # objectId  = 'e1568331-075e-4c9f-95a6-99f972e1266e'
 # $clientID = '65e5bc2a-7ab0-4644-b770-e198a66546b2'
 # $tenantId = '819ebf55-0973-4703-b006-581a48f25961'
+# siehe KeePass 'Powershell Service Principal"
 
 
 # --- Save Client Secret locally (.gitignore) ----------------------------------------
