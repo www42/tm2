@@ -70,6 +70,39 @@
 
 <br>
 
+## Microsoft Documentation Landing Pages
+
+[Azure documentation](https://learn.microsoft.com/en-us/azure/)
+
+[Azure Resource Manager documentation](https://learn.microsoft.com/en-us/azure/azure-resource-manager/)
+
+[Bicep documentation](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/)
+
+[Azure Policy documentation](https://learn.microsoft.com/en-us/azure/governance/policy/)
+
+[Microsoft Graph documentation](https://learn.microsoft.com/en-us/graph/)
+
+[Microsoft Defender for Cloud documentation](https://learn.microsoft.com/en-us/azure/defender-for-cloud/)
+
+[Microsoft Defender XDR documentation](https://learn.microsoft.com/en-us/defender-xdr/)
+
+[Microsoft Sentinel documentation](https://learn.microsoft.com/en-us/azure/sentinel/)
+
+[Azure Monitor documentation](https://learn.microsoft.com/en-us/azure/azure-monitor/)
+
+[Kusto documentation](https://learn.microsoft.com/en-us/kusto/)
+
+[Microsoft Entra documentation](https://learn.microsoft.com/en-us/entra/)
+
+[Microsoft Entra ID Governance documentation](https://learn.microsoft.com/en-us/entra/id-governance/)
+
+[PowerShell Documentation](https://learn.microsoft.com/en-us/powershell/)
+
+[Azure Command-Line Interface (CLI) documentation](https://learn.microsoft.com/en-us/cli/azure/?view=azure-cli-latest)
+
+
+
+
 ## Useful Links
 
 <br>

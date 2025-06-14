@@ -101,12 +101,8 @@ Install-Module -Name Microsoft.Graph -Repository PSGallery -Scope AllUsers -Forc
 
 Get-InstalledModule -Name Microsoft.Graph -AllVersions
 
-
-# New Entra Module
-#     https://www.youtube.com/watch?v=YOgpAkshmYI
-#
+# --- Microsoft Graph.Entra -------------------------------
 Get-Module     -Name Microsoft.Graph.Entra* -ListAvailable
-# Update-Module  -- Werden alte Versionen entfernt?
 
 # --- Microsoft Graph Entra (/v1 Endpoint) ----------------
 Get-Module       -Name Microsoft.Graph.Entra -ListAvailable
