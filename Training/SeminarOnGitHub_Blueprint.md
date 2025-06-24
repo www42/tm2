@@ -107,7 +107,7 @@
 
 <br>
 
-##  Your Trainer
+## Your Trainer
 #### Thomas Jäkel
 
 <img src="https://download69118.blob.core.windows.net/anon/Profilbild.jpg" width="150"><img src="https://download69118.blob.core.windows.net/anon/Standard MCT Badge Large.png" width=100>
