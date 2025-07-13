@@ -1,0 +1,21 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "alignment": "left",
+      "segments": [
+        {
+          "foreground": "#26C6DA",
+          "properties": {
+            "macos": "mac"
+          },
+          "style": "plain",
+          "template": "{{ if .WSL }}WSL at {{ end }}{{.Icon}}",
+          "type": "os"
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "version": 3
+}
