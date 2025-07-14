@@ -1,21 +1,31 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "version": 3,
+  "final_space": true,
   "blocks": [
     {
-      "alignment": "left",
-      "segments": [
+        "type": "prompt",
+        "alignment": "left",
+        "segments": [
         {
-          "foreground": "#26C6DA",
-          "properties": {
-            "macos": "mac"
-          },
-          "style": "plain",
-          "template": "{{ if .WSL }}WSL at {{ end }}{{.Icon}}",
-          "type": "os"
+            "type": "os",
+            "style": "plain",
+            "foreground": "#ffffff",
+            "background": "#61AFEF",
+            "properties": {
+                "windows": ""
+            }
+        },
+        {
+            "type": "path",
+            "style": "plain",
+            "foreground": "#ffffff",
+            "background": "#61AFEF",
+            "properties": {
+                "style": "folder"
+            }
         }
-      ],
-      "type": "prompt"
+      ]
     }
-  ],
-  "version": 3
+  ]
 }
