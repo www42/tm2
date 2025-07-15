@@ -1,0 +1,27 @@
+# My own OMP (Oh My Posh) configuration
+version = 3
+console_title_template = '{{ .Shell }} in {{ .Folder }}'
+final_space = true
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+
+[[blocks.segments]]
+  type = 'path'
+  style = 'plain'
+  background = 'transparent'
+  foreground = '#2e9599'
+
+  [blocks.segments.properties]
+    #style = 'full'
+    style = 'mixed'
+    mixed_threshold = 4
+    folder_icon = '...'
+
+[[blocks.segments]]
+  type = 'text'
+  style = 'plain'
+  background = 'transparent'
+  foreground = '#2e9599'
+  template = ">"
