@@ -1,7 +1,7 @@
 # Oh My Posh (OMP)
 # Install from https://ohmyposh.dev/docs/installation/windows
 
-# Descibe your prompt configuration in a json file, see https://ohmyposh.dev/docs/
+# Describe your prompt configuration in a json/yaml/toml file, see https://ohmyposh.dev/docs/
 
 # Test your configuration by following command. This produces a single line representing the configuration specified.
 oh-my-posh print primary --config "C:\git\tm2\OMP\myOMP.toml" --shell universal
