@@ -48,6 +48,7 @@ function Remove-OldAzModule {
 }
 Remove-OldAzModule
 Install-Module -Name Az -Repository PSGallery -Scope AllUsers -Force
+Install-Module -Name Az -Repository PSGallery -Scope AllUsers -Force -AllowClobber
 
 
 # --- AzureAD (5.1 only) ---------------------------------
