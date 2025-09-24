@@ -22,6 +22,7 @@ $vpnZipPath = "$env:HOMEPATH\Downloads"
 # Remove the old VPN client
 Remove-Item -Path $vpnZipPath\VpnClient -Recurse -Force
 Remove-Item -Path $vpnZipPath\VpnClient.zip -Force
+# Download VPN client
 Invoke-RestMethod -Uri $uri -OutFile $vpnZipPath\VpnClient.zip
 dir $vpnZipPath\VpnClient.zip
 Expand-Archive -Path $vpnZipPath\VpnClient.zip -DestinationPath $vpnZipPath\VpnClient
