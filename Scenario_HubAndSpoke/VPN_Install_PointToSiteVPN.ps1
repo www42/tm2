@@ -65,6 +65,10 @@ cmd.exe /C "start ms-settings:network-vpn"
 Get-NetRoute -AddressFamily IPv4 -DestinationPrefix '10.0.0.0/16','10.1.0.0/16','10.2.0.0/16','10.3.0.0/16'
 # There should be a route to Hub VNet as well as to the spokes
 
+# Routes added by VPN connection are from file 'routes.txt' in
+# C:\Users\thoma\AppData\Roaming\Microsoft\Network\Connections\Cm\<GUID>\
+
+
 # Test  dc1 (10.1.0.200) or svr1 (10.3.0.4)
 Test-NetConnection 10.1.0.200 -Port 3389
 mstsc -v 10.1.0.200    # Remove RD Gateway!
