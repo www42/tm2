@@ -40,6 +40,8 @@ $clientCertificate = New-SelfSignedCertificate `
 
 dir $clientCertificate.PSPath | Format-List FriendlyName,Subject,Issuer,NotBefore,NotAfter
 
+dir cert:/CurrentUser/My/77960187C101521E33CF91D1DEEDAA61B4E41743 | fl FriendlyName,Subject,Issuer,NotBefore,NotAfter
+
 
 
 # Delete Root Certificate (no longer needed)
