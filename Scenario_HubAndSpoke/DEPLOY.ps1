@@ -8,11 +8,10 @@
 
 
 # --- Login --------------------------------------------------------------------------
-Login-AzAccount
-Login-AzAccount -Subscription 'fa366244-df54-48f8-83c2-e1739ef3c4f1'
-Get-AzContext | Format-List Name,Account,Tenant,Subscription
-Get-AzContext -ListAvailable | Format-List Name,Account,Tenant,Subscription
-Set-AzContext -Subscription 'fa366244-df54-48f8-83c2-e1739ef3c4f1'
+# Login-AzAccount -Subscription 'fa366244-df54-48f8-83c2-e1739ef3c4f1'
+# Get-AzContext | Format-List Name,Account,Tenant,Subscription
+# Get-AzContext -ListAvailable | Format-List Name,Account,Tenant,Subscription
+# Set-AzContext -Subscription 'fa366244-df54-48f8-83c2-e1739ef3c4f1'
 
 
 # --- Prerequisite: Root Certificate -------------------------------------------------
@@ -51,9 +50,9 @@ $templateParams['deployGateway'] = $true
 
 
 # --- Resource group -----------------------------------------------------------------
-New-AzResourceGroup -Name $rgName -Location $location -Force
+# New-AzResourceGroup -Name $rgName -Location $location -Force
+# Get-AzResourceGroup | Sort-Object ResourceGroupName | ft ResourceGroupName,Location,ProvisioningState
 
-Get-AzResourceGroup | Sort-Object ResourceGroupName | ft ResourceGroupName,Location,ProvisioningState
 Get-AzResource -ResourceGroupName $rgName | Sort-Object ResourceType | Format-Table Name,ResourceType,Location
 
 # New-AzResourceGroupDeployment -Name 'TabulaRasa' -ResourceGroupName $rgName -Mode Complete -Force -TemplateUri 'https://raw.githubusercontent.com/www42/arm/master/templates/empty.json' -AsJob
@@ -61,7 +60,7 @@ Get-AzResource -ResourceGroupName $rgName | Sort-Object ResourceType | Format-Ta
 
 
 # --- Virtual network ----------------------------------------------------------------
-New-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName -Location $location -AddressPrefix $addressPrefix -Subnet $subnet0,$subnet1,$subnet2,$subnet3 -Force
+# New-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName -Location $location -AddressPrefix $addressPrefix -Subnet $subnet0,$subnet1,$subnet2,$subnet3 -Force
 
 $vnet = Get-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName
 $bastionSubnet = Get-AzVirtualNetworkSubnetConfig -VirtualNetwork $vnet -Name 'AzureBastionSubnet'

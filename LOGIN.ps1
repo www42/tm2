@@ -9,9 +9,8 @@
 
 
 # --- Save Client Secret locally (.gitignore) ----------------------------------------
-
-$clientSecret = Read-Host -Prompt 'Client Secret' -AsSecureString | ConvertFrom-SecureString
-@{'clientSecret' = $clientSecret} | ConvertTo-Json | Out-File "./PASSWORDS"
+# $clientSecret = Read-Host -Prompt 'Client Secret' -AsSecureString | ConvertFrom-SecureString
+# @{'clientSecret' = $clientSecret} | ConvertTo-Json | Out-File "./PASSWORDS"
 
 
 # --- Login to Azure -----------------------------------------------------------------

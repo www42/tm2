@@ -1,28 +1,42 @@
-# Download and install VPN Client Software (PowerShell)
+#
+# How to download and install VPN client software using PowerShell is described here:
+#   https://wmatthyssen.com/2022/01/05/azure-powershell-script-configure-a-p2s-vpn-to-an-existing-vnet-using-azure-certificate-authentication/
+#
+# We will use Azure CLI instead.
+
+# Agenda:
+#   1. Download and install VPN client software 
+#   2. Connect VPN
+
+
+
+# 1. Download and install VPN client software 
 # -------------------------------------------------------------------
-# see  https://wmatthyssen.com/2022/01/05/azure-powershell-script-configure-a-p2s-vpn-to-an-existing-vnet-using-azure-certificate-authentication/
 
-
-
-
-# Download and install VPN Client Software (Azure CLI)
-# -------------------------------------------------------------------
-# Should be 
+#
+# Env variables set? Should be 
 #   $rgName = 'rg-hub'
 #   $gatewayName = 'vgw-hub'
 $rgName
 $gatewayName
 
+
+# VPN client software will be downloaded to
+$vpnZipPath = "$env:HOMEPATH\Downloads"
+
+# Remove old VPN client downloads
+Remove-Item -Path $vpnZipPath\VpnClient.zip -Force
+Remove-Item -Path $vpnZipPath\VpnClient -Recurse -Force
+# Uninstall old vpn client manually
+cmd.exe /C "start ms-settings:network-vpn"
+
+
+# Download VPN client
 $uri = az network vnet-gateway vpn-client generate `
     --processor-architecture Amd64 `
     --name $gatewayName --resource-group $rgName `
     --output tsv
 
-$vpnZipPath = "$env:HOMEPATH\Downloads"
-# Remove the old VPN client
-Remove-Item -Path $vpnZipPath\VpnClient -Recurse -Force
-Remove-Item -Path $vpnZipPath\VpnClient.zip -Force
-# Download VPN client
 Invoke-RestMethod -Uri $uri -OutFile $vpnZipPath\VpnClient.zip
 dir $vpnZipPath\VpnClient.zip
 Expand-Archive -Path $vpnZipPath\VpnClient.zip -DestinationPath $vpnZipPath\VpnClient
@@ -30,22 +44,40 @@ dir $vpnZipPath\VpnClient
 
 # Install VPN client manually
 & $vpnZipPath\VpnClient\WindowsAmd64\VpnClientSetupAmd64.exe
-
-# Connect VPN
 cmd.exe /C "start ms-settings:network-vpn"
+# VPN client should now be installed
 
-# Test connectivity
+
+
+
+# 2. Connect VPN
+# -------------------------------------------------------------------
+
+# Prior to connect show the routing table
 Get-NetIPConfiguration | Format-Table InterfaceIndex,InterfaceAlias,InterfaceDescription,IPv4Address
+# There is no route to Hub VNet (10.0.0.0/16) or to the spokes
 Get-NetRoute -AddressFamily IPv4 -DestinationPrefix '10.0.0.0/16','10.1.0.0/16','10.2.0.0/16','10.3.0.0/16'
 
-#   Test  dc1 (10.1.0.200), svr1 (10.3.0.4)
+# Connect VPN manually
+cmd.exe /C "start ms-settings:network-vpn"
+
+# After connect show the routing table again
+Get-NetRoute -AddressFamily IPv4 -DestinationPrefix '10.0.0.0/16','10.1.0.0/16','10.2.0.0/16','10.3.0.0/16'
+# There should be a route to Hub VNet as well as to the spokes
+
+# Test  dc1 (10.1.0.200) or svr1 (10.3.0.4)
 Test-NetConnection 10.1.0.200 -Port 3389
 mstsc -v 10.1.0.200    # Remove RD Gateway!
+
+# Test Private Endpoint 'pep-storage' (10.1.0.4)  - see down below
+Resolve-DnsName -Name private69118.blob.core.windows.net -Type A
+Resolve-DnsName -Name private69118.blob.core.windows.net -Type A -Server 8.8.8.8
+Invoke-WebRequest -Uri https://private69118.blob.core.windows.net/txt/Hello.txt -UseBasicParsing | % content
 
 
 # Clean up
 # -------------------------------------------------------------------
-# Disconnect and remove VPN
+# Disconnect and remove VPN manually
 cmd.exe /C "start ms-settings:network-vpn"
 
 # Remove VPN Client
