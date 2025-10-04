@@ -13,14 +13,14 @@
 
 
 # --- Login --------------------------------------------------------------------------
-Login-AzAccount
-Get-AzContext | Format-List Name,Account,Tenant,Subscription
+# Login-AzAccount
+# Get-AzContext | Format-List Name,Account,Tenant,Subscription
 
 
 # --- Set passwords ------------------------------------------------------------------
-$localAdminPassword = Read-Host -Prompt 'LocalAdmin password' -AsSecureString | ConvertFrom-SecureString
-$domainAdminPassword = Read-Host -Prompt 'DomainAdmin password' -AsSecureString | ConvertFrom-SecureString
-@{'localAdminPassword' = $localAdminPassword; 'domainAdminPassword' = $domainAdminPassword} | ConvertTo-Json | Out-File "./Scenario_HybridIdentity/PASSWORDS"
+# $localAdminPassword = Read-Host -Prompt 'LocalAdmin password' -AsSecureString | ConvertFrom-SecureString
+# $domainAdminPassword = Read-Host -Prompt 'DomainAdmin password' -AsSecureString | ConvertFrom-SecureString
+# @{'localAdminPassword' = $localAdminPassword; 'domainAdminPassword' = $domainAdminPassword} | ConvertTo-Json | Out-File "./Scenario_HybridIdentity/PASSWORDS"
 
 
 # --- Parameters ---------------------------------------------------------------------
@@ -70,7 +70,7 @@ $templateParams['createAaJob'] = $false
 
 
 # --- Resource group -----------------------------------------------------------------
-New-AzResourceGroup -Name $rgName -Location $location
+# New-AzResourceGroup -Name $rgName -Location $location
 
 Get-AzResourceGroup | Sort-Object ResourceGroupName | ft ResourceGroupName,Location,ProvisioningState
 Get-AzResource -ResourceGroupName $rgName | Sort-Object ResourceType | Format-Table Name,ResourceType,Location
@@ -81,7 +81,7 @@ Get-AzResource -ResourceGroupName $rgName | Sort-Object ResourceType | Format-Ta
 
 
 # --- Virtual network ----------------------------------------------------------------
-New-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName -Location $location -AddressPrefix $addressPrefix -Subnet $subnet0config, $subnet1config -Force
+# New-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName -Location $location -AddressPrefix $addressPrefix -Subnet $subnet0config, $subnet1config -Force
 $vnet = Get-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName
 $subnet0 = Get-AzVirtualNetworkSubnetConfig -VirtualNetwork $vnet -Name 'Subnet0'
 $subnet1 = Get-AzVirtualNetworkSubnetConfig -VirtualNetwork $vnet -Name 'Subnet1'
@@ -108,6 +108,7 @@ $templateParams['dcSubnetId']     = $subnet0.Id
 $templateParams['clientSubnetId'] = $subnet1.Id
 $templateParams
 dir $templateFile
+
 New-AzResourceGroupDeployment -Name 'Scenario-HybridIdentity' -TemplateFile $templateFile -ResourceGroupName $rgName -Location $location @templateParams 
 
 Get-AzResourceGroupDeployment -ResourceGroupName $rgName | Sort-Object Timestamp -Descending | ft DeploymentName,ProvisioningState,Timestamp
