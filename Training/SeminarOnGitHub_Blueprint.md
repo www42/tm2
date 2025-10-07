@@ -12,7 +12,7 @@
 
 ## Labs
 
-[Lab environment Skillable](https://brainymotion.learnondemand.net) 
+[Lab environment Skillable](https://) 
 
 1. Sign in with your Skillable account 
 2. Register with Training Key
@@ -131,8 +131,6 @@
 [My Microsoft certifications](https://learn.microsoft.com/en-us/users/tjaekel/transcript/d4yjrcx32nome0r)
 
 [My Non Microsoft certifications](https://www.credly.com/users/thomas-jakel)
-
-[Email me](mailto:thomas.jaekel@brainymotion.de)
 
 [Check out my GitHub repos](https://github.com/www42)
 
