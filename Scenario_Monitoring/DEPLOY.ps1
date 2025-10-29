@@ -8,11 +8,11 @@
 
 
 # --- Login --------------------------------------------------------------------------
-Login-AzAccount
-Login-AzAccount -Subscription 'fa366244-df54-48f8-83c2-e1739ef3c4f1'
-Get-AzContext | Format-List Name,Account,Tenant,Subscription
-Get-AzContext -ListAvailable | Format-List Name,Account,Tenant,Subscription
-Set-AzContext -Subscription '2e35dc59-591a-4306-bbdb-a017d6963783'
+# Login-AzAccount
+# Login-AzAccount -Subscription 'fa366244-df54-48f8-83c2-e1739ef3c4f1'
+# Get-AzContext | Format-List Name,Account,Tenant,Subscription
+# Get-AzContext -ListAvailable | Format-List Name,Account,Tenant,Subscription
+# Set-AzContext -Subscription '2e35dc59-591a-4306-bbdb-a017d6963783'
 
 # --- Passwords ----------------------------------------------------------------------
 # $localAdminPassword = Read-Host -Prompt 'LocalAdmin password' -AsSecureString | ConvertFrom-SecureString
