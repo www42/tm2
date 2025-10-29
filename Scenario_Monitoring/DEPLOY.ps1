@@ -15,8 +15,8 @@ Get-AzContext -ListAvailable | Format-List Name,Account,Tenant,Subscription
 Set-AzContext -Subscription '2e35dc59-591a-4306-bbdb-a017d6963783'
 
 # --- Passwords ----------------------------------------------------------------------
-$localAdminPassword = Read-Host -Prompt 'LocalAdmin password' -AsSecureString | ConvertFrom-SecureString
-@{'localAdminPassword' = $localAdminPassword} | ConvertTo-Json | Out-File "./Scenario_Monitoring/PASSWORDS"
+# $localAdminPassword = Read-Host -Prompt 'LocalAdmin password' -AsSecureString | ConvertFrom-SecureString
+# @{'localAdminPassword' = $localAdminPassword} | ConvertTo-Json | Out-File "./Scenario_Monitoring/PASSWORDS"
 
 
 # --- Parameters ---------------------------------------------------------------------
@@ -54,11 +54,11 @@ $templateParams = @{
     deployLoadbalancer = $deployLoadbalancer
     loadbalancerName = $loadbalancerName
 }
-$templateParams['deployLoadbalancer'] = $true
+# $templateParams['deployLoadbalancer'] = $true
 
 
 # --- Resource group -----------------------------------------------------------------
-New-AzResourceGroup -Name $rgName -Location $location
+# New-AzResourceGroup -Name $rgName -Location $location
 
 Get-AzResourceGroup | Sort-Object ResourceGroupName | ft ResourceGroupName,Location,ProvisioningState
 Get-AzResource -ResourceGroupName $rgName | Sort-Object ResourceType | Format-Table Name,ResourceType,Location
@@ -68,7 +68,7 @@ Get-AzResource -ResourceGroupName $rgName | Sort-Object ResourceType | Format-Ta
 
 
 # --- Prerequisite: Virtual Newtwork -------------------------------------------------
-New-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName -Location $location -AddressPrefix $addressPrefix -Subnet $subnet0Config -Force
+# New-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName -Location $location -AddressPrefix $addressPrefix -Subnet $subnet0Config -Force
 $vnet = Get-AzVirtualNetwork -Name $vnetName -ResourceGroupName $rgName
 $subnet0 = Get-AzVirtualNetworkSubnetConfig -VirtualNetwork $vnet -Name 'Subnet0'
 
