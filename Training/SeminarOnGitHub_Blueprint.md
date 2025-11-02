@@ -101,10 +101,23 @@
 
 [Microsoft Entra ID Governance documentation](https://learn.microsoft.com/en-us/entra/id-governance/)
 
+[Microsoft cloud security benchmark](https://learn.microsoft.com/en-us/security/benchmark/azure/)
+
 [PowerShell Documentation](https://learn.microsoft.com/en-us/powershell/)
 
 [Azure Command-Line Interface (CLI) documentation](https://learn.microsoft.com/en-us/cli/azure/?view=azure-cli-latest)
 
+[Azure Firewall documentation](https://learn.microsoft.com/en-us/azure/firewall/)
+
+[Azure DDoS Protection documentation](https://learn.microsoft.com/en-us/azure/ddos-protection/)
+
+[Microsoft Defender for Cloud documentation](https://learn.microsoft.com/en-us/azure/defender-for-cloud/)
+
+[Microsoft Defender XDR documentation](https://learn.microsoft.com/en-us/defender-xdr/?source=recommendations)
+
+[Microsoft Sentinel documentation ](https://learn.microsoft.com/en-us/azure/sentinel/)
+
+>
 
 
 
