@@ -4,10 +4,10 @@
 
 
 # --- Login --------------------------------------------------------------------------
-Login-AzAccount
-Get-AzContext | Format-List Name,Account,Tenant,Subscription
-Get-AzContext -ListAvailable | Format-List Name,Account,Tenant,Subscription
-Set-AzContext -Subscription '2e35dc59-591a-4306-bbdb-a017d6963783'
+# Login-AzAccount
+# Get-AzContext | Format-List Name,Account,Tenant,Subscription
+# Get-AzContext -ListAvailable | Format-List Name,Account,Tenant,Subscription
+# Set-AzContext -Subscription '2e35dc59-591a-4306-bbdb-a017d6963783'
 
 
 # --- Set passwords ------------------------------------------------------------------
@@ -36,9 +36,9 @@ $templateParams = @{
 
 
 # --- Resource group -----------------------------------------------------------------
-New-AzResourceGroup -Name $rgName -Location $location
+# New-AzResourceGroup -Name $rgName -Location $location
+# Get-AzResourceGroup | Sort-Object ResourceGroupName | ft ResourceGroupName,Location,ProvisioningState
 
-Get-AzResourceGroup | Sort-Object ResourceGroupName | ft ResourceGroupName,Location,ProvisioningState
 Get-AzResource -ResourceGroupName $rgName | Sort-Object ResourceType | Format-Table Name,ResourceType,Location
 
 # New-AzResourceGroupDeployment -Name 'TabulaRasa' -ResourceGroupName $rgName -Mode Complete -Force -TemplateUri 'https://raw.githubusercontent.com/www42/arm/master/templates/empty.json' -AsJob
@@ -48,6 +48,7 @@ Get-AzResource -ResourceGroupName $rgName | Sort-Object ResourceType | Format-Ta
 # --- Template Deployment: Nested Virtualization -------------------------------------
 $templateParams
 dir $templateFile
+
 New-AzResourceGroupDeployment -Name 'Scenario-NestedVirtualization' -TemplateFile $templateFile -ResourceGroupName $rgName -Location $location @templateParams 
 
 Get-AzResourceGroupDeployment -ResourceGroupName $rgName | Sort-Object Timestamp -Descending | ft DeploymentName,ProvisioningState,Timestamp
