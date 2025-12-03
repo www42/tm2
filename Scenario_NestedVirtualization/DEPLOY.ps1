@@ -11,8 +11,8 @@
 
 
 # --- Set passwords ------------------------------------------------------------------
-$localAdminPassword = Read-Host -Prompt 'LocalAdmin password' -AsSecureString | ConvertFrom-SecureString
-@{'localAdminPassword' = $localAdminPassword} | ConvertTo-Json | Out-File "./Scenario_NestedVirtualization/PASSWORDS"
+# $localAdminPassword = Read-Host -Prompt 'LocalAdmin password' -AsSecureString | ConvertFrom-SecureString
+# @{'localAdminPassword' = $localAdminPassword} | ConvertTo-Json | Out-File "./Scenario_NestedVirtualization/PASSWORDS"
 
 
 
