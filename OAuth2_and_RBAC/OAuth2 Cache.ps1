@@ -1,4 +1,4 @@
-# OAuth2 Cache
+# OAuth2 Token Cache
 # -------------------------------------
 
 # Es gibt wohl verschiedene Ordner für das Caching:
@@ -14,6 +14,7 @@ Test-Path "$env:LOCALAPPDATA\Microsoft\Graph"   # --> false
 #   Option 4: MSAL Cache Location
 Test-Path "$env:LOCALAPPDATA\.msal"             # --> false
 
+# Also bei mir gibt es nur Option 2
 $tokenCache = "$env:LOCALAPPDATA\.IdentityService"
 Get-ChildItem $tokenCache -Force
 

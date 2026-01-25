@@ -1,27 +1,72 @@
-# Perm löschen
-# -------------------------------------
+# OAuth2 Delegated Permission Consent
+# -----------------------------------
 
-# Welche Permissions hat ein User an einer Enterprise App consented?
+# Client App (= Enterprise App = Service Principal)
+# $spDisplayName = 'Microsoft Graph PowerShell'           # az.training
+$spDisplayName = 'Microsoft Graph Command Line Tools'   # contoso69118.com
 
-# Enterprise App = Service Principal
-$spDisplayName = 'Microsoft Graph PowerShell'
 $spId = (Get-MgServicePrincipal -Filter "displayName eq '$spDisplayName'").Id
 
-$userDisplayName = 'Paul Drude'
-$userDisplayName = 'Anton Zeilinger'
+# Resource (= API = Microsoft Graph)
+$resourceId = (Get-MgServicePrincipal -Filter "displayName eq 'Microsoft Graph'").Id
+
+# User
+# $userDisplayName = 'Paul Drude'    # az.training
+$userDisplayName = 'Dan Jump'      # contoso69118.com
 $userId = (Get-MgUser -Filter "displayName eq '$userDisplayName'").Id
 
-$spOAuth2PermissionsGrants = Get-MgOauth2PermissionGrant | Where-Object {$_.ClientId -EQ $spId -and $_.PrincipalId -EQ $userId}
 
-$spOAuth2PermissionsGrants | fl *
-($spOAuth2PermissionsGrants | % Scope).split(' ') | Sort-Object
+# Delegated Permissions auslesen
+# ------------------------------
+#   Delegated permissions granted by Admin (Admin consent)
+$grants = Get-MgServicePrincipalOauth2PermissionGrant -ServicePrincipalId $spId | Where-Object {$_.ConsentType -EQ 'AllPrincipals'}
 
-# Consented Permissions löschen
-$spOAuth2PermissionsGrants | ForEach-Object {Remove-MgOauth2PermissionGrant -OAuth2PermissionGrantId $_.Id}
+#   Delegated permissions granted by users
+$grants = Get-MgServicePrincipalOauth2PermissionGrant -ServicePrincipalId $spId | Where-Object {$_.ConsentType -EQ 'Principal'}
+
+#   Delegated permissions granted by a single user
+$grants = Get-MgServicePrincipalOauth2PermissionGrant -ServicePrincipalId $spId | Where-Object {$_.PrincipalId -EQ $userId}
+
+#   All Delegated permissions (user consented and admin consented)
+$grants = Get-MgServicePrincipalOauth2PermissionGrant -ServicePrincipalId $spId
+
+
+$grants | fl *
+($grants | % Scope).split(' ') | Sort-Object
+
+
+# Delegated Permissions löschen
+# ------------------------------
+$grants | ForEach-Object {Remove-MgOauth2PermissionGrant -OAuth2PermissionGrantId $_.Id}
 
 
 
-# What Perm?
-# -------------------------------------
+# Delegated Permissions neu hinzufügen
+# ------------------------------------
+$scopes = 'openid email offline_access Directory.Read.All'
 
-Find-MgGraphCommand -Command Get-MgUser | Select-Object -Skip 1 | % Permissions
+#   User Consent
+New-MgOauth2PermissionGrant -ClientId $spId -ResourceId $resourceId -Scope $scopes -ConsentType 'Principal' -PrincipalId $userId
+
+#   Admin Consent
+New-MgOauth2PermissionGrant -ClientId $spId -ResourceId $resourceId -Scope $scopes -ConsentType 'AllPrincipals'
+
+
+
+
+# Delegated Permissions updaten
+# ------------------------------
+$scopesToAdd = 'user_impersonation'
+$grantToUpdate = Get-MgServicePrincipalOauth2PermissionGrant -ServicePrincipalId $spId | Where-Object {$_.PrincipalId -EQ $userId}
+
+Update-MgOauth2PermissionGrant -OAuth2PermissionGrantId $grantToUpdate.Id -Scope $scopesToAdd
+
+
+
+
+# Welche Permissions braucht ein PowerShell Cmdlet?
+# -------------------------------------------------
+Find-MgGraphCommand -Command Get-MgUser | Select-Object -Skip 1 | % Permissions | Sort-Object
+
+# Stimmt das wirklich?
+# Für 'Get-MgUser' braucht man 'Directory.ReadWrite.All'?
