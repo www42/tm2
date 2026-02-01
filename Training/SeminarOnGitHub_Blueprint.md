@@ -62,6 +62,8 @@
 
 ## Microsoft Learn
 
+[Microsoft Credentials and Certifications](https://learn.microsoft.com/en-us/credentials/)
+
 [Become Microsoft Certified](https://aka.ms/traincertposter) aka Train Cert Poster
 
 [Microsoft Learn](https://learn.microsoft.com)
