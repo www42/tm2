@@ -21,7 +21,7 @@ $userId = (Get-MgUser -Filter "displayName eq '$userDisplayName'").Id
 #   Delegated permissions granted by Admin (Admin consent)
 $grants = Get-MgServicePrincipalOauth2PermissionGrant -ServicePrincipalId $spId | Where-Object {$_.ConsentType -EQ 'AllPrincipals'}
 
-#   Delegated permissions granted by users
+#   Delegated permissions granted by any users
 $grants = Get-MgServicePrincipalOauth2PermissionGrant -ServicePrincipalId $spId | Where-Object {$_.ConsentType -EQ 'Principal'}
 
 #   Delegated permissions granted by a single user
