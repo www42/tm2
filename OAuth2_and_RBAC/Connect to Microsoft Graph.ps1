@@ -27,6 +27,7 @@ $scopes = @(
     "Mail.Read"
     "Mail.ReadWrite"
     "Policy.Read.All"
+    "AdministrativeUnit.ReadWrite.All"
 )
 
 Connect-MgGraph -Scopes $scopes -TenantId '4fc7dd0c-5c8d-405e-a415-189fe82fb2bb'
