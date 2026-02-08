@@ -3,14 +3,15 @@
 Disconnect-MgGraph
 
 # Dan Jump hat die Rolle 'Global Administrator'
-# Dan Jump hat die Permission 'user_impersonation' für 'Microsoft Graph Command Line Tools' bereits consented
+# Dan Jump bereits viele Permissions (Scopes) consented, diese werden akkumuliert
 # Dan Jump braucht also keine weiteren Scope
 Connect-MgGraph -TenantId '4fc7dd0c-5c8d-405e-a415-189fe82fb2bb'  # contoso69118.com
 Get-MgContext
-Get-MgContext | % Scopes
+Get-MgContext | % Scopes | Sort-Object
 
 
-# Andere User benötigen vielleicht noch Scopes
+# Hier ein paar 'schöne' Scopes
+# Was die Scopes eigentlich bedeuten, steht hier:
 #   https://learn.microsoft.com/en-us/graph/permissions-reference
 $scopes = @(
     "User.Read"
@@ -28,10 +29,7 @@ $scopes = @(
     "Mail.ReadWrite"
     "Policy.Read.All"
     "AdministrativeUnit.ReadWrite.All"
+    "Application.Read.All"
 )
 
-Connect-MgGraph -Scopes $scopes -TenantId '4fc7dd0c-5c8d-405e-a415-189fe82fb2bb'
-Get-MgContext
-Get-MgContext | % Scopes
-    
 Disconnect-MgGraph
