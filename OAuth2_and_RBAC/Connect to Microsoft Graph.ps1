@@ -6,6 +6,7 @@ Disconnect-MgGraph
 # Dan Jump bereits viele Permissions (Scopes) consented, diese werden akkumuliert
 # Dan Jump braucht also keine weiteren Scope
 Connect-MgGraph -TenantId '4fc7dd0c-5c8d-405e-a415-189fe82fb2bb'  # contoso69118.com
+Connect-MgGraph -TenantId '819ebf55-0973-4703-b006-581a48f25961'  # az.training
 Get-MgContext
 Get-MgContext | % Scopes | Sort-Object
 
