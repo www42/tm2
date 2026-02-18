@@ -15,12 +15,12 @@ $credentialAztraining = New-Object System.Management.Automation.PSCredential($cl
 # Login to Azure
 Disconnect-AzAccount
 Connect-AzAccount -TenantId $tenantIdAztraining -Credential $credentialAztraining -ServicePrincipal
-Get-AzContext | fl Account, Subscription, Tenant, Environment
+Get-AzContext | Format-List Tenant, Account, Subscription
 
 # Login to Microsoft Graph
 Disconnect-MgGraph
 Connect-MgGraph -TenantId $tenantIdAztraining -ClientSecretCredential $credentialAztraining -NoWelcome
-Get-MgContext
+Get-MgContext | Format-List TenantId, ClientId, Scopes
 Get-MgContext | % Scopes | Sort-Object
 
 
@@ -34,10 +34,10 @@ $credentialContoso = New-Object System.Management.Automation.PSCredential($clien
 # Login to Azure
 Disconnect-AzAccount
 Connect-AzAccount -TenantId $tenantIdContoso -Credential $credentialContoso -ServicePrincipal
-Get-AzContext | fl Account, Subscription, Tenant, Environment
+Get-AzContext | Format-List Tenant, Account, Subscription
 
 # Login to Microsoft Graph
 Disconnect-MgGraph
 Connect-MgGraph -TenantId $tenantIdContoso -ClientSecretCredential $credentialContoso -NoWelcome
-Get-MgContext
+Get-MgContext | Format-List TenantId, ClientId, Scopes
 Get-MgContext | % Scopes | Sort-Object
