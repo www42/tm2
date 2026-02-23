@@ -1,0 +1,23 @@
+az acr list -o table
+$acrName = 'whalewatch'
+
+az acr repository list --name $acrName
+az acr repository show --name $acrName --repository supermario
+az acr repository show --name $acrName --image supermario:v1
+
+$rgName = 'rg-kubernetes'
+az aks list --resource-group $rgName --query "[].{name:name,kubernetesVersion:kubernetesVersion,fqdn:fqdn}" -o table
+$clusterName = 'kube1'
+az aks get-credentials --resource-group $rgName --name $clusterName
+
+kubectl config get-clusters
+kubectl config get-contexts 
+kubectl config current-context
+
+kubectl get nodes
+kubectl get pods
+kubectl get pods --all-namespaces
+
+# Integrate ACR with AKS
+az aks update --name $clusterName --resource-group $rgName --attach-acr $acrName
+
