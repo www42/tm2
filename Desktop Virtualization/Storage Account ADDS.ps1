@@ -77,6 +77,7 @@ $storageAccount.AzureFilesIdentityBasedAuth.DirectoryServiceOptions
 
 
 # Task 5: Configure the Azure Files file system permissions
+$storageAccountKey = (Get-AzStorageAccountKey -ResourceGroupName $rgName -Name $storageAccountName).Value[0]
 net use Z: "\\$storageAccountName.file.core.windows.net\$fileShareName" /u:AZURE\$storageAccountName $storageAccountKey
 icacls Z:
 
