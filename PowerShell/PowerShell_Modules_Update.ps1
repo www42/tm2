@@ -102,24 +102,41 @@ Install-Module -Name Microsoft.Graph -Repository PSGallery -Scope AllUsers -Forc
 
 Get-InstalledModule -Name Microsoft.Graph -AllVersions
 
-# --- Microsoft Graph.Entra -------------------------------
-Get-Module     -Name Microsoft.Graph.Entra* -ListAvailable
 
-# --- Microsoft Graph Entra (/v1 Endpoint) ----------------
-Get-Module       -Name Microsoft.Graph.Entra -ListAvailable
-Find-Module      -Name Microsoft.Graph.Entra -Repository PSGallery -AllowPrerelease
-Install-Module   -Name Microsoft.Graph.Entra -Repository PSGallery -Scope AllUsers -AllowPrerelease -Force
-Uninstall-Module -Name Microsoft.Graph.Entra -RequiredVersion '0.11.0-preview' -AllowPrerelease
-# Den Name einschliesslich '-preview' sieht man mit 
-Get-InstalledModule -Name Microsoft.Graph.Entra -AllVersions
+# --- BEGIN DEPRECATED ------------------------------------
+#     # --- Microsoft Graph.Entra -------------------------------
+#     Get-Module     -Name Microsoft.Graph.Entra* -ListAvailable
+#     
+#     # --- Microsoft Graph Entra (/v1 Endpoint) ----------------
+#     Get-Module       -Name Microsoft.Graph.Entra -ListAvailable
+#     Find-Module      -Name Microsoft.Graph.Entra -Repository PSGallery -AllowPrerelease
+#     Install-Module   -Name Microsoft.Graph.Entra -Repository PSGallery -Scope AllUsers -AllowPrerelease -Force
+#     Uninstall-Module -Name Microsoft.Graph.Entra -RequiredVersion '0.11.0-preview' -AllowPrerelease
+#     # Den Name einschliesslich '-preview' sieht man mit 
+#     Get-InstalledModule -Name Microsoft.Graph.Entra -AllVersions
+#     
+#     # --- Microsoft Graph Entra Beta (/beta Endpoint)  --------
+#     Get-Module       -Name Microsoft.Graph.Entra.Beta -ListAvailable
+#     Find-Module      -Name Microsoft.Graph.Entra.Beta -Repository PSGallery -AllowPrerelease
+#     Install-Module   -Name Microsoft.Graph.Entra.Beta -Repository PSGallery -Scope AllUsers -AllowPrerelease -Force -AllowClobber
+#     Uninstall-Module -Name Microsoft.Graph.Entra.Beta -RequiredVersion '0.11.0-preview' -AllowPrerelease
+#     # Den Name einschliesslich '-preview' sieht man mit 
+#     Get-InstalledModule -Name Microsoft.Graph.Entra.Beta -AllVersions
+# --- END DEPRECATED --------------------------------------
 
-# --- Microsoft Graph Entra Beta (/beta Endpoint)  --------
-Get-Module       -Name Microsoft.Graph.Entra.Beta -ListAvailable
-Find-Module      -Name Microsoft.Graph.Entra.Beta -Repository PSGallery -AllowPrerelease
-Install-Module   -Name Microsoft.Graph.Entra.Beta -Repository PSGallery -Scope AllUsers -AllowPrerelease -Force -AllowClobber
-Uninstall-Module -Name Microsoft.Graph.Entra.Beta -RequiredVersion '0.11.0-preview' -AllowPrerelease
-# Den Name einschliesslich '-preview' sieht man mit 
-Get-InstalledModule -Name Microsoft.Graph.Entra.Beta -AllVersions
+
+# --- Microsoft Entra -------------------------------------
+Get-InstalledModule -Name Microsoft.Entra      -AllVersions
+Get-InstalledModule -Name Microsoft.Entra.Beta -AllVersions
+
+Get-Module     -Name Microsoft.Entra -ListAvailable
+Find-Module    -Name Microsoft.Entra
+Install-Module -Name Microsoft.Entra -Repository PSGallery -Force -AllowClobber
+
+# --- Microsoft Entra Beta --------------------------------
+Get-Module     -Name Microsoft.Entra.Beta -ListAvailable
+Find-Module    -Name Microsoft.Entra.Beta
+Install-Module -Name Microsoft.Entra.Beta -Repository PSGallery -Force -AllowClobber
 
 
 
