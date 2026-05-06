@@ -82,4 +82,4 @@ Get-MgOauth2PermissionGrant -Property "id,clientId,resourceId,scope" `
 # Get more information
 # -----------------------
 #   [Add and manage MCP servers in VS Code](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)
-#   [Explore Microsoft Graph - Training | Microsoft Learn](https://learn.microsoft.com/en-us/training/modules/microsoft-graph/)
+#   [Explore Microsoft Graph](https://learn.microsoft.com/en-us/training/modules/microsoft-graph/)
