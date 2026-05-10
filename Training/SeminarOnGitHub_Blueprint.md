@@ -3,20 +3,24 @@
 
 # AZ-000 Azure foo bar
 
-## Learning Paths
+## Learning Paths 🚀
 
 - Learning Path 1️: [Azure foo][LP1]
 - Learning Path 2️: [Azure bar][LP2]
 
 
-## Labs
+## Labs 🛠️
 
+<!-- 
 [Lab environment Skillable](https://) 
 
 1. Sign in with your Skillable account 
 2. Register with Training Key
+-->
 
-<!--[Go Deploy](https://lms.godeploy.it) -->
+<!--
+[Go Deploy](https://lms.godeploy.it)
+-->
 
 [GitHub Repo Microsoft Learn](https://github.com/foo)
 
@@ -25,7 +29,7 @@
 <br>
 
 
-## Certification
+## Certification 🏅
 
 |   |   |
 | - | - |
@@ -36,13 +40,10 @@
 
 [Practice Assessment](https://)
 
-
-
-
 <br>
 
 
-## New: Microsoft Applied Skills 🚀
+## New: Microsoft Applied Skills 🎉
 
 [Applied Skills - What's that?](https://learn.microsoft.com/en-us/credentials/)
 
@@ -53,13 +54,8 @@
 <br>
 
 
-## Very New: Microsoft Learn for Github
 
-[Training for GitHub](https://learn.microsoft.com/en-us/training/github/)
-
-<br>
-
-## Microsoft Learn
+## Microsoft Learn 👨‍🎓
 
 [Microsoft Credentials and Certifications](https://learn.microsoft.com/en-us/credentials/)
 
@@ -76,7 +72,7 @@
 
 <br>
 
-## Microsoft Documentation Landing Pages
+## Microsoft Documentation Landing Pages 📲
 
 [Azure documentation](https://learn.microsoft.com/en-us/azure/)
 
@@ -122,7 +118,7 @@
 
 
 
-## Useful Links
+## Useful Links 🤿
 
 <br>
 
