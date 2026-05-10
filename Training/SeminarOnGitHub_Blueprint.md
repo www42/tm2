@@ -1,4 +1,3 @@
-
 [LP1]: https://foo
 [LP2]: https://bar
 
@@ -43,7 +42,7 @@
 <br>
 
 
-## New: Microsoft Applied Skills
+## New: Microsoft Applied Skills 🚀
 
 [Applied Skills - What's that?](https://learn.microsoft.com/en-us/credentials/)
 
@@ -136,11 +135,12 @@
 <a href="https://www.credly.com/badges/2a1b8f81-8609-4e8f-85d7-dad4f21f84f6/public_url"><img src="https://download69118.blob.core.windows.net/anon/aws-certified-ai-practitioner.png" width=100></a>
 <a href="https://www.credly.com/badges/7f2c6c3e-d3e3-4e32-9299-adf3278948a3/public_url"><img src="https://download69118.blob.core.windows.net/anon/instructor-recognition-1-000-students-reached.png" width="100"/></a>
 
-<a href="https://learn.microsoft.com/api/credentials/share/en-us/tjaekel/C27BF4B9C4441987?sharingId=EBAFABC36CF6EBDC"><img src="https://download69118.blob.core.windows.net/anon/apl.png" width=60></a>
-<a href="https://learn.microsoft.com/api/credentials/share/en-us/tjaekel/D285AC578545317A?sharingId=EBAFABC36CF6EBDC"><img src="https://download69118.blob.core.windows.net/anon/apl.png" width=60></a>
-<a href="https://learn.microsoft.com/api/credentials/share/en-us/tjaekel/218CE025B3002579?sharingId=EBAFABC36CF6EBDC"><img src="https://download69118.blob.core.windows.net/anon/apl.png" width=60></a>
-<a href="https://learn.microsoft.com/api/credentials/share/en-us/tjaekel/603D525F71C003A5?sharingId=EBAFABC36CF6EBDC"><img src="https://download69118.blob.core.windows.net/anon/apl.png" width=60></a>
-<a href="https://learn.microsoft.com/api/credentials/share/en-us/tjaekel/FF81C50EA1B80D11?sharingId=EBAFABC36CF6EBDC"><img src="https://download69118.blob.core.windows.net/anon/apl.png" width=60></a>
+<a href="https://learn.microsoft.com/api/credentials/share/en-us/tjaekel/C27BF4B9C4441987?sharingId=EBAFABC36CF6EBDC"><img src="https://download69118.blob.core.windows.net/anon/apl.png" width=60 title="Microsoft Applied Skills: Secure storage for Azure Files and Azure Blob Storage"></a>
+<a href="https://learn.microsoft.com/api/credentials/share/en-us/tjaekel/D285AC578545317A?sharingId=EBAFABC36CF6EBDC"><img src="https://download69118.blob.core.windows.net/anon/apl.png" width=60 title="Microsoft Applied Skills: Deploy and configure Azure Monitor"></a>
+<a href="https://learn.microsoft.com/api/credentials/share/en-us/tjaekel/218CE025B3002579?sharingId=EBAFABC36CF6EBDC"><img src="https://download69118.blob.core.windows.net/anon/apl.png" width=60 title="Microsoft Applied Skills: Configure secure access to your workloads using Azure networking"></a>
+<a href="https://learn.microsoft.com/api/credentials/share/en-us/tjaekel/603D525F71C003A5?sharingId=EBAFABC36CF6EBDC"><img src="https://download69118.blob.core.windows.net/anon/apl.png" width=60 title="Microsoft Applied Skills: Administer Active Directory Domain Services"></a>
+<a href="https://learn.microsoft.com/api/credentials/share/en-us/tjaekel/FF81C50EA1B80D11?sharingId=EBAFABC36CF6EBDC"><img src="https://download69118.blob.core.windows.net/anon/apl.png" width=60 title="Microsoft Applied Skills: Secure Azure services and workloads with Microsoft Defender for Cloud regulatory compliance controls"></a>
+<a href="https://learn.microsoft.com/api/credentials/share/en-us/tjaekel/E6893E6F18BB7CF3?sharingId=EBAFABC36CF6EBDC"><img src="https://download69118.blob.core.windows.net/anon/apl.png" width=60 title="Microsoft Applied Skills: Create an AI agent"></a>
 
 
 [My Microsoft certifications](https://learn.microsoft.com/en-us/users/tjaekel/transcript/d4yjrcx32nome0r)
@@ -151,7 +151,7 @@
 
 [Find me on LinkedIn](https://linkedin.com/in/tjkkll)
 
-[Follow me on Twitter](https://twitter.com/tjkkll)
+[Follow me on X (Twitter)](https://twitter.com/tjkkll)
 
 
 
