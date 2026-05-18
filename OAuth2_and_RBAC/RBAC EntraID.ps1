@@ -5,7 +5,7 @@ $roleDisplayName = 'Security Administrator'
 $roleDisplayName = 'User Administrator'
 $roleDisplayName = 'Global Administrator'
 
-Get-MgRoleManagementDirectoryRoleDefinition | Measure-Object                # 134
+Get-MgRoleManagementDirectoryRoleDefinition | Measure-Object                # 144
 Get-MgRoleManagementDirectoryRoleDefinition | Sort-Object DisplayName
 
 Get-MgRoleManagementDirectoryRoleDefinition -Filter "displayName eq '$roleDisplayName'" 
