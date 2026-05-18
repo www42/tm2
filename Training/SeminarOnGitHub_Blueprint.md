@@ -69,6 +69,7 @@
 
 [How we built "Ask Learn", the RAG-based knowledge service](https://devblogs.microsoft.com/engineering-at-microsoft/how-we-built-ask-learn-the-rag-based-knowledge-service/)
 
+[Training for GitHub](https://learn.microsoft.com/en-us/training/github/)
 
 <br>
 
@@ -113,8 +114,6 @@
 [Microsoft Defender XDR documentation](https://learn.microsoft.com/en-us/defender-xdr/?source=recommendations)
 
 [Microsoft Sentinel documentation ](https://learn.microsoft.com/en-us/azure/sentinel/)
-
->
 
 
 
