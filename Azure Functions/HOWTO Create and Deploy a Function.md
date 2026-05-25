@@ -10,3 +10,4 @@
 
 2. Use VS Code to deploy functions to the Function App
 
+   [Create and deploy function code to Azure using Visual Studio Code](https://learn.microsoft.com/en-us/azure/azure-functions/how-to-create-function-vs-code?pivot=programming-language-javascript&tabs=go%2Cwindows&pivots=programming-language-powershell)
