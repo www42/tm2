@@ -130,12 +130,12 @@ Get-InstalledModule -Name Microsoft.Entra.Beta -AllVersions
 
 Get-Module     -Name Microsoft.Entra -ListAvailable
 Find-Module    -Name Microsoft.Entra
-Install-Module -Name Microsoft.Entra -Repository PSGallery -Force -AllowClobber
+Install-Module -Name Microsoft.Entra -Repository PSGallery -Scope AllUsers -Force -AllowClobber
 
 # --- Microsoft Entra Beta --------------------------------
 Get-Module     -Name Microsoft.Entra.Beta -ListAvailable
 Find-Module    -Name Microsoft.Entra.Beta
-Install-Module -Name Microsoft.Entra.Beta -Repository PSGallery -Force -AllowClobber
+Install-Module -Name Microsoft.Entra.Beta -Repository PSGallery -Scope AllUsers -Force -AllowClobber
 
 
 
