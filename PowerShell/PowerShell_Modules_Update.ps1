@@ -47,7 +47,6 @@ function Remove-OldAzModule {
     Uninstall-Module -Name Az -AllVersions
 }
 Remove-OldAzModule
-Install-Module -Name Az -Repository PSGallery -Scope AllUsers -Force
 Install-Module -Name Az -Repository PSGallery -Scope AllUsers -Force -AllowClobber
 
 
