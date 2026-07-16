@@ -1,7 +1,6 @@
 {
-    "azureFunctions.deploySubpath": "Azure Functions\\Function_for_n8n",
+    "debug.internalConsoleOptions": "neverOpen",
+    "azureFunctions.deploySubpath": "Functions\\func-n8n-5045",
     "azureFunctions.projectLanguage": "PowerShell",
     "azureFunctions.projectRuntime": "~4",
-    "debug.internalConsoleOptions": "neverOpen",
-    "azureFunctions.projectSubpath": "FunctionProject2"
 }
