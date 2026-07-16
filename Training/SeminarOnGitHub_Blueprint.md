@@ -130,6 +130,8 @@
 <a href="https://learn.microsoft.com/api/credentials/share/en-us/tjaekel/A8E4CC3EAA93F4C2?sharingId=EBAFABC36CF6EBDC"><img src="https://download69118.blob.core.windows.net/anon/microsoft-certified-azure-solutions-architect-expert.png" width=100></a>
 <a href="https://www.credly.com/badges/2a1b8f81-8609-4e8f-85d7-dad4f21f84f6/public_url"><img src="https://download69118.blob.core.windows.net/anon/aws-certified-ai-practitioner.png" width=100></a>
 <a href="https://www.credly.com/badges/7f2c6c3e-d3e3-4e32-9299-adf3278948a3/public_url"><img src="https://download69118.blob.core.windows.net/anon/instructor-recognition-1-000-students-reached.png" width="100"/></a>
+<a href="https://openbadgefactory.com/obv3/credentials/100ab86177590f647b7e381789c02e200a9ef836"><img src="https://download69118.blob.core.windows.net/anon/etc Trainer 2026 Badge.png" width="110"></a>
+
 
 <a href="https://learn.microsoft.com/api/credentials/share/en-us/tjaekel/C27BF4B9C4441987?sharingId=EBAFABC36CF6EBDC"><img src="https://download69118.blob.core.windows.net/anon/apl.png" width=60 title="Microsoft Applied Skills: Secure storage for Azure Files and Azure Blob Storage"></a>
 <a href="https://learn.microsoft.com/api/credentials/share/en-us/tjaekel/D285AC578545317A?sharingId=EBAFABC36CF6EBDC"><img src="https://download69118.blob.core.windows.net/anon/apl.png" width=60 title="Microsoft Applied Skills: Deploy and configure Azure Monitor"></a>
