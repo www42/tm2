@@ -115,6 +115,7 @@
 
 [Microsoft Sentinel documentation ](https://learn.microsoft.com/en-us/azure/sentinel/)
 
+[Azure reliability documentation | Microsoft Learn](https://learn.microsoft.com/en-us/azure/reliability/)
 
 
 ## Useful Links 🤿
