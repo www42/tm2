@@ -1,0 +1,21 @@
+[
+  {
+    "condition": null,
+    "conditionVersion": null,
+    "createdBy": "7b7cfc69-360e-428e-a676-3a5fdbb0f46f",
+    "createdOn": "2026-05-29T17:10:56.574331+00:00",
+    "delegatedManagedIdentityResourceId": null,
+    "description": null,
+    "id": "/subscriptions/fa366244-df54-48f8-83c2-e1739ef3c4f1/providers/Microsoft.Authorization/roleAssignments/582a1f7e-49b0-48d0-942d-229e0a938cd4",
+    "name": "582a1f7e-49b0-48d0-942d-229e0a938cd4",
+    "principalId": "683ec63d-d07a-40ca-be28-3bbd908d60cf",
+    "principalName": "f273b64c-ce86-48a8-8092-d8e498b966a6",
+    "principalType": "ServicePrincipal",
+    "roleDefinitionId": "/subscriptions/fa366244-df54-48f8-83c2-e1739ef3c4f1/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c",
+    "roleDefinitionName": "Contributor",
+    "scope": "/subscriptions/fa366244-df54-48f8-83c2-e1739ef3c4f1",
+    "type": "Microsoft.Authorization/roleAssignments",
+    "updatedBy": "7b7cfc69-360e-428e-a676-3a5fdbb0f46f",
+    "updatedOn": "2026-05-29T17:10:56.574331+00:00"
+  }
+]
