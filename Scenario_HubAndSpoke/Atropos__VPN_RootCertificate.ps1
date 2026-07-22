@@ -8,11 +8,9 @@
 #   * root certificate is exported as 'RootCertificate.pfx' to sign a client vpn certificate later
 # ------------------------------------------------------------------------------------
 
-$friendlyName = 'AZ Training Root Certificate'
-$subject = 'cn=AZ Training'
-$pfxPassword = Read-Host -Prompt 'pfx password' -AsSecureString | ConvertFrom-SecureString
-@{'pfxPassword' = $pfxPassword} | ConvertTo-Json | Out-File "./Scenario_HubAndSpoke/PASSWORDS"
-
+$friendlyName = 'Atropos Root Certificate'
+$subject = 'cn=Atropos AG'
+$pfxPassword = Read-Host -Prompt 'pfx password'
 
 $rootCertificate = New-SelfSignedCertificate `
     -FriendlyName $friendlyName `
@@ -34,8 +32,7 @@ dir $rootCertificate.PSPath | Format-List FriendlyName,Subject,NotBefore,NotAfte
 #  -->  $rootCertificateData  in DEPLOY.ps1
 
 # Export root certificate
-$password = Get-Content "./Scenario_HubAndSpoke/PASSWORDS" | ConvertFrom-Json | % { $_.pfxPassword } | ConvertTo-SecureString
-$rootCertificate | Export-PfxCertificate -FilePath './Scenario_HubAndSpoke/RootCertificate.pfx' -Password $password
+$rootCertificate | Export-PfxCertificate -FilePath './Scenario_HubAndSpoke/Atropos__RootCertificate.pfx' -Password $($pfxPassword | ConvertTo-SecureString -AsPlainText)
 
 # Remove root certificate (We have a pfx exported) 
 Remove-Item -Path $rootCertificate.PSPath
