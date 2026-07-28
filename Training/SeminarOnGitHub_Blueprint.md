@@ -43,6 +43,13 @@
 <br>
 
 
+## This Course on ▶️YouTube
+
+[AI-103: Develop AI apps and agents on Azure - YouTube](https://www.youtube.com/playlist?list=PLWGIg_TYLeEQ)
+
+<br>
+
+
 ## New: Microsoft Applied Skills 🎉
 
 [Applied Skills - What's that?](https://learn.microsoft.com/en-us/credentials/)
@@ -98,6 +105,8 @@
 [Microsoft Entra documentation](https://learn.microsoft.com/en-us/entra/)
 
 [Microsoft Entra ID Governance documentation](https://learn.microsoft.com/en-us/entra/id-governance/)
+
+[Microsoft Entra Agent ID documentation](https://learn.microsoft.com/en-us/entra/agent-id/)
 
 [Microsoft cloud security benchmark](https://learn.microsoft.com/en-us/security/benchmark/azure/)
 
