@@ -1,5 +1,9 @@
-# Prerequisites: Windows Terminat and winget
-winget --version     # Should be v1.28.240 or above
+# Prerequisites: Windows Terminal and winget
+winget --version
+# Die aktuelle Version von winget auf GitHub
+$release = Invoke-RestMethod -Uri "https://api.github.com/repos/microsoft/winget-cli/releases/latest"
+$release.tag_name
+winget upgrade Microsoft.AppInstaller
 
 # Install Winget Packages
 $packages = @(
