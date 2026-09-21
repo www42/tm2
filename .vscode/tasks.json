@@ -8,7 +8,7 @@
       "problemMatcher": "$func-powershell-watch",
       "isBackground": true,
       "options": {
-        "cwd": "${workspaceFolder}/Functions"
+        "cwd": "${workspaceFolder}/Functions\\func-n8n-5045"
       }
     }
   ]
