@@ -1,25 +1,27 @@
 # Project Oxford
 # ===============
 
-# Account
-# ----------
+# Cognitive Services Account
+# --------------------------
+# Eine 'Foundry Resource' ist in ARM (Azure Resource Manager) ein 'Microsoft.CognitiveServices/accounts/' vom Type 'AIServices'
 Get-AzCognitiveServicesAccountType | Measure-Object | % Count   # Es gibt 22 verschiedene Account-Typen
 Get-AzCognitiveServicesAccountType
 # "Microsoft.CognitiveServices/accounts/"         Type AIServices wird angezeigt als "Foundry"
-# "Microsoft.CognitiveServices/accounts/projects"                 wird angezeigt als "Foundry project"
+# "Microsoft.CognitiveServices/accounts/projects"                 wird angezeigt als "Foundry Project"
 
 Get-AzCognitiveServicesAccount | Sort-Object AccountType | Format-Table AccountName,AccountType,ResourceGroupName,Location
 
-$accountName = 'chatbot-3512-project-resource'
-$rgName = 'rg-foundry'
+$accountName = 'project-103-resource'
+$resourceGroupName = 'rg-foundry'
 $location = 'swedencentral'
 
-Get-AzCognitiveServicesAccount -Name $accountName -ResourceGroupName $rgName 
-Get-AzCognitiveServicesAccount -Name $accountName -ResourceGroupName $rgName | % Endpoint
-Get-AzCognitiveServicesAccount -Name $accountName -ResourceGroupName $rgName | % Properties
+Get-AzCognitiveServicesAccount -Name $accountName -ResourceGroupName $resourceGroupName 
+Get-AzCognitiveServicesAccount -Name $accountName -ResourceGroupName $resourceGroupName | % Endpoint
+Get-AzCognitiveServicesAccount -Name $accountName -ResourceGroupName $resourceGroupName | % Properties
+Get-AzCognitiveServicesAccount -Name $accountName -ResourceGroupName $resourceGroupName | % Properties | % Endpoints
 
-Get-AzCognitiveServicesAccountKey -Name $accountName -ResourceGroupName $rgName 
-Get-AzCognitiveServicesAccountKey -Name $accountName -ResourceGroupName $rgName | % Key1
+Get-AzCognitiveServicesAccountKey -Name $accountName -ResourceGroupName $resourceGroupName 
+Get-AzCognitiveServicesAccountKey -Name $accountName -ResourceGroupName $resourceGroupName | % Key1
 
 # Create Account
 # ----------------
@@ -38,7 +40,7 @@ $params = @{
 }
 New-AzResourceGroupDeployment `
     -Name 'New-Foundry-Project' `
-    -ResourceGroupName $rgName `
+    -ResourceGroupName $resourceGroupName `
     -TemplateFile '.\templates\foundryResourceAndProject.bicep' `
     @params
 
@@ -51,7 +53,7 @@ $params = @{
 }
 New-AzResourceGroupDeployment `
     -Name 'New-Foundry-Project' `
-    -ResourceGroupName $rgName `
+    -ResourceGroupName $resourceGroupName `
     -TemplateFile '.\templates\foundryProjectInExistingResource.bicep' `
     @params    
 
@@ -59,7 +61,7 @@ New-AzResourceGroupDeployment `
 # Remove Account
 # ----------------
 $accountName = 'chatbot-3512-project-resource'
-Remove-AzCognitiveServicesAccount -Name $accountName -ResourceGroupName $rgName 
+Remove-AzCognitiveServicesAccount -Name $accountName -ResourceGroupName $resourceGroupName 
 # --> soft deleted (48 h)
 
 # List Soft deleted Accounts
@@ -67,4 +69,4 @@ Get-AzCognitiveServicesAccount -InRemovedState | Format-Table AccountName,Accoun
 # Purge in Azure Portal 
 #       --> https://portal.azure.com/#view/Microsoft_Azure_ProjectOxford/CognitiveServicesHub/~/AIServices
 # Purge mit PowerShell
-Remove-AzCognitiveServicesAccount -InRemovedState -Name $accountName -ResourceGroupName $rgName -Location $location
+Remove-AzCognitiveServicesAccount -InRemovedState -Name $accountName -ResourceGroupName $resourceGroupName -Location $location

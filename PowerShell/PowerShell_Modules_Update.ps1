@@ -49,19 +49,22 @@ function Remove-OldAzModule {
 Remove-OldAzModule
 Install-Module -Name Az -Repository PSGallery -Scope AllUsers -Force -AllowClobber
 
-
-# --- AzureAD (5.1 only) ---------------------------------
-Get-Module       -Name AzureAD -ListAvailable
-Find-Module      -Name AzureAD -Repository PSGallery
-Install-Module   -Name AzureAD -Repository PSGallery -Scope AllUsers -Force
-Uninstall-Module -Name AzureAD -RequiredVersion <old version>
-
-
-# --- MSOnline (5.1 only) ---------------------------------
-Get-Module       -Name MSOnline -ListAvailable
-Find-Module      -Name MSOnline -Repository PSGallery
-Install-Module   -Name MSOnline -Repository PSGallery -Scope AllUsers -Force
-Uninstall-Module -Name MSOnline -RequiredVersion <old version>
+# --- BEGIN DEPRECATED ------------------------------------
+#     
+#     # --- AzureAD (5.1 only) ---------------------------------
+#     Get-Module       -Name AzureAD -ListAvailable
+#     Find-Module      -Name AzureAD -Repository PSGallery
+#     Install-Module   -Name AzureAD -Repository PSGallery -Scope AllUsers -Force
+#     Uninstall-Module -Name AzureAD -RequiredVersion <old version>
+#     
+#     
+#     # --- MSOnline (5.1 only) ---------------------------------
+#     Get-Module       -Name MSOnline -ListAvailable
+#     Find-Module      -Name MSOnline -Repository PSGallery
+#     Install-Module   -Name MSOnline -Repository PSGallery -Scope AllUsers -Force
+#     Uninstall-Module -Name MSOnline -RequiredVersion <old version>
+#
+# --- END DEPRECATED --------------------------------------
 
 
 # --- Exchange Online (5.1 and 7) -------------------------
