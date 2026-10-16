@@ -104,6 +104,8 @@
 
 [Microsoft Entra documentation](https://learn.microsoft.com/en-us/entra/)
 
+[Microsoft Entra External ID documentation](https://learn.microsoft.com/en-us/entra/external-id/)
+
 [Microsoft Entra ID Governance documentation](https://learn.microsoft.com/en-us/entra/id-governance/)
 
 [Microsoft Entra Agent ID documentation](https://learn.microsoft.com/en-us/entra/agent-id/)
