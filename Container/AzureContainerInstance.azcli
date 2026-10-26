@@ -1,3 +1,6 @@
+# Dieses Skript meldet sich bei Azure an, erstellt eine Azure Container Instance (ACI)
+# mit öffentlicher IP/FQDN aus einem Beispiel-Image, listet danach die Container
+# und löscht die erstellte Containergruppe am Ende wieder.
 az login
 az account list --all --query "[].{name:name, state:state, isDefault:isDefault, subscriptionId:id, tenantId:tenantId}" --output table
 
